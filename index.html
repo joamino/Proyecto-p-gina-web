@@ -3,30 +3,91 @@
 <head>
   <title>Mi Tienda</title>
   <style>
-    body { font-family: Arial; padding: 20px; background: #f9f9f9; }
-    .producto { background: white; border: 1px solid #ccc; padding: 10px; margin-bottom: 15px; border-radius: 8px; }
-    .producto h2 { margin: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f4f4f4;
+      margin: 0;
+    }
+
+    header {
+      background-color: #333;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header img {
+      height: 60px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      margin: 10px 0;
+    }
+
+    .producto {
+      background: white;
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .producto img {
+      width: 100%;
+      height: auto;
+      max-height: 250px;
+      object-fit: cover;
+      margin-bottom: 10px;
+      border-radius: 6px;
+    }
+
+    .producto h2 {
+      margin: 10px 0 5px;
+    }
+
+    .producto p {
+      margin: 5px 0;
+    }
   </style>
 </head>
 <body>
-  <h1>Catálogo de Productos</h1>
+
+  <header>
+    <!-- PONÉ ACÁ LA URL DE TU LOGO (por ejemplo: https://i.imgur.com/abc123.png) -->
+    <img src="https://imgur.com/a/xbTVBKM" alt="Logo de la tienda">
+    <h1>Catálogo de Productos</h1>
+  </header>
 
   <div class="producto">
-    <h2>perfume gonzalo</h2>
+    <!-- PONÉ ACÁ LA URL DE LA IMAGEN DEL PRODUCTO -->
+    <img src="URL_DE_LA_IMAGEN_DEL_PERFUME_GONZALO" alt="Perfume Gonzalo">
+    <h2>Perfume Gonzalo</h2>
     <p>Precio: $3500</p>
     <p>Stock: 12 unidades</p>
   </div>
 
   <div class="producto">
-    <h2>perfume joako</h2>
+    <!-- PONÉ ACÁ LA URL DE LA IMAGEN DEL PRODUCTO -->
+    <img src="URL_DE_LA_IMAGEN_DEL_PERFUME_JOAKO" alt="Perfume Joako">
+    <h2>Perfume Joako</h2>
     <p>Precio: $2500</p>
     <p>Stock: 5 unidades</p>
   </div>
 
   <div class="producto">
-    <h2>perfume dylan</h2>
+    <!-- PONÉ ACÁ LA URL DE LA IMAGEN DEL PRODUCTO -->
+    <img src="URL_DE_LA_IMAGEN_DEL_PERFUME_DYLAN" alt="Perfume Dylan">
+    <h2>Perfume Dylan</h2>
     <p>Precio: $8700</p>
     <p>Stock: 3 unidades</p>
   </div>
+
 </body>
 </html>
