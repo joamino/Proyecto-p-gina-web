@@ -3,22 +3,25 @@
 <head>
   <title>Mi Tienda</title>
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: Arial, sans-serif;
-      padding: 20px;
-      background: #f4f4f4;
       margin: 0;
+      background: #f4f4f4;
     }
 
     header {
       background-color: #333;
       color: white;
-      padding: 20px;
+      padding: 30px 20px;
       text-align: center;
     }
 
     header img {
-      height: 60px;
+      height: 100px;
       margin-bottom: 10px;
     }
 
@@ -26,17 +29,30 @@
       margin: 10px 0;
     }
 
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
     .producto {
       background: white;
       border: 1px solid #ccc;
+      border-radius: 12px;
       padding: 15px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       text-align: center;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .producto:hover {
+      transform: scale(1.02);
     }
 
     .producto img {
@@ -44,8 +60,8 @@
       height: auto;
       max-height: 250px;
       object-fit: cover;
+      border-radius: 8px;
       margin-bottom: 10px;
-      border-radius: 6px;
     }
 
     .producto h2 {
@@ -55,38 +71,91 @@
     .producto p {
       margin: 5px 0;
     }
+
+    .detalle {
+      padding: 40px 20px;
+      background: #fff;
+      margin: 40px auto;
+      max-width: 600px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+
+    .detalle img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .volver {
+      display: inline-block;
+      margin-top: 15px;
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    .volver:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
 
   <header>
-    <!-- PONÉ ACÁ LA URL DE TU LOGO (por ejemplo: https://i.imgur.com/abc123.png) -->
-    <img src="https://i.imgur.com/ss7a9jP.png">
+    <img src="https://i.imgur.com/ss7a9jP.png" alt="Logo de la tienda">
     <h1>Catálogo de Productos</h1>
   </header>
 
-  <div class="producto">
-    <!-- PONÉ ACÁ LA URL DE LA IMAGEN DEL PRODUCTO -->
-    <img src="https://i.imgur.com/6a1VHRQ.jpeg">
+  <!-- Grid de productos (como matrículas) -->
+  <div class="grid">
+    <a class="producto" href="#gonzalo">
+      <img src="https://i.imgur.com/6a1VHRQ.jpeg" alt="Perfume Gonzalo">
+      <h2>Perfume Gonzalo</h2>
+      <p>Precio: $3500</p>
+      <p>Stock: 12 unidades</p>
+    </a>
+
+    <a class="producto" href="#joako">
+      <img src="https://i.imgur.com/OTDMKmW.jpeg" alt="Perfume Joako">
+      <h2>Perfume Joako</h2>
+      <p>Precio: $2500</p>
+      <p>Stock: 5 unidades</p>
+    </a>
+
+    <a class="producto" href="#dylan">
+      <img src="https://i.imgur.com/HjDx5RW.jpeg" alt="Perfume Dylan">
+      <h2>Perfume Dylan</h2>
+      <p>Precio: $8700</p>
+      <p>Stock: 3 unidades</p>
+    </a>
+  </div>
+
+  <!-- Secciones individuales -->
+  <div id="gonzalo" class="detalle">
     <h2>Perfume Gonzalo</h2>
-    <p>Precio: $3500</p>
-    <p>Stock: 12 unidades</p>
+    <img src="https://i.imgur.com/6a1VHRQ.jpeg" alt="Perfume Gonzalo">
+    <p><strong>Precio:</strong> $3500</p>
+    <p><strong>Stock:</strong> 12 unidades</p>
+    <p>Un perfume clásico con notas intensas y duraderas.</p>
+    <a class="volver" href="#">← Volver al catálogo</a>
   </div>
 
-  <div class="producto">
-    <!-- PONÉ ACÁ LA URL DE LA IMAGEN DEL PRODUCTO -->
-    <img src="https://i.imgur.com/OTDMKmW.jpeg">
+  <div id="joako" class="detalle">
     <h2>Perfume Joako</h2>
-    <p>Precio: $2500</p>
-    <p>Stock: 5 unidades</p>
+    <img src="https://i.imgur.com/OTDMKmW.jpeg" alt="Perfume Joako">
+    <p><strong>Precio:</strong> $2500</p>
+    <p><strong>Stock:</strong> 5 unidades</p>
+    <p>Un aroma juvenil, fresco y vibrante para el día a día.</p>
+    <a class="volver" href="#">← Volver al catálogo</a>
   </div>
 
-  <div class="producto">
-    <!-- PONÉ ACÁ LA URL DE LA IMAGEN DEL PRODUCTO -->
-    <img src="https://i.imgur.com/HjDx5RW.jpeg">
+  <div id="dylan" class="detalle">
     <h2>Perfume Dylan</h2>
-    <p>Precio: $8700</p>
-    <p>Stock: 3 unidades</p>
+    <img src="https://i.imgur.com/HjDx5RW.jpeg" alt="Perfume Dylan">
+    <p><strong>Precio:</strong> $8700</p>
+    <p><strong>Stock:</strong> 3 unidades</p>
+    <p>Elegancia en estado puro. Notas profundas para ocasiones especiales.</p>
+    <a class="volver" href="#">← Volver al catálogo</a>
   </div>
 
 </body>
