@@ -2,228 +2,189 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mi Tienda</title>
   <style>
-    /* Paleta de colores */
-    :root {
-      --color-fondo: #f0f2f5;
-      --color-negro: #121212;
-      --color-blanco: #ffffff;
-      --color-primario: #4f46e5;
-      --color-texto: #1f2937;
-      --color-link: #6366f1;
-    }
-
     body {
-      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 20px;
-      background: var(--color-fondo);
-      color: var(--color-texto);
-      overflow-x: hidden; /* evita scroll horizontal con sidebar */
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
     }
 
+    /* Header */
     header {
-      text-align: center;
-      margin-bottom: 20px;
+      background-color: #333;
+      color: white;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
     }
 
     header img {
-      height: 80px; /* logo más grande */
-      margin-bottom: 10px;
+      height: 80px;
     }
 
-    h1 {
-      margin: 0;
-      font-weight: 700;
-      color: var(--color-primario);
-    }
-
-    /* Botón para abrir sidebar */
-    #btn-sidebar {
-      position: fixed;
-      top: 15px;
-      left: 15px;
-      width: 30px;
-      height: 25px;
+    /* Botón hamburguesa */
+    .menu-btn {
+      position: absolute;
+      left: 20px;
+      top: 25px;
+      font-size: 28px;
+      background: none;
+      border: none;
       cursor: pointer;
-      z-index: 1001;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    #btn-sidebar span {
-      display: block;
-      height: 4px;
-      background: var(--color-negro);
-      border-radius: 2px;
+      color: black; /* color inicial negro */
+      transition: color 0.3s ease;
     }
 
     /* Sidebar */
-    #sidebar {
+    .sidebar {
+      height: 100%;
+      width: 0;
       position: fixed;
       top: 0;
-      left: -300px; /* oculto fuera de pantalla */
-      width: 280px;
-      height: 100vh;
-      background: var(--color-negro);
-      color: var(--color-blanco);
-      padding: 40px 20px 20px 20px;
-      box-sizing: border-box;
-      transition: left 0.3s ease;
-      z-index: 1000;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    #sidebar.abierto {
       left: 0;
+      background-color: #000;
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 60px;
+      max-width: 320px;
     }
 
-    #sidebar nav a {
-      display: block;
-      color: var(--color-blanco);
+    .sidebar a {
+      padding: 15px 25px;
       text-decoration: none;
-      font-weight: 600;
-      margin: 15px 0;
+      color: white;
+      display: block;
       font-size: 18px;
-      transition: color 0.2s ease;
+      transition: 0.2s;
     }
 
-    #sidebar nav a:hover {
-      color: var(--color-primario);
+    .sidebar a:hover {
+      background-color: #222;
     }
 
-    #sidebar .instagram-link {
-      display: flex;
-      justify-content: center;
-      margin-top: 30px;
+    .sidebar .submenu {
+      margin-left: 20px;
     }
 
-    #sidebar .instagram-link img {
-      width: 30px;
-      filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
+    .closebtn {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      font-size: 30px;
+      color: white;
+      background: none;
+      border: none;
       cursor: pointer;
-      transition: filter 0.2s ease;
     }
 
-    #sidebar .instagram-link img:hover {
-      filter: invert(65%) sepia(89%) saturate(383%) hue-rotate(202deg) brightness(98%) contrast(90%);
+    /* Instagram logo */
+    .instagram-icon {
+      width: 32px;
+      margin: 40px 25px 0;
+      filter: brightness(0) invert(1);
     }
 
-    /* Grid de productos */
+    /* Productos en el index */
     .productos {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 20px;
-      max-width: 1000px;
-      margin: 0 auto;
+      margin: 20px;
     }
 
     .producto {
-      background: var(--color-blanco);
+      background: white;
+      border: 1px solid #ccc;
       border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      padding: 15px;
-      cursor: pointer;
-      transition: transform 0.2s ease;
+      width: 300px;
       text-align: center;
+      padding: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
     }
 
     .producto:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 12px rgba(79, 70, 229, 0.4);
+      transform: scale(1.03);
     }
 
     .producto img {
-      max-width: 100%;
-      height: 180px;
+      width: 100%;
+      height: 200px;
       object-fit: cover;
       border-radius: 8px;
-      margin-bottom: 12px;
     }
 
     .producto h2 {
       margin: 10px 0 5px;
-      font-size: 1.2rem;
-      color: var(--color-primario);
     }
-
-    .producto p {
-      margin: 5px 0;
-      font-size: 1rem;
-      color: var(--color-texto);
-    }
-
   </style>
 </head>
 <body>
 
-  <!-- Botón para abrir/cerrar sidebar -->
-  <div id="btn-sidebar" aria-label="Abrir menú">
-    <span></span>
-    <span></span>
-    <span></span>
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <button class="closebtn" onclick="closeSidebar()">×</button>
+    <a href="#">Preguntas frecuentes</a>
+    <a href="#">Productos</a>
+    <div class="submenu">
+      <a href="#">• Perfumes</a>
+      <a href="#">• Masculinos</a>
+      <a href="#">• Femeninos</a>
+      <a href="#">• Unisex</a>
+    </div>
+    <a href="#">Contacto</a>
+    <a href="https://instagram.com" target="_blank">
+      <img class="instagram-icon" src="https://cdn-icons-png.flaticon.com/512/87/87390.png" alt="Instagram" />
+    </a>
   </div>
 
-  <!-- Barra lateral -->
-  <aside id="sidebar" aria-hidden="true">
-    <nav>
-      <a href="#">Preguntas frecuentes</a>
-      <a href="#">Productos</a>
-      <a href="#">- Perfumes</a>
-      <a href="#">- Masculinos</a>
-      <a href="#">- Femeninos</a>
-      <a href="#">- Unisex</a>
-      <a href="#">Contacto</a>
-    </nav>
-    <div class="instagram-link">
-      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-        <img src="https://cdn-icons-png.flaticon.com/512/87/87390.png" alt="Logo Instagram minimalista" />
-      </a>
-    </div>
-  </aside>
-
+  <!-- Header -->
   <header>
-    <img src="https://i.imgur.com/ss7a9jP.png" alt="Logo Mi Tienda" />
-    <h1>Catálogo de Productos</h1>
+    <button id="menuBtn" class="menu-btn" onclick="openSidebar()">☰</button>
+    <img src="https://i.imgur.com/ss7a9jP.png" alt="Logo" />
   </header>
 
-  <main class="productos">
-    <a href="producto-gonzalo.html" class="producto" aria-label="Producto Perfume Gonzalo">
-      <img src="https://i.imgur.com/6a1VHRQ.jpeg" alt="Perfume Gonzalo" />
+  <!-- Catálogo -->
+  <div class="productos">
+    <a class="producto" href="gonzalo.html">
+      <img src="https://i.imgur.com/6a1VHRQ.jpeg" />
       <h2>Perfume Gonzalo</h2>
       <p>Precio: $3500</p>
-      <p>Stock: 12 unidades</p>
     </a>
-
-    <a href="producto-joako.html" class="producto" aria-label="Producto Perfume Joako">
-      <img src="https://i.imgur.com/OTDMKmW.jpeg" alt="Perfume Joako" />
+    <a class="producto" href="joako.html">
+      <img src="https://i.imgur.com/OTDMKmW.jpeg" />
       <h2>Perfume Joako</h2>
       <p>Precio: $2500</p>
-      <p>Stock: 5 unidades</p>
     </a>
-
-    <a href="producto-dylan.html" class="producto" aria-label="Producto Perfume Dylan">
-      <img src="https://i.imgur.com/HjDx5RW.jpeg" alt="Perfume Dylan" />
+    <a class="producto" href="dylan.html">
+      <img src="https://i.imgur.com/HjDx5RW.jpeg" />
       <h2>Perfume Dylan</h2>
       <p>Precio: $8700</p>
-      <p>Stock: 3 unidades</p>
     </a>
-  </main>
+  </div>
 
+  <!-- JS para abrir/cerrar sidebar -->
   <script>
-    const btnSidebar = document.getElementById('btn-sidebar');
-    const sidebar = document.getElementById('sidebar');
+    const menuBtn = document.getElementById("menuBtn");
+    const sidebar = document.getElementById("sidebar");
 
-    btnSidebar.addEventListener('click', () => {
-      sidebar.classList.toggle('abierto');
-      const isOpen = sidebar.classList.contains('abierto');
-      sidebar.setAttribute('aria-hidden', !isOpen);
-    });
+    function openSidebar() {
+      sidebar.style.width = "80%";
+      menuBtn.style.color = "white"; // Cambiar a blanco al abrir
+    }
+
+    function closeSidebar() {
+      sidebar.style.width = "0";
+      menuBtn.style.color = "black"; // Cambiar a negro al cerrar
+    }
   </script>
+
 </body>
 </html>
