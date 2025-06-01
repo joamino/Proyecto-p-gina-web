@@ -251,6 +251,31 @@
       prod.appendChild(label);
     });
   </script>
+   // Oculta los productos sin stock automáticamente
+    document.querySelectorAll('.producto').forEach(prod => {
+      const inStock = prod.dataset.stock === "true";
 
+      const label = document.createElement("div");
+      label.classList.add("stock-label", inStock ? "in-stock" : "out-of-stock");
+      label.textContent = inStock ? "Stock" : "Sin stock";
+      prod.appendChild(label);
+
+      if (!inStock) {
+        prod.style.pointerEvents = "none";
+        prod.style.opacity = "0.5";
+        prod.style.position = "relative";
+
+        const overlay = document.createElement("div");
+        overlay.style.position = "absolute";
+        overlay.style.top = "0";
+        overlay.style.left = "0";
+        overlay.style.width = "100%";
+        overlay.style.height = "100%";
+        overlay.style.backgroundColor = "rgba(0, 0, 0, 0.4)";
+        overlay.style.borderRadius = "10px";
+        overlay.style.zIndex = "1";
+        prod.appendChild(overlay);
+      }
+    });
 </body>
 </html>
