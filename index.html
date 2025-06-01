@@ -1,177 +1,229 @@
-<!DOCTYPE html><html lang="es">
+<!DOCTYPE html>
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mi Tienda</title>
-  <link rel="stylesheet" href="style.css">
   <style>
+    /* Paleta de colores */
+    :root {
+      --color-fondo: #f0f2f5;
+      --color-negro: #121212;
+      --color-blanco: #ffffff;
+      --color-primario: #4f46e5;
+      --color-texto: #1f2937;
+      --color-link: #6366f1;
+    }
+
     body {
+      font-family: Arial, sans-serif;
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f4f4;
-    }header {
-  background-color: #2b2b2b;
-  color: white;
-  padding: 20px;
-  text-align: center;
-  position: relative;
-}
+      padding: 20px;
+      background: var(--color-fondo);
+      color: var(--color-texto);
+      overflow-x: hidden; /* evita scroll horizontal con sidebar */
+    }
 
-.logo {
-  height: 80px;
-}
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
 
-.menu-icon {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  cursor: pointer;
-  font-size: 28px;
-  color: white;
-}
+    header img {
+      height: 80px; /* logo más grande */
+      margin-bottom: 10px;
+    }
 
-.sidebar {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #111;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-}
+    h1 {
+      margin: 0;
+      font-weight: 700;
+      color: var(--color-primario);
+    }
 
-.sidebar a {
-  padding: 10px 30px;
-  text-decoration: none;
-  font-size: 18px;
-  color: white;
-  display: block;
-  transition: 0.3s;
-}
+    /* Botón para abrir sidebar */
+    #btn-sidebar {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      width: 30px;
+      height: 25px;
+      cursor: pointer;
+      z-index: 1001;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
 
-.sidebar a:hover {
-  background-color: #333;
-}
+    #btn-sidebar span {
+      display: block;
+      height: 4px;
+      background: var(--color-negro);
+      border-radius: 2px;
+    }
 
-.closebtn {
-  position: absolute;
-  top: 20px;
-  right: 25px;
-  font-size: 30px;
-  color: white;
-  cursor: pointer;
-}
+    /* Sidebar */
+    #sidebar {
+      position: fixed;
+      top: 0;
+      left: -300px; /* oculto fuera de pantalla */
+      width: 280px;
+      height: 100vh;
+      background: var(--color-negro);
+      color: var(--color-blanco);
+      padding: 40px 20px 20px 20px;
+      box-sizing: border-box;
+      transition: left 0.3s ease;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
 
-.instagram {
-  position: absolute;
-  bottom: 20px;
-  left: 30px;
-}
+    #sidebar.abierto {
+      left: 0;
+    }
 
-.instagram img {
-  width: 28px;
-  filter: brightness(0) invert(1);
-}
+    #sidebar nav a {
+      display: block;
+      color: var(--color-blanco);
+      text-decoration: none;
+      font-weight: 600;
+      margin: 15px 0;
+      font-size: 18px;
+      transition: color 0.2s ease;
+    }
 
-.productos {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-  padding: 20px;
-}
+    #sidebar nav a:hover {
+      color: var(--color-primario);
+    }
 
-.producto {
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 15px;
-  text-align: center;
-  transition: transform 0.3s;
-}
+    #sidebar .instagram-link {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+    }
 
-.producto:hover {
-  transform: translateY(-5px);
-}
+    #sidebar .instagram-link img {
+      width: 30px;
+      filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
+      cursor: pointer;
+      transition: filter 0.2s ease;
+    }
 
-.producto img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 8px;
-}
+    #sidebar .instagram-link img:hover {
+      filter: invert(65%) sepia(89%) saturate(383%) hue-rotate(202deg) brightness(98%) contrast(90%);
+    }
 
-.producto h2 {
-  font-size: 20px;
-  color: #222;
-  margin: 10px 0 5px;
-}
+    /* Grid de productos */
+    .productos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
 
-.producto p {
-  font-size: 16px;
-  margin: 5px 0;
-  color: #444;
-}
+    .producto {
+      background: var(--color-blanco);
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 15px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      text-align: center;
+    }
 
-.producto a {
-  text-decoration: none;
-  color: inherit;
-}
+    .producto:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(79, 70, 229, 0.4);
+    }
+
+    .producto img {
+      max-width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+
+    .producto h2 {
+      margin: 10px 0 5px;
+      font-size: 1.2rem;
+      color: var(--color-primario);
+    }
+
+    .producto p {
+      margin: 5px 0;
+      font-size: 1rem;
+      color: var(--color-texto);
+    }
 
   </style>
 </head>
 <body>
-  <div class="menu-icon" onclick="openNav()">&#9776;</div>  <div id="sidebar" class="sidebar">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="#">Preguntas frecuentes</a>
-    <a href="#">Productos</a>
-    <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;- Perfumes</a>
-    <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;- Masculinos</a>
-    <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;- Femeninos</a>
-    <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;- Unisex</a>
-    <a href="#">Contacto</a>
-    <div class="instagram">
-      <a href="https://instagram.com" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram">
+
+  <!-- Botón para abrir/cerrar sidebar -->
+  <div id="btn-sidebar" aria-label="Abrir menú">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Barra lateral -->
+  <aside id="sidebar" aria-hidden="true">
+    <nav>
+      <a href="#">Preguntas frecuentes</a>
+      <a href="#">Productos</a>
+      <a href="#">- Perfumes</a>
+      <a href="#">- Masculinos</a>
+      <a href="#">- Femeninos</a>
+      <a href="#">- Unisex</a>
+      <a href="#">Contacto</a>
+    </nav>
+    <div class="instagram-link">
+      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <img src="https://cdn-icons-png.flaticon.com/512/87/87390.png" alt="Logo Instagram minimalista" />
       </a>
     </div>
-  </div>  <header>
-    <img class="logo" src="https://i.imgur.com/ss7a9jP.png" alt="Logo de la tienda">
+  </aside>
+
+  <header>
+    <img src="https://i.imgur.com/ss7a9jP.png" alt="Logo Mi Tienda" />
     <h1>Catálogo de Productos</h1>
-  </header>  <div class="productos">
-    <a href="producto-gonzalo.html">
-      <div class="producto">
-        <img src="https://i.imgur.com/6a1VHRQ.jpeg" alt="Perfume Gonzalo">
-        <h2>Perfume Gonzalo</h2>
-        <p>Precio: $3500</p>
-        <p>Stock: 12 unidades</p>
-      </div>
-    </a><a href="producto-joako.html">
-  <div class="producto">
-    <img src="https://i.imgur.com/OTDMKmW.jpeg" alt="Perfume Joako">
-    <h2>Perfume Joako</h2>
-    <p>Precio: $2500</p>
-    <p>Stock: 5 unidades</p>
-  </div>
-</a>
+  </header>
 
-<a href="producto-dylan.html">
-  <div class="producto">
-    <img src="https://i.imgur.com/HjDx5RW.jpeg" alt="Perfume Dylan">
-    <h2>Perfume Dylan</h2>
-    <p>Precio: $8700</p>
-    <p>Stock: 3 unidades</p>
-  </div>
-</a>
+  <main class="productos">
+    <a href="producto-gonzalo.html" class="producto" aria-label="Producto Perfume Gonzalo">
+      <img src="https://i.imgur.com/6a1VHRQ.jpeg" alt="Perfume Gonzalo" />
+      <h2>Perfume Gonzalo</h2>
+      <p>Precio: $3500</p>
+      <p>Stock: 12 unidades</p>
+    </a>
 
-  </div>  <script>
-    function openNav() {
-      document.getElementById("sidebar").style.width = "50%";
-    }
+    <a href="producto-joako.html" class="producto" aria-label="Producto Perfume Joako">
+      <img src="https://i.imgur.com/OTDMKmW.jpeg" alt="Perfume Joako" />
+      <h2>Perfume Joako</h2>
+      <p>Precio: $2500</p>
+      <p>Stock: 5 unidades</p>
+    </a>
 
-    function closeNav() {
-      document.getElementById("sidebar").style.width = "0";
-    }
-  </script></body>
+    <a href="producto-dylan.html" class="producto" aria-label="Producto Perfume Dylan">
+      <img src="https://i.imgur.com/HjDx5RW.jpeg" alt="Perfume Dylan" />
+      <h2>Perfume Dylan</h2>
+      <p>Precio: $8700</p>
+      <p>Stock: 3 unidades</p>
+    </a>
+  </main>
+
+  <script>
+    const btnSidebar = document.getElementById('btn-sidebar');
+    const sidebar = document.getElementById('sidebar');
+
+    btnSidebar.addEventListener('click', () => {
+      sidebar.classList.toggle('abierto');
+      const isOpen = sidebar.classList.contains('abierto');
+      sidebar.setAttribute('aria-hidden', !isOpen);
+    });
+  </script>
+</body>
 </html>
