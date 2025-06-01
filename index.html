@@ -4,16 +4,25 @@
   <meta charset="UTF-8">
   <title>Mi Tienda</title>
   <style>
+    /* === PALETA ELEGANTE ===
+       • Fondo principal:    #121212  (negro grisáceo)
+       • Texto principal:    #FFFFFF  (blanco puro)
+       • Detalle/acento:     #D4AF37  (dorado elegante)
+       • Botón/fondo claro:  #2C2C2C  (gris muy oscuro)
+       • Hover botón/links:  #333333  (gris oscuro)
+    */
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #f4f4f4;
+      background: #121212;
+      color: #FFFFFF;
     }
 
     /* Header */
     header {
-      background-color: #333;
-      color: white;
+      background-color: #2C2C2C; /* gris muy oscuro */
+      color: #FFFFFF;
       padding: 20px;
       display: flex;
       align-items: center;
@@ -23,6 +32,9 @@
 
     header img {
       height: 80px;
+      /* Podés agregar un borde dorado alrededor si querés más detalle:
+         border: 2px solid #D4AF37; */
+      margin-bottom: 5px;
     }
 
     /* Botón hamburguesa */
@@ -33,7 +45,7 @@
       font-size: 28px;
       background: none;
       border: none;
-      color: white;
+      color: #FFFFFF;
       cursor: pointer;
     }
 
@@ -44,7 +56,7 @@
       position: fixed;
       top: 0;
       left: 0;
-      background-color: #000;
+      background-color: #000000; /* negro */
       overflow-x: hidden;
       transition: 0.3s;
       padding-top: 60px;
@@ -54,18 +66,19 @@
     .sidebar a {
       padding: 15px 25px;
       text-decoration: none;
-      color: white;
+      color: #FFFFFF;
       display: block;
       font-size: 18px;
       transition: 0.2s;
     }
 
     .sidebar a:hover {
-      background-color: #222;
+      background-color: #333333; /* gris oscuro */
     }
 
-    .sidebar .submenu {
-      margin-left: 20px;
+    .sidebar .submenu a {
+      font-size: 16px;
+      margin-left: 15px;
     }
 
     .closebtn {
@@ -73,7 +86,7 @@
       top: 20px;
       right: 25px;
       font-size: 30px;
-      color: white;
+      color: #FFFFFF;
       background: none;
       border: none;
       cursor: pointer;
@@ -86,7 +99,7 @@
       filter: brightness(0) invert(1);
     }
 
-    /* Productos en el index */
+    /* Catálogo de productos */
     .productos {
       display: flex;
       flex-wrap: wrap;
@@ -96,21 +109,22 @@
     }
 
     .producto {
-      background: white;
-      border: 1px solid #ccc;
+      background: #2C2C2C; /* gris muy oscuro */
+      border: 1px solid #333333; /* gris oscuro */
       border-radius: 10px;
       width: 300px;
       text-align: center;
       padding: 15px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease, border-color 0.3s;
       cursor: pointer;
       text-decoration: none;
-      color: inherit;
+      color: #FFFFFF;
     }
 
     .producto:hover {
       transform: scale(1.03);
+      border-color: #D4AF37; /* borde dorado al hacer hover */
     }
 
     .producto img {
@@ -118,10 +132,17 @@
       height: 200px;
       object-fit: cover;
       border-radius: 8px;
+      margin-bottom: 10px;
     }
 
     .producto h2 {
       margin: 10px 0 5px;
+      color: #D4AF37; /* título en dorado */
+    }
+
+    .producto p {
+      margin: 5px 0;
+      color: #FFFFFF;
     }
   </style>
 </head>
@@ -150,20 +171,20 @@
     <img src="https://i.imgur.com/ss7a9jP.png" alt="Logo">
   </header>
 
-  <!-- Catálogo -->
+  <!-- Catálogo de productos -->
   <div class="productos">
     <a class="producto" href="gonzalo.html">
-      <img src="https://i.imgur.com/6a1VHRQ.jpeg">
+      <img src="https://i.imgur.com/6a1VHRQ.jpeg" alt="Perfume Gonzalo">
       <h2>Perfume Gonzalo</h2>
       <p>Precio: $3500</p>
     </a>
     <a class="producto" href="joako.html">
-      <img src="https://i.imgur.com/OTDMKmW.jpeg">
+      <img src="https://i.imgur.com/OTDMKmW.jpeg" alt="Perfume Joako">
       <h2>Perfume Joako</h2>
       <p>Precio: $2500</p>
     </a>
     <a class="producto" href="dylan.html">
-      <img src="https://i.imgur.com/HjDx5RW.jpeg">
+      <img src="https://i.imgur.com/HjDx5RW.jpeg" alt="Perfume Dylan">
       <h2>Perfume Dylan</h2>
       <p>Precio: $8700</p>
     </a>
@@ -174,11 +195,9 @@
     function openSidebar() {
       document.getElementById("sidebar").style.width = "80%";
     }
-
     function closeSidebar() {
       document.getElementById("sidebar").style.width = "0";
     }
   </script>
-
 </body>
 </html>
