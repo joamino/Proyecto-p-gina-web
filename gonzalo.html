@@ -10,13 +10,83 @@
       background: #f4f4f4;
     }
 
+    /* Header */
     header {
       background-color: #333;
       color: white;
       padding: 20px;
-      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
     }
 
+    header img {
+      height: 80px;
+    }
+
+    /* Botón hamburguesa */
+    .menu-btn {
+      position: absolute;
+      left: 20px;
+      top: 25px;
+      font-size: 28px;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #000;
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 60px;
+      max-width: 320px;
+      z-index: 1000;
+    }
+
+    .sidebar a {
+      padding: 15px 25px;
+      text-decoration: none;
+      color: white;
+      display: block;
+      font-size: 18px;
+      transition: 0.2s;
+    }
+
+    .sidebar a:hover {
+      background-color: #222;
+    }
+
+    .sidebar .submenu {
+      margin-left: 20px;
+    }
+
+    .closebtn {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      font-size: 30px;
+      color: white;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .instagram-icon {
+      width: 32px;
+      margin: 40px 25px 0;
+      filter: brightness(0) invert(1);
+    }
+
+    /* Contenido producto */
     .producto-detalle {
       max-width: 600px;
       margin: 30px auto;
@@ -86,17 +156,35 @@
 </head>
 <body>
 
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <button class="closebtn" onclick="closeSidebar()">×</button>
+    <a href="#">Preguntas frecuentes</a>
+    <a href="#">Productos</a>
+    <div class="submenu">
+      <a href="#">• Perfumes</a>
+      <a href="#">• Masculinos</a>
+      <a href="#">• Femeninos</a>
+      <a href="#">• Unisex</a>
+    </div>
+    <a href="#">Contacto</a>
+    <a href="https://instagram.com" target="_blank">
+      <img class="instagram-icon" src="https://cdn-icons-png.flaticon.com/512/87/87390.png" alt="Instagram">
+    </a>
+  </div>
+
+  <!-- Header -->
   <header>
-    <h1>Perfume Gonzalo</h1>
+    <button class="menu-btn" onclick="openSidebar()">☰</button>
+    <img src="https://i.imgur.com/ss7a9jP.png" alt="Logo">
   </header>
 
+  <!-- Contenido del producto -->
   <div class="producto-detalle">
     <img src="https://i.imgur.com/6a1VHRQ.jpeg" alt="Perfume Gonzalo">
-
     <h2>Perfume Gonzalo</h2>
     <p><strong>Precio:</strong> $3500</p>
     <p><strong>Descripción:</strong> Fragancia intensa con notas cítricas y amaderadas. Ideal para destacar con elegancia y frescura durante todo el día.</p>
-
     <a class="volver-btn" href="index.html">← Volver al catálogo</a>
   </div>
 
@@ -105,8 +193,17 @@
     <img id="lightbox-img" src="" alt="Imagen ampliada">
   </div>
 
-  <!-- Script para lightbox -->
+  <!-- Scripts -->
   <script>
+    function openSidebar() {
+      document.getElementById("sidebar").style.width = "80%";
+    }
+
+    function closeSidebar() {
+      document.getElementById("sidebar").style.width = "0";
+    }
+
+    // Lightbox
     const detalleImg = document.querySelector('.producto-detalle img');
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
