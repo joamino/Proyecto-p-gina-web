@@ -1,0 +1,54 @@
+/* style.css */
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #121212;
+  color: #FFFFFF;
+}
+
+header {
+  background-color: #2C2C2C;
+  color: #FFFFFF;
+  padding: 20px;
+  text-align: center;
+}
+
+.producto-detalle {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #2C2C2C;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  text-align: center;
+}
+
+.producto-detalle img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.producto-detalle h1 {
+  color: #D4AF37;
+  margin: 20px 0 10px;
+}
+
+.producto-detalle p {
+  font-size: 18px;
+  margin: 5px 0;
+}
+
+a.volver {
+  display: inline-block;
+  margin-top: 20px;
+  color: #D4AF37;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a.volver:hover {
+  text-decoration: underline;
+}
