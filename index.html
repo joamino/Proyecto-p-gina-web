@@ -1,11 +1,11 @@
-<!-- CÓDIGO COMPLETO, VERSIÓN RESPONSIVE -->
+<!-- CÓDIGO COMPLETO, CON SISTEMA DE STOCK -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mi Tienda</title>
-  <link rel="icon" href="https://www.flaticon.es/icono-gratis/perfume_5220366?term=perfumes&page=1&position=32&origin=search&related_id=5220366" type="image/png" />
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/5220/5220366.png" type="image/png" />
   <style>
     body {
       margin: 0;
@@ -110,6 +110,7 @@
       cursor: pointer;
       text-decoration: none;
       color: inherit;
+      position: relative;
     }
 
     .producto:hover {
@@ -127,7 +128,25 @@
       margin: 10px 0 5px;
     }
 
-    /* MEDIA QUERIES: RESPONSIVE */
+    .stock-label {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 4px 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .in-stock {
+      background-color: #e0e0e0;
+      color: #333;
+    }
+
+    .out-of-stock {
+      background-color: #888;
+      color: #fff;
+    }
+
     @media (max-width: 600px) {
       header img {
         height: 60px;
@@ -186,24 +205,24 @@
 
   <!-- Catálogo -->
   <main class="productos" aria-label="Lista de productos">
-    <a class="producto" href="gonzalo.html">
+    <a class="producto" href="gonzalo.html" data-stock="true">
       <img src="https://i.imgur.com/6a1VHRQ.jpeg" alt="Perfume Gonzalo" loading="lazy" />
       <h2>Perfume Gonzalo</h2>
       <p>Precio: $3500</p>
     </a>
-    <a class="producto" href="joako.html">
+    <a class="producto" href="joako.html" data-stock="false">
       <img src="https://i.imgur.com/OTDMKmW.jpeg" alt="Perfume Joako" loading="lazy" />
       <h2>Perfume Joako</h2>
       <p>Precio: $2500</p>
     </a>
-    <a class="producto" href="dylan.html">
+    <a class="producto" href="dylan.html" data-stock="true">
       <img src="https://i.imgur.com/HjDx5RW.jpeg" alt="Perfume Dylan" loading="lazy" />
       <h2>Perfume Dylan</h2>
       <p>Precio: $8700</p>
     </a>
   </main>
 
-  <!-- JS para abrir/cerrar sidebar -->
+  <!-- Scripts -->
   <script>
     const menuBtn = document.getElementById("menuBtn");
     const sidebar = document.getElementById("sidebar");
@@ -220,6 +239,15 @@
       menuBtn.style.color = "black";
       menuBtn.setAttribute("aria-label", "Abrir menú");
     }
+
+    // Etiquetas de stock
+    document.querySelectorAll('.producto').forEach(prod => {
+      const inStock = prod.dataset.stock === "true";
+      const label = document.createElement("div");
+      label.classList.add("stock-label", inStock ? "in-stock" : "out-of-stock");
+      label.textContent = inStock ? "Stock" : "Sin stock";
+      prod.appendChild(label);
+    });
   </script>
 
 </body>
