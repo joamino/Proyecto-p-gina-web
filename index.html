@@ -1,7 +1,9 @@
+<!-- CÓDIGO COMPLETO, VERSIÓN RESPONSIVE -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mi Tienda</title>
   <style>
     body {
@@ -10,7 +12,6 @@
       background: #f4f4f4;
     }
 
-    /* Header */
     header {
       background-color: #333;
       color: white;
@@ -25,7 +26,6 @@
       height: 80px;
     }
 
-    /* Botón hamburguesa */
     .menu-btn {
       position: absolute;
       left: 20px;
@@ -34,12 +34,10 @@
       background: none;
       border: none;
       cursor: pointer;
-      color: black; /* color inicial negro */
-      transition: color 0.3s ease;
-      z-index: 1100; /* para que esté arriba */
+      color: black;
+      z-index: 1100;
     }
 
-    /* Sidebar */
     .sidebar {
       height: 100%;
       width: 0;
@@ -50,12 +48,11 @@
       overflow-x: hidden;
       transition: width 0.3s ease;
       padding-top: 60px;
-      max-width: 320px;
       z-index: 1000;
     }
 
     .sidebar.open {
-      width: 80%;
+      width: 100%;
     }
 
     .sidebar a {
@@ -64,7 +61,7 @@
       color: white;
       display: block;
       font-size: 18px;
-      transition: 0.2s;
+      transition: background-color 0.2s;
     }
 
     .sidebar a:hover {
@@ -75,7 +72,6 @@
       margin-left: 20px;
     }
 
-    /* Botón cerrar dentro del sidebar */
     .closebtn {
       position: absolute;
       top: 20px;
@@ -87,14 +83,12 @@
       cursor: pointer;
     }
 
-    /* Instagram logo */
     .instagram-icon {
       width: 32px;
       margin: 40px 25px 0;
       filter: brightness(0) invert(1);
     }
 
-    /* Productos en el index */
     .productos {
       display: flex;
       flex-wrap: wrap;
@@ -110,7 +104,7 @@
       width: 300px;
       text-align: center;
       padding: 15px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s ease;
       cursor: pointer;
       text-decoration: none;
@@ -131,51 +125,82 @@
     .producto h2 {
       margin: 10px 0 5px;
     }
+
+    /* MEDIA QUERIES: RESPONSIVE */
+    @media (max-width: 600px) {
+      header img {
+        height: 60px;
+      }
+
+      .menu-btn {
+        font-size: 24px;
+        top: 18px;
+      }
+
+      .sidebar a {
+        font-size: 16px;
+        padding: 12px 20px;
+      }
+
+      .productos {
+        margin: 10px;
+        gap: 15px;
+      }
+
+      .producto {
+        width: 90%;
+        max-width: 340px;
+      }
+
+      .producto img {
+        height: 180px;
+      }
+    }
   </style>
 </head>
 <body>
 
   <!-- Sidebar -->
-  <div id="sidebar" class="sidebar">
+  <nav id="sidebar" class="sidebar" aria-label="Menú lateral">
     <button class="closebtn" aria-label="Cerrar menú" onclick="closeSidebar()">×</button>
     <a href="#">Preguntas frecuentes</a>
     <a href="#">Productos</a>
-    <div class="submenu">
+    <div class="submenu" role="group" aria-label="Subcategorías de productos">
       <a href="#">• Perfumes</a>
       <a href="#">• Masculinos</a>
       <a href="#">• Femeninos</a>
       <a href="#">• Unisex</a>
     </div>
     <a href="#">Contacto</a>
-    <a href="https://instagram.com" target="_blank">
-      <img class="instagram-icon" src="https://cdn-icons-png.flaticon.com/512/87/87390.png" alt="Instagram" />
+    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+      <img class="instagram-icon" src="https://cdn-icons-png.flaticon.com/512/87/87390.png" alt="Instagram" loading="lazy" />
     </a>
-  </div>
+  </nav>
 
   <!-- Header -->
   <header>
     <button id="menuBtn" class="menu-btn" aria-label="Abrir menú">☰</button>
-    <img src="https://i.imgur.com/ss7a9jP.png" alt="Logo" />
+    <img src="https://i.imgur.com/ss7a9jP.png" alt="Logo de la tienda" />
   </header>
 
   <!-- Catálogo -->
-  <div class="productos">
+  <main class="productos" aria-label="Lista de productos">
     <a class="producto" href="gonzalo.html">
-      <img src="https://i.imgur.com/6a1VHRQ.jpeg" />
+      <img src="https://i.imgur.com/6a1VHRQ.jpeg" alt="Perfume Gonzalo" loading="lazy" />
       <h2>Perfume Gonzalo</h2>
       <p>Precio: $3500</p>
     </a>
     <a class="producto" href="joako.html">
-      <img src="https://i.imgur.com/OTDMKmW.jpeg" />
+      <img src="https://i.imgur.com/OTDMKmW.jpeg" alt="Perfume Joako" loading="lazy" />
       <h2>Perfume Joako</h2>
       <p>Precio: $2500</p>
     </a>
     <a class="producto" href="dylan.html">
-      <img src="https://i.imgur.com/HjDx5RW.jpeg" />
+      <img src="https://i.imgur.com/HjDx5RW.jpeg" alt="Perfume Dylan" loading="lazy" />
       <h2>Perfume Dylan</h2>
       <p>Precio: $8700</p>
     </a>
-  </div>
+  </main>
 
   <!-- JS para abrir/cerrar sidebar -->
   <script>
@@ -183,18 +208,11 @@
     const sidebar = document.getElementById("sidebar");
 
     menuBtn.addEventListener("click", () => {
-      if (sidebar.classList.contains("open")) {
-        closeSidebar();
-      } else {
-        openSidebar();
-      }
+      sidebar.classList.toggle("open");
+      const isOpen = sidebar.classList.contains("open");
+      menuBtn.style.color = isOpen ? "white" : "black";
+      menuBtn.setAttribute("aria-label", isOpen ? "Cerrar menú" : "Abrir menú");
     });
-
-    function openSidebar() {
-      sidebar.classList.add("open");
-      menuBtn.style.color = "white";
-      menuBtn.setAttribute("aria-label", "Cerrar menú");
-    }
 
     function closeSidebar() {
       sidebar.classList.remove("open");
