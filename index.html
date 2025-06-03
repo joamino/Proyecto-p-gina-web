@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mi Tienda</title>
   <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/5220/5220366.png" type="image/png" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     body {
       margin: 0;
@@ -221,46 +220,6 @@
       transform: translateY(0);
     }
 
-    #carrito {
-      display: none;
-      padding: 20px;
-      background: white;
-      max-width: 400px;
-      margin: 20px auto;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    }
-
-    #lista-carrito {
-      list-style: none;
-      padding-left: 0;
-      margin-bottom: 20px;
-    }
-
-    #lista-carrito li {
-      margin-bottom: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 16px;
-    }
-
-    #lista-carrito button {
-      background: #c0392b;
-      border: none;
-      color: white;
-      padding: 3px 7px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    #lista-carrito button:hover,
-    #lista-carrito button:focus {
-      background: #e74c3c;
-      outline: none;
-    }
-
     @media (max-width: 600px) {
       header img {
         height: 60px;
@@ -293,9 +252,9 @@
   </style>
 </head>
 <body>
-<section id="carrito" aria-label="Carrito de compras">
+<section id="carrito" aria-label="Carrito de compras" style="display:none; padding: 20px; background: white; max-width: 400px; margin: 20px auto; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.2);">
   <h2>Tu Carrito</h2>
-  <ul id="lista-carrito"></ul>
+  <ul id="lista-carrito" style="list-style: none; padding-left: 0;"></ul>
 
   <h3>Datos de envío</h3>
   <form id="form-datos" aria-label="Formulario de datos de envío">
@@ -329,4 +288,75 @@
   <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
     <img class="instagram-icon" src="https://cdn-icons-png.flaticon.com/512/87/87390.png" alt="Instagram" loading="lazy" />
   </a>
-</nav
+</nav>
+
+<header>
+  <button id="menuBtn" class="menu-btn" type="button" aria-label="Abrir menú" aria-expanded="false">☰</button>
+  <img src="https://i.imgur.com/ss7a9jP.png" alt="Logo de la tienda" />
+  <button class="cart-btn" type="button" onclick="irAlCarrito()" aria-label="Ver carrito">🛒</button>
+  <span id="cartCount" class="cart-count" aria-live="polite" aria-atomic="true">0</span>
+</header>
+
+<div id="popup" class="popup" role="alert" aria-live="assertive" aria-atomic="true">Producto agregado al carrito</div>
+
+<main class="productos" aria-label="Lista de productos">
+  <article class="producto" data-id="1" data-nombre="Perfume Gonzalo" data-precio="3500" data-stock="true" tabindex="0">
+    <img src="https://i.imgur.com/6a1VHRQ.jpeg" alt="Perfume Gonzalo" loading="lazy" />
+    <h2>Perfume Gonzalo</h2>
+    <p>Precio: $3500</p>
+    <span class="stock-label in-stock">Disponible</span>
+    <button type="button" onclick="agregarAlCarrito(this)">Agregar al carrito</button>
+  </article>
+
+  <article class="producto" data-id="2" data-nombre="Perfume Joako" data-precio="2500" data-stock="false" tabindex="0">
+    <img src="https://i.imgur.com/OTDMKmW.jpeg" alt="Perfume Joako" loading="lazy" />
+    <h2>Perfume Joako</h2>
+    <p>Precio: $2500</p>
+    <span class="stock-label out-of-stock">Sin stock</span>
+    <button type="button" disabled>Sin stock</button>
+  </article>
+
+  <article class="producto" data-id="3" data-nombre="Perfume Dylan" data-precio="8700" data-stock="true" tabindex="0">
+    <img src="https://i.imgur.com/HjDx5RW.jpeg" alt="Perfume Dylan" loading="lazy" />
+    <h2>Perfume Dylan</h2>
+    <p>Precio: $8700</p>
+    <span class="stock-label in-stock">Disponible</span>
+    <button type="button" onclick="agregarAlCarrito(this)">Agregar al carrito</button>
+  </article>
+</main>
+
+<script src="scripts/recomendaciones.js"></script>
+<script>
+  const menuBtn = document.getElementById("menuBtn");
+  const sidebar = document.getElementById("sidebar");
+  const cartCount = document.getElementById("cartCount");
+  const popup = document.getElementById("popup");
+  let carrito = [];
+
+  menuBtn.addEventListener("click", () => {
+    const isOpen = sidebar.classList.toggle("open");
+    menuBtn.classList.toggle("open", isOpen);
+    menuBtn.setAttribute("aria-expanded", isOpen);
+    sidebar.setAttribute("aria-hidden", !isOpen);
+  });
+
+  function agregarAlCarrito(button) {
+    // Aquí va tu código para agregar productos al carrito
+    // Por ejemplo:
+    const producto = button.closest(".producto");
+    const id = producto.dataset.id;
+    const nombre = producto.dataset.nombre;
+    const precio = parseFloat(producto.dataset.precio);
+    carrito.push({ id, nombre, precio });
+    cartCount.textContent = carrito.length;
+    cartCount.style.display = carrito.length > 0 ? "inline-block" : "none";
+
+    popup.classList.add("show");
+    setTimeout(() => popup.classList.remove("show"), 2000);
+  }
+
+  function irAlCarrito() {
+    alert("Ir al carrito. Productos: " + carrito.length);
+    // Implementar redirección o mostrar carrito
+  }
+</script>
