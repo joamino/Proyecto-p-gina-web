@@ -304,7 +304,8 @@
   </article>
 </main>
 
-<script src="scripts/recomendaciones.js"
+<script src="scripts/recomendaciones.js"></script>
+<script>
   const menuBtn = document.getElementById("menuBtn");
   const sidebar = document.getElementById("sidebar");
   const cartCount = document.getElementById("cartCount");
@@ -315,4 +316,26 @@
     const isOpen = sidebar.classList.toggle("open");
     menuBtn.classList.toggle("open", isOpen);
     menuBtn.setAttribute("aria-expanded", isOpen);
-    sidebar.setAttribute(" script>
+    sidebar.setAttribute("aria-hidden", !isOpen);
+  });
+
+  function agregarAlCarrito(button) {
+    // Aquí va tu código para agregar productos al carrito
+    // Por ejemplo:
+    const producto = button.closest(".producto");
+    const id = producto.dataset.id;
+    const nombre = producto.dataset.nombre;
+    const precio = parseFloat(producto.dataset.precio);
+    carrito.push({ id, nombre, precio });
+    cartCount.textContent = carrito.length;
+    cartCount.style.display = carrito.length > 0 ? "inline-block" : "none";
+
+    popup.classList.add("show");
+    setTimeout(() => popup.classList.remove("show"), 2000);
+  }
+
+  function irAlCarrito() {
+    alert("Ir al carrito. Productos: " + carrito.length);
+    // Implementar redirección o mostrar carrito
+  }
+</script>
