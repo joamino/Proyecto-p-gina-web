@@ -251,4 +251,6 @@ function agregarAlCarrito(button) {
   const popup = document.getElementById("popup");
   popup.classList.add("show");
   setTimeout(() => popup.classList.remove("show"), 2000);
+let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+// ...mostrar carrito...
 }
