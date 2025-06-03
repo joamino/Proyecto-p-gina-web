@@ -253,4 +253,20 @@ function agregarAlCarrito(button) {
   setTimeout(() => popup.classList.remove("show"), 2000);
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 // ...mostrar carrito...
+function agregarAlCarrito(button) {
+  const producto = button.closest(".producto");
+  const id = producto.dataset.id;
+  const nombre = producto.dataset.nombre;
+  const precio = parseFloat(producto.dataset.precio);
+
+  let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+  const existente = carrito.find(item => item.id === id);
+  if (existente) {
+    existente.cantidad = (existente.cantidad || 1) + 1;
+  } else {
+    carrito.push({ id, nombre, precio, cantidad: 1 });
+  }
+  localStorage.setItem('carrito', JSON.stringify(carrito));
+  document.getElementById("cartCount").textContent = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+}
 }
