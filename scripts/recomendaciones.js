@@ -214,3 +214,11 @@ formDatos.addEventListener("submit", (e) => {
   // Abrir WhatsApp en nueva pestaña
   window.open(`https://wa.me/${numeroWhatsApp}?text=${urlMensaje}`, "_blank");
 });
+document.addEventListener('DOMContentLoaded', () => {
+  const icono = document.getElementById('carrito-icono');
+  const carrito = document.getElementById('carrito');
+
+  icono.addEventListener('click', () => {
+    carrito.classList.toggle('mostrar');
+  });
+});
