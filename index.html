@@ -339,14 +339,12 @@
     window.location.href = "carrito.html";
   }
 
-  // Inicia contador si ya hay carrito guardado
   window.onload = () => {
     const guardado = JSON.parse(localStorage.getItem("carrito") || "[]");
-    if (guardado.length > 0) {
-      carrito = guardado;
-      actualizarContador();
-    }
+    carrito = guardado;
+    actualizarContador();
   };
 </script>
+
 </body>
 </html>
