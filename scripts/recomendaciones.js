@@ -210,9 +210,9 @@ formDatos.addEventListener("submit", (event) => {
   const mensajeCodificado = encodeURIComponent(mensaje);
 
   // Número de teléfono destino (pon tu número aquí con código país sin signos, ejemplo "5491122334455")
-  const telefono = "5491122334455";
+  const telefono = "2901565241";
 
   // Abrir WhatsApp Web o app móvil con el mensaje
-  window.open(`https://wa.me/${2901565241}?text=${mensajeCodificado}`, "_blank");
+  window.open(`https://wa.me/${telefono}?text=${mensajeCodificado}`, "_blank");
 });
 </script>
