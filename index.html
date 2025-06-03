@@ -269,18 +269,23 @@
     <img src="https://i.imgur.com/6a1VHRQ.jpeg" alt="Perfume Gonzalo" loading="lazy" />
     <h2>Perfume Gonzalo</h2>
     <p>Precio: $3500</p>
+    <span class="stock-label in-stock">Disponible</span>
     <button onclick="agregarAlCarrito(this)">Agregar al carrito</button>
   </div>
+
   <div class="producto" data-id="2" data-nombre="Perfume Joako" data-precio="2500" data-stock="false">
     <img src="https://i.imgur.com/OTDMKmW.jpeg" alt="Perfume Joako" loading="lazy" />
     <h2>Perfume Joako</h2>
     <p>Precio: $2500</p>
+    <span class="stock-label out-of-stock">Sin stock</span>
     <button disabled>Sin stock</button>
   </div>
+
   <div class="producto" data-id="3" data-nombre="Perfume Dylan" data-precio="8700" data-stock="true">
     <img src="https://i.imgur.com/HjDx5RW.jpeg" alt="Perfume Dylan" loading="lazy" />
     <h2>Perfume Dylan</h2>
     <p>Precio: $8700</p>
+    <span class="stock-label in-stock">Disponible</span>
     <button onclick="agregarAlCarrito(this)">Agregar al carrito</button>
   </div>
 </main>
@@ -341,10 +346,11 @@
 
   window.onload = () => {
     const guardado = JSON.parse(localStorage.getItem("carrito") || "[]");
-    carrito = guardado;
-    actualizarContador();
+    if (guardado.length > 0) {
+      carrito = guardado;
+      actualizarContador();
+    }
   };
 </script>
-
 </body>
 </html>
