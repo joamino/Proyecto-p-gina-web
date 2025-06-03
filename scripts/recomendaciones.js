@@ -120,9 +120,10 @@ const menuBtn = document.getElementById("menuBtn");
 const sidebar = document.getElementById("sidebar");
 const cartCount = document.getElementById("cartCount");
 const popup = document.getElementById("popup");
-const carritoSeccion = document.getElementById("carrito");
+const carritoSection = document.getElementById("carrito");
 const listaCarrito = document.getElementById("lista-carrito");
 const formDatos = document.getElementById("form-datos");
+
 let carrito = [];
 
 menuBtn.addEventListener("click", () => {
@@ -136,83 +137,80 @@ function agregarAlCarrito(button) {
   const producto = button.closest(".producto");
   const id = producto.dataset.id;
   const nombre = producto.dataset.nombre;
-  const precio = producto.dataset.precio;
+  const precio = parseFloat(producto.dataset.precio);
 
-  carrito.push({ id, nombre, precio });
-  actualizarCarrito();
-  mostrarPopup("Producto agregado al carrito");
-}
-
-function actualizarCarrito() {
-  cartCount.textContent = carrito.length;
-  if (carrito.length > 0) {
-    carritoSeccion.style.display = "block";
-  } else {
-    carritoSeccion.style.display = "none";
+  // Evitar agregar el mismo producto más de una vez (opcional)
+  if (!carrito.find(item => item.id === id)) {
+    carrito.push({ id, nombre, precio });
   }
 
-  // Limpiar la lista
+  cartCount.textContent = carrito.length;
+  cartCount.style.display = carrito.length > 0 ? "inline-block" : "none";
+
+  popup.classList.add("show");
+  setTimeout(() => popup.classList.remove("show"), 2000);
+}
+
+// Mostrar la sección carrito y listar los productos
+function irAlCarrito() {
+  if (carrito.length === 0) {
+    alert("El carrito está vacío");
+    return;
+  }
+  // Mostrar carrito
+  carritoSection.style.display = "block";
+
+  // Limpiar lista antes de mostrar
   listaCarrito.innerHTML = "";
 
-  // Mostrar productos
-  carrito.forEach((item, index) => {
+  carrito.forEach(item => {
     const li = document.createElement("li");
-    li.textContent = `${item.nombre} - $${item.precio}`;
-    
-    // Botón para eliminar producto del carrito
-    const btnEliminar = document.createElement("button");
-    btnEliminar.textContent = "Eliminar";
-    btnEliminar.style.marginLeft = "10px";
-    btnEliminar.type = "button";
-    btnEliminar.addEventListener("click", () => {
-      carrito.splice(index, 1);
-      actualizarCarrito();
-    });
-
-    li.appendChild(btnEliminar);
+    li.textContent = `${item.nombre} - $${item.precio.toFixed(2)}`;
     listaCarrito.appendChild(li);
   });
+
+  // Scroll a la sección carrito (opcional)
+  carritoSection.scrollIntoView({ behavior: "smooth" });
 }
 
-function mostrarPopup(mensaje) {
-  popup.textContent = mensaje;
-  popup.classList.add("show");
-  setTimeout(() => {
-    popup.classList.remove("show");
-  }, 2000);
-}
-
-// Manejar el envío del formulario
-formDatos.addEventListener("submit", (event) => {
-  event.preventDefault();
+// Evento para enviar datos por WhatsApp
+formDatos.addEventListener("submit", (e) => {
+  e.preventDefault();
 
   if (carrito.length === 0) {
-    alert("El carrito está vacío.");
+    alert("Tu carrito está vacío.");
     return;
   }
 
+  // Obtener datos del formulario
   const nombre = formDatos.nombre.value.trim();
   const apellido = formDatos.apellido.value.trim();
   const provincia = formDatos.provincia.value.trim();
   const ciudad = formDatos.ciudad.value.trim();
 
   if (!nombre || !apellido || !provincia || !ciudad) {
-    alert("Por favor, complete todos los campos.");
+    alert("Por favor, completa todos los datos.");
     return;
   }
 
-  // Crear mensaje para WhatsApp
-  let mensaje = `Hola, quiero realizar un pedido.\n\nDatos de envío:\nNombre: ${nombre}\nApellido: ${apellido}\nProvincia: ${provincia}\nCiudad: ${ciudad}\n\nProductos:\n`;
+  // Construir mensaje para WhatsApp
+  let mensaje = `*Pedido de tienda*\n\n*Productos:*\n`;
   carrito.forEach((item, i) => {
-    mensaje += `${i + 1}. ${item.nombre} - $${item.precio}\n`;
+    mensaje += `${i + 1}. ${item.nombre} - $${item.precio.toFixed(2)}\n`;
   });
 
-  const mensajeCodificado = encodeURIComponent(mensaje);
+  mensaje += `\n*Datos de envío:*\n`;
+  mensaje += `Nombre: ${nombre}\n`;
+  mensaje += `Apellido: ${apellido}\n`;
+  mensaje += `Provincia: ${provincia}\n`;
+  mensaje += `Ciudad: ${ciudad}`;
 
-  // Número de teléfono destino (pon tu número aquí con código país sin signos, ejemplo "5491122334455")
-  const telefono = "2901565241";
+  // Codificar mensaje para URL
+  const urlMensaje = encodeURIComponent(mensaje);
 
-  // Abrir WhatsApp Web o app móvil con el mensaje
-  window.open(`https://wa.me/${telefono}?text=${mensajeCodificado}`, "_blank");
+  // Número de WhatsApp al que enviar (cambia el +54911xxxxxxx por tu número)
+  const numeroWhatsApp = "2901565241";
+
+  // Abrir WhatsApp en nueva pestaña
+  window.open(`https://wa.me/${numeroWhatsApp}?text=${urlMensaje}`, "_blank");
 });
-</script>
