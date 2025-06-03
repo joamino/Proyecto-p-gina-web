@@ -169,7 +169,22 @@
         });
       });
     }
+let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+const carritoContainer = document.getElementById('carritoContainer');
 
+function mostrarCarrito() {
+  carritoContainer.innerHTML = '';
+  if (carrito.length === 0) {
+    carritoContainer.innerHTML = '<p class="vacio">Tu carrito está vacío.</p>';
+    return;
+  }
+  carrito.forEach((producto) => {
+    const prodDiv = document.createElement('div');
+    prodDiv.textContent = `${producto.nombre} - $${producto.precio} (x${producto.cantidad})`;
+    carritoContainer.appendChild(prodDiv);
+  });
+}
+mostrarCarrito();
     mostrarCarrito();
 
     // Enviar pedido por WhatsApp
