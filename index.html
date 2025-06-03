@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mi Tienda</title>
   <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/5220/5220366.png" type="image/png" />
   <style>
@@ -36,6 +36,11 @@
       cursor: pointer;
       color: black;
       z-index: 1100;
+      transition: color 0.3s;
+    }
+
+    .menu-btn.open {
+      color: white;
     }
 
     .cart-btn {
@@ -58,6 +63,7 @@
       border-radius: 50%;
       padding: 3px 7px;
       font-size: 12px;
+      display: none;
     }
 
     .sidebar {
@@ -86,11 +92,13 @@
       transition: background-color 0.2s;
     }
 
-    .sidebar a:hover {
+    .sidebar a:hover,
+    .sidebar a:focus {
       background-color: #222;
+      outline: none;
     }
 
-    .sidebar .submenu {
+    .submenu {
       margin-left: 20px;
     }
 
@@ -132,8 +140,10 @@
       position: relative;
     }
 
-    .producto:hover {
+    .producto:hover,
+    .producto:focus-within {
       transform: scale(1.03);
+      outline: none;
     }
 
     .producto img {
@@ -156,11 +166,19 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s;
     }
 
     .producto button:disabled {
       background-color: #aaa;
       cursor: not-allowed;
+    }
+
+    .producto button:hover:not(:disabled),
+    .producto button:focus:not(:disabled) {
+      background-color: #555;
+      outline: none;
     }
 
     .stock-label {
@@ -235,9 +253,8 @@
 </head>
 <body>
 
-<!-- Sidebar -->
-<nav id="sidebar" class="sidebar" aria-label="Menú lateral">
-  <button class="closebtn" aria-label="Cerrar menú" onclick="closeSidebar()">×</button>
+<nav id="sidebar" class="sidebar" role="navigation" aria-label="Menú lateral" aria-hidden="true">
+  <button class="closebtn" type="button" aria-label="Cerrar menú" onclick="closeSidebar()">×</button>
   <a href="#">Preguntas frecuentes</a>
   <a href="#">Productos</a>
   <div class="submenu" role="group" aria-label="Subcategorías de productos">
@@ -252,105 +269,50 @@
   </a>
 </nav>
 
-<!-- Header -->
 <header>
-  <button id="menuBtn" class="menu-btn" aria-label="Abrir menú">☰</button>
+  <button id="menuBtn" class="menu-btn" type="button" aria-label="Abrir menú" aria-expanded="false">☰</button>
   <img src="https://i.imgur.com/ss7a9jP.png" alt="Logo de la tienda" />
-  <button class="cart-btn" onclick="irAlCarrito()" aria-label="Ver carrito">🛒</button>
-  <span id="cartCount" class="cart-count" style="display: none;">0</span>
+  <button class="cart-btn" type="button" onclick="irAlCarrito()" aria-label="Ver carrito">🛒</button>
+  <span id="cartCount" class="cart-count" aria-live="polite" aria-atomic="true">0</span>
 </header>
 
-<!-- Popup de confirmación -->
-<div id="popup" class="popup">Producto agregado al carrito</div>
+<div id="popup" class="popup" role="alert" aria-live="assertive" aria-atomic="true">Producto agregado al carrito</div>
 
-<!-- Catálogo -->
 <main class="productos" aria-label="Lista de productos">
-  <div class="producto" data-id="1" data-nombre="Perfume Gonzalo" data-precio="3500" data-stock="true">
+  <article class="producto" data-id="1" data-nombre="Perfume Gonzalo" data-precio="3500" data-stock="true" tabindex="0">
     <img src="https://i.imgur.com/6a1VHRQ.jpeg" alt="Perfume Gonzalo" loading="lazy" />
     <h2>Perfume Gonzalo</h2>
     <p>Precio: $3500</p>
     <span class="stock-label in-stock">Disponible</span>
-    <button onclick="agregarAlCarrito(this)">Agregar al carrito</button>
-  </div>
+    <button type="button" onclick="agregarAlCarrito(this)">Agregar al carrito</button>
+  </article>
 
-  <div class="producto" data-id="2" data-nombre="Perfume Joako" data-precio="2500" data-stock="false">
+  <article class="producto" data-id="2" data-nombre="Perfume Joako" data-precio="2500" data-stock="false" tabindex="0">
     <img src="https://i.imgur.com/OTDMKmW.jpeg" alt="Perfume Joako" loading="lazy" />
     <h2>Perfume Joako</h2>
     <p>Precio: $2500</p>
     <span class="stock-label out-of-stock">Sin stock</span>
-    <button disabled>Sin stock</button>
-  </div>
+    <button type="button" disabled>Sin stock</button>
+  </article>
 
-  <div class="producto" data-id="3" data-nombre="Perfume Dylan" data-precio="8700" data-stock="true">
+  <article class="producto" data-id="3" data-nombre="Perfume Dylan" data-precio="8700" data-stock="true" tabindex="0">
     <img src="https://i.imgur.com/HjDx5RW.jpeg" alt="Perfume Dylan" loading="lazy" />
     <h2>Perfume Dylan</h2>
     <p>Precio: $8700</p>
     <span class="stock-label in-stock">Disponible</span>
-    <button onclick="agregarAlCarrito(this)">Agregar al carrito</button>
-  </div>
+    <button type="button" onclick="agregarAlCarrito(this)">Agregar al carrito</button>
+  </article>
 </main>
 
-<!-- Scripts -->
 <script>
   const menuBtn = document.getElementById("menuBtn");
   const sidebar = document.getElementById("sidebar");
-
-  menuBtn.addEventListener("click", () => {
-    sidebar.classList.toggle("open");
-    const isOpen = sidebar.classList.contains("open");
-    menuBtn.style.color = isOpen ? "white" : "black";
-    menuBtn.setAttribute("aria-label", isOpen ? "Cerrar menú" : "Abrir menú");
-  });
-
-  function closeSidebar() {
-    sidebar.classList.remove("open");
-    menuBtn.style.color = "black";
-    menuBtn.setAttribute("aria-label", "Abrir menú");
-  }
-
+  const cartCount = document.getElementById("cartCount");
+  const popup = document.getElementById("popup");
   let carrito = [];
 
-  function agregarAlCarrito(btn) {
-    const prod = btn.closest(".producto");
-    const id = prod.dataset.id;
-    const nombre = prod.dataset.nombre;
-    const precio = parseFloat(prod.dataset.precio);
-
-    carrito.push({ id, nombre, precio });
-
-    actualizarContador();
-    mostrarPopup("Producto agregado al carrito");
-  }
-
-  function actualizarContador() {
-    const countEl = document.getElementById("cartCount");
-    if (carrito.length > 0) {
-      countEl.style.display = "inline-block";
-      countEl.textContent = carrito.length;
-    } else {
-      countEl.style.display = "none";
-    }
-  }
-
-  function mostrarPopup(mensaje) {
-    const popup = document.getElementById("popup");
-    popup.textContent = mensaje;
-    popup.classList.add("show");
-    setTimeout(() => popup.classList.remove("show"), 2000);
-  }
-
-  function irAlCarrito() {
-    localStorage.setItem("carrito", JSON.stringify(carrito));
-    window.location.href = "carrito.html";
-  }
-
-  window.onload = () => {
-    const guardado = JSON.parse(localStorage.getItem("carrito") || "[]");
-    if (guardado.length > 0) {
-      carrito = guardado;
-      actualizarContador();
-    }
-  };
-</script>
-</body>
-</html>
+  menuBtn.addEventListener("click", () => {
+    const isOpen = sidebar.classList.toggle("open");
+    menuBtn.classList.toggle("open", isOpen);
+    menuBtn.setAttribute("aria-expanded", isOpen);
+    sidebar.setAttribute("
