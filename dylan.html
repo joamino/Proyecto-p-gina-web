@@ -231,6 +231,16 @@
     });
   </script>
 <script src="scripts/carrito.js"></script>
-
+<script>
+document.getElementById('agregarAlCarrito').addEventListener('click', function() {
+  agregarProductoAlCarrito({
+    id: "1",
+    nombre: "Perfume Dylan",
+    precio: 8700,
+    cantidad: 1
+  });
+  alert('Producto agregado al carrito');
+});
+</script>
 </body>
 </html>
