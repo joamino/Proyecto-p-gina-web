@@ -11,8 +11,6 @@
       font-family: Arial, sans-serif;
       background: #f4f4f4;
     }
-
-    /* Header */
     header {
       background-color: #333;
       color: white;
@@ -22,12 +20,9 @@
       justify-content: center;
       position: relative;
     }
-
     header img {
       height: 80px;
     }
-
-    /* Botón hamburguesa */
     .menu-btn {
       position: absolute;
       left: 20px;
@@ -38,8 +33,34 @@
       color: white;
       cursor: pointer;
     }
-
-    /* Sidebar */
+    /* Carrito en header */
+    .cart-btn {
+      position: absolute;
+      right: 30px;
+      top: 25px;
+      text-decoration: none;
+      background: none;
+      border: none;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+    }
+    .cart-btn img {
+      width: 32px;
+      vertical-align: middle;
+    }
+    .cart-count {
+      background: red;
+      color: white;
+      border-radius: 50%;
+      padding: 2px 7px;
+      font-size: 0.9em;
+      vertical-align: top;
+      margin-left: -10px;
+      min-width: 22px;
+      text-align: center;
+      display: inline-block;
+    }
     .sidebar {
       height: 100%;
       width: 0;
@@ -53,7 +74,6 @@
       max-width: 320px;
       z-index: 1000;
     }
-
     .sidebar a {
       padding: 15px 25px;
       text-decoration: none;
@@ -62,15 +82,12 @@
       font-size: 18px;
       transition: 0.2s;
     }
-
     .sidebar a:hover {
       background-color: #222;
     }
-
     .sidebar .submenu {
       margin-left: 20px;
     }
-
     .closebtn {
       position: absolute;
       top: 20px;
@@ -81,14 +98,11 @@
       border: none;
       cursor: pointer;
     }
-
     .instagram-icon {
       width: 32px;
       margin: 40px 25px 0;
       filter: brightness(0) invert(1);
     }
-
-    /* Contenido producto */
     .producto-detalle {
       max-width: 600px;
       margin: 30px auto;
@@ -98,7 +112,6 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       text-align: center;
     }
-
     .producto-detalle img {
       width: 100%;
       height: auto;
@@ -107,17 +120,14 @@
       border-radius: 10px;
       cursor: pointer;
     }
-
     .producto-detalle h2 {
       margin: 20px 0 10px;
     }
-
     .producto-detalle p {
       font-size: 16px;
       color: #333;
       margin: 10px 0;
     }
-
     .volver-btn {
       display: inline-block;
       margin-top: 30px;
@@ -128,12 +138,9 @@
       border-radius: 5px;
       transition: background-color 0.2s;
     }
-
     .volver-btn:hover {
       background-color: #555;
     }
-
-    /* Lightbox */
     #lightbox {
       display: none;
       position: fixed;
@@ -146,7 +153,6 @@
       align-items: center;
       z-index: 9999;
     }
-
     #lightbox img {
       max-width: 90%;
       max-height: 90%;
@@ -154,8 +160,6 @@
       box-shadow: 0 0 10px #fff;
       cursor: pointer;
     }
-
-    /* Botón agregar al carrito */
     #agregarAlCarrito {
       margin-top: 20px;
       padding: 10px 25px;
@@ -174,7 +178,8 @@
 </head>
 <body>
 
-  <!-- Sidebarsidebar">
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
     <button class="closebtn" onclick="closeSidebar()">×</button>
     <a href="#">Preguntas frecuentes</a>
     <a href="#">Productos</a>
@@ -194,9 +199,10 @@
   <header>
     <button class="menu-btn" onclick="openSidebar()">☰</button>
     <img src="https://i.imgur.com/ss7a9jP.png" alt="Logo">
- <a href="carrito.html" class="cart-btn" aria-label="Ver carrito" style="text-decoration:none; background:none; border:none; font-size:24px;">🛒</a>
-  <span id="cartCount" class="cart-count" aria-live="polite" aria-atomic="true">0</span> style="background:red;color:white;border-radius:50%;padding:2px 7px;font-size:0.9em;vertical-align:top;margin-left:-10px;">0</span>
-</a>
+    <a href="carrito.html" class="cart-btn" aria-label="Ver carrito">
+      <img src="https://cdn-icons-png.flaticon.com/512/107/107831.png" alt="Carrito">
+      <span id="carrito-cantidad" class="cart-count" aria-live="polite" aria-atomic="true">0</span>
+    </a>
   </header>
 
   <!-- Contenido del producto -->
@@ -204,71 +210,4 @@
     <img src="https://i.imgur.com/6a1VHRQ.jpeg" alt="Perfume Gonzalo">
     <h2>Perfume Gonzalo</h2>
     <p><strong>Precio:</strong> $3500</p>
-    <p><strong>Descripción:</strong> Fragancia intensa con notas aceitosas, perfecta para jugar al bascket y hacer triples.</p>
-    <button id="agregarAlCarrito">Agregar al carrito</button>
-    <a class="volver-btn" href="index.html">← Volver al catálogo</a>
-  </div>
-
-  <!-- Lightbox -->
-  <div id="lightbox">
-    <img id="lightbox-img" src="" alt="Imagen ampliada">
-  </div>
-
-  <!-- Scripts -->
-  <script>
-    function openSidebar() {
-      document.getElementById("sidebar").style.width = "80%";
-    }
-
-    function closeSidebar() {
-      document.getElementById("sidebar").style.width = "0";
-    }
-
-    // Lightbox
-    const detalleImg = document.querySelector('.producto-detalle img');
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-
-    detalleImg.addEventListener('click', () => {
-      lightboxImg.src = detalleImg.src;
-      lightbox.style.display = 'flex';
-    });
-
-    lightbox.addEventListener('click', () => {
-      lightbox.style.display = 'none';
-    });
-
-    // Agregar al carrito
-    document.getElementById('agregarAlCarrito').addEventListener('click', function() {
-      const producto = {
-        id: "1",
-        nombre: "Perfume Gonzalo",
-        precio: 3500,
-        cantidad: 1
-      };
-      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-      const existente = carrito.find(item => item.id === producto.id);
-      if (existente) {
-        existente.cantidad = (existente.cantidad || 1) + 1;
-      } else {
-        carrito.push(producto);
-      }
-      localStorage.setItem('carrito', JSON.stringify(carrito));
-      alert('Producto agregado al carrito');
-    });
-  </script>
-<script src="scripts/carrito.js"></script>
-<script src="scripts/carrito.js"></script>
-<script>
-document.getElementById('agregarAlCarrito').addEventListener('click', function() {
-  agregarProductoAlCarrito({
-    id: "1",
-    nombre: "Perfume Gonzalo",
-    precio: 3500,
-    cantidad: 1
-  });
-  alert('Producto agregado al carrito');
-});
-</script>
-</body>
-</html>
+    <p
