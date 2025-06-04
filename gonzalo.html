@@ -259,5 +259,17 @@
     });
   </script>
 <script src="scripts/carrito.js"></script>
+<script src="scripts/carrito.js"></script>
+<script>
+document.getElementById('agregarAlCarrito').addEventListener('click', function() {
+  agregarProductoAlCarrito({
+    id: "1",
+    nombre: "Perfume Gonzalo",
+    precio: 3500,
+    cantidad: 1
+  });
+  alert('Producto agregado al carrito');
+});
+</script>
 </body>
 </html>
