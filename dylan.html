@@ -2,9 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-<meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
   <title>Perfume Dylan</title>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://i.imgur.com https://cdn-icons-png.flaticon.com; script-src 'self'; style-src 'self' 'unsafe-inline';">
+  <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://i.imgur.com https://cdn-icons-png.flaticon.com; script-src 'self'; style-src 'self' 'unsafe-inline';">
   <style>
     body {
       margin: 0;
@@ -100,6 +100,23 @@
       color: #333;
       margin: 10px 0;
     }
+
+    /* Botón agregar al carrito */
+    #agregarAlCarrito {
+      margin-top: 20px;
+      padding: 10px 25px;
+      background: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    #agregarAlCarrito:hover {
+      background: #555;
+    }
+
     .volver-btn {
       display: inline-block;
       margin-top: 30px;
@@ -158,10 +175,11 @@
   </header>
 
   <div class="producto-detalle">
-    <img src="https://i.imgur.com/8mN2A6L.jpeg" alt="Perfume Dylan">
+    <img src="https://i.imgur.com/HjDx5RW.jpeg" alt="Perfume Dylan">
     <h2>Perfume Dylan</h2>
-    <p><strong>Precio:</strong> $3800</p>
-    <p><strong>Descripción:</strong> Fragancia cálida y elegante con notas de ámbar, madera y un toque dulce. Ideal para quienes buscan una presencia refinada y duradera.</p>
+    <p><strong>Precio:</strong> $8700</p>
+    <p><strong>Descripción:</strong> Fragancia sofisticada y elegante, con notas amaderadas. Ideal para quienes buscan destacar con personalidad propia.</p>
+    <button id="agregarAlCarrito">Agregar al carrito</button>
     <a class="volver-btn" href="index.html">← Volver al catálogo</a>
   </div>
 
@@ -187,6 +205,25 @@
 
     lightbox.addEventListener('click', () => {
       lightbox.style.display = 'none';
+    });
+
+    // Agregar al carrito
+    document.getElementById('agregarAlCarrito').addEventListener('click', function() {
+      const producto = {
+        id: "3",
+        nombre: "Perfume Dylan",
+        precio: 8700,
+        cantidad: 1
+      };
+      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      const existente = carrito.find(item => item.id === producto.id);
+      if (existente) {
+        existente.cantidad = (existente.cantidad || 1) + 1;
+      } else {
+        carrito.push(producto);
+      }
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      alert('Producto agregado al carrito');
     });
   </script>
 
