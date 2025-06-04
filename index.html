@@ -6,148 +6,12 @@
   <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://i.imgur.com https://cdn-icons-png.flaticon.com; script-src 'self'; style-src 'self' 'unsafe-inline';">
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, absolute;
-      right: 30px;
-      top: 25px;
-      text-decoration: none;
-      background: none;
-      border: none;
-      font-size: 24px;
-      display: flex;
-      align-items: center;
-    }
-    .cart-btn img {
-      width: 32px;
-      vertical-align: middle;
-    }
-    .cart-count {
-      background: red;
-      color: white;
-      border-radius: 50%;
-      padding: 2px 7px;
-      font-size: 0.9em;
-      vertical-align: top;
-      margin-left: -10px;
-      min-width: 22px;
-      text-align: center;
-      display: inline-block;
-    }
-    .sidebar {
-      height: 100%;
-      width: 0;
-      position: fixed;
-      top: 0;
-      left: 0;
-      background-color: #000;
-      overflow-x: hidden;
-      transition: 0.3s;
-      padding-top: 60px;
-      max-width: 320px;
-      z-index: 1000;
-    }
-    .sidebar a {
-      padding: 15px 25px;
-      text-decoration: none;
-      color: white;
-      display: block;
-      font-size: 18px;
-      transition: 0.2s;
-    }
-    .sidebar a:hover {
-      background-color: #222;
-    }
-    .sidebar .submenu {
-      margin-left: 20px;
-    }
-    .closebtn {
-      position: absolute;
-      top: 20px;
-      right: 25px;
-      font-size: 30px;
-      color: white;
-      background: none;
-      border: none;
-      cursor: pointer;
-    }
-    .instagram-icon {
-      width: 32px;
-      margin: 40px 25px 0;
-      filter: brightness(0) invert(1);
-    }
-
-    /* Catálogo */
-    .catalogo {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
-      padding: 40px 10px 60px;
-    }
-    .producto {
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      width: 290px;
-      padding: 20px;
-      text-align: center;
-      transition: box-shadow 0.2s;
-    }
-    .producto:hover {
-      box-shadow: 0 4px 14px rgba(0,0,0,0.16);
-    }
-    .producto img {
-      width: 100%;
-      height: 210px;
-      object-fit: cover;
-      border-radius: 10px;
-      margin-bottom: 10px;
-    }
-    .producto h3 {
-      margin: 12px 0 8px;
-    }
-    .producto p {
-      color: #444;
-      font-size: 15px;
-    }
-    .producto .precio {
-      font-weight: bold;
-      color: #222;
-      margin: 13px 0;
-    }
-    .ver-detalle-btn, .agregar-btn {
-      padding: 7px 16px;
-      border-radius: 6px;
-      border: none;
-      font-size: 1em;
-      cursor: pointer;
-      margin: 6px 4px 0 4px;
-    }
-    .ver-detalle-btn {
-      background: #333;
-      color: #fff;
-      text-decoration: none;
-      display: inline-block;
-    }
-    .ver-detalle-btn:hover {
-      background: #555;
-    }
-    .agregar-btn {
-      background: #1976d2;
-      color: #fff;
-      border: none;
-    }
-    .agregar-btn:hover {
-      background: #115293;
-    }
-    @media (max-width: 900px) {
-      .catalogo { gap: 18px;}
-      .producto { width: 95vw; max-width: 340px;}
-    }
+    /* ...el CSS completo como en el mensaje anterior... */
   </style>
 </head>
-<body" class="sidebar">
+<body>
+
+  <div id="sidebar" class="sidebar">
     <button class="closebtn" onclick="closeSidebar()">×</button>
     <a href="#">Preguntas frecuentes</a>
     <a href="#">Productos</a>
@@ -178,7 +42,8 @@
 
       <!-- Producto Gonzalo -->
       <div class="producto">
-        <imgPerfume Gonzalo</h3>
+        <img src="https://i.imgur.com/6a1VHRQ.jpeg" alt="Perfume Gonzalo">
+        <h3>Perfume Gonzalo</h3>
         <p>Fragancia intensa con notas aceitosas, perfecta para jugar al bascket y hacer triples.</p>
         <div class="precio">$3500</div>
         <a href="gonzalo.html" class="ver-detalle-btn">Ver detalle</a>
