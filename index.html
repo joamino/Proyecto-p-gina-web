@@ -250,29 +250,35 @@
 <div id="popup" class="popup" role="alert" aria-live="assertive" aria-atomic="true">Producto agregado al carrito</div>
 
 <main class="productos" aria-label="Lista de productos">
-  <article class="producto" data-id="1" data-nombre="Perfume Gonzalo" data-precio="3500" data-stock="true" tabindex="0">
-    <img src="https://i.imgur.com/6a1VHRQ.jpeg" alt="Perfume Gonzalo" loading="lazy" />
+  <<article class="producto" data-id="1" ...>
+  <a href="gonzalo.htmlid=1" style="text-decoration: none; color: inherit; display: block;">
+    <img src="https://i.imgur.com/6a1VHRQ.jpeg" alt="Perfume Gonzalo" />
     <h2>Perfume Gonzalo</h2>
     <p>Precio: $3500</p>
     <span class="stock-label in-stock">Disponible</span>
-    <button type="button" onclick="agregarAlCarrito(this)">Agregar al carrito</button>
-  </article>
+  </a>
+  <button type="button" onclick="agregarAlCarrito(this)">Agregar al carrito</button>
+</article>
 
-  <article class="producto" data-id="2" data-nombre="Perfume Joako" data-precio="2500" data-stock="false" tabindex="0">
-    <img src="https://i.imgur.com/OTDMKmW.jpeg" alt="Perfume Joako" loading="lazy" />
+<article class="producto" data-id="2" ...>
+  <a href="joako.htmlid=2" style="text-decoration: none; color: inherit; display: block;">
+    <img src="https://i.imgur.com/OTDMKmW.jpeg" alt="Perfume Joako" />
     <h2>Perfume Joako</h2>
     <p>Precio: $2500</p>
     <span class="stock-label out-of-stock">Sin stock</span>
-    <button type="button" disabled>Sin stock</button>
-  </article>
+  </a>
+  <button type="button" disabled>Sin stock</button>
+</article>
 
-  <article class="producto" data-id="3" data-nombre="Perfume Dylan" data-precio="8700" data-stock="true" tabindex="0">
-    <img src="https://i.imgur.com/HjDx5RW.jpeg" alt="Perfume Dylan" loading="lazy" />
+<article class="producto" data-id="3" ...>
+  <a href="dylan.htmlid=3" style="text-decoration: none; color: inherit; display: block;">
+    <img src="https://i.imgur.com/HjDx5RW.jpeg" alt="Perfume Dylan" />
     <h2>Perfume Dylan</h2>
     <p>Precio: $8700</p>
     <span class="stock-label in-stock">Disponible</span>
-    <button type="button" onclick="agregarAlCarrito(this)">Agregar al carrito</button>
-  </article>
+  </a>
+  <button type="button" onclick="agregarAlCarrito(this)">Agregar al carrito</button>
+</article>
 </main>
 
 <script>
