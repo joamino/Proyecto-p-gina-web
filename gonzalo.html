@@ -2,9 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-<meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+  <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
   <title>Perfume Gonzalo</title>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://i.imgur.com https://cdn-icons-png.flaticon.com; script-src 'self'; style-src 'self' 'unsafe-inline';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://i.imgur.com https://cdn-icons-png.flaticon.com; script-src 'self'; style-src 'self' 'unsafe-inline';">
   <style>
     body {
       margin: 0;
@@ -154,12 +154,27 @@
       box-shadow: 0 0 10px #fff;
       cursor: pointer;
     }
+
+    /* Botón agregar al carrito */
+    #agregarAlCarrito {
+      margin-top: 20px;
+      padding: 10px 25px;
+      background: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    #agregarAlCarrito:hover {
+      background: #555;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Sidebar -->
-  <div id="sidebar" class="sidebar">
+  <!-- Sidebarsidebar">
     <button class="closebtn" onclick="closeSidebar()">×</button>
     <a href="#">Preguntas frecuentes</a>
     <a href="#">Productos</a>
@@ -187,6 +202,7 @@
     <h2>Perfume Gonzalo</h2>
     <p><strong>Precio:</strong> $3500</p>
     <p><strong>Descripción:</strong> Fragancia intensa con notas aceitosas, perfecta para jugar al bascket y hacer triples.</p>
+    <button id="agregarAlCarrito">Agregar al carrito</button>
     <a class="volver-btn" href="index.html">← Volver al catálogo</a>
   </div>
 
@@ -217,6 +233,25 @@
 
     lightbox.addEventListener('click', () => {
       lightbox.style.display = 'none';
+    });
+
+    // Agregar al carrito
+    document.getElementById('agregarAlCarrito').addEventListener('click', function() {
+      const producto = {
+        id: "1",
+        nombre: "Perfume Gonzalo",
+        precio: 3500,
+        cantidad: 1
+      };
+      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      const existente = carrito.find(item => item.id === producto.id);
+      if (existente) {
+        existente.cantidad = (existente.cantidad || 1) + 1;
+      } else {
+        carrito.push(producto);
+      }
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      alert('Producto agregado al carrito');
     });
   </script>
 
