@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Perfume Joako</title>
   <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
-  <meta http-equiv="Content-Security-Policy" content="default-src' https://i.imgur.com https://cdn-icons-png.flaticon.com; script-src 'self'; style-src 'self' 'unsafe-inline';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://i.imgur.com https://cdn-icons-png.flaticon.com; script-src 'self'; style-src 'self' 'unsafe-inline';">
   <style>
     body {
       margin: 0;
@@ -32,6 +32,34 @@
       border: none;
       color: white;
       cursor: pointer;
+    }
+    /* Carrito en header */
+    .cart-btn {
+      position: absolute;
+      right: 30px;
+      top: 25px;
+      text-decoration: none;
+      background: none;
+      border: none;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+    }
+    .cart-btn img {
+      width: 32px;
+      vertical-align: middle;
+    }
+    .cart-count {
+      background: red;
+      color: white;
+      border-radius: 50%;
+      padding: 2px 7px;
+      font-size: 0.9em;
+      vertical-align: top;
+      margin-left: -10px;
+      min-width: 22px;
+      text-align: center;
+      display: inline-block;
     }
     .sidebar {
       height: 100%;
@@ -137,7 +165,9 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0,  align-items: center;
+      background: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
       z-index: 9999;
     }
     #lightbox img {
@@ -150,82 +180,3 @@
   </style>
 </head>
 <body>
-
-  <div id="sidebar" class="sidebar">
-    <button class="closebtn" onclick="closeSidebar()">×</button>
-    <a href="#">Preguntas frecuentes</a>
-    <a href="#">Productos</a>
-    <div class="submenu">
-      <a href="#">• Perfumes</a>
-      <a href="#">• Masculinos</a>
-      <a href="#">• Femeninos</a>
-      <a href="#">• Unisex</a>
-    </div>
-    <a href="#">Contacto</a>
-    <a href="https://instagram.com" target="_blank">
-      <img class="instagram-icon" src="openSidebar()">☰</button>
-    <img src="https://i.imgur.com/ss7a9jP.png" alt="Logo">
-<a href="carrito.html" id="carrito-link" style="position:absolute; right:30px; top:30px; text-decoration:none; color:white;">
-  <img src="https://cdn-icons-png.flaticon.com/512/107/107831.png" alt="Carrito" style="width:32px;vertical-align:middle;">
-  <span id="carrito-cantidad" style="background:red;color:white;border-radius:50%;padding:2px 7px;font-size:0.9em;vertical-align:top;margin-left:-10px;">0</span>
-</a>
-  <img src="https://cdn-icons-png.flaticon.com/512/107/107831.png" alt="Carrito" style="width:32px;vertical-align:middle;">
-  <span id="carrito-cantidad" style="background:red;color:white;border-radius:50%;padding:2px 7px;font-size:0.9em;vertical-align:top;margin-left:-10px;">0</span>
-</a>
-  </header>
-
-  <div class="producto-detalle">
-    <img src="https://i.imgur.com/D7SY8Hv.jpeg" alt="Perfume Joako">
-    <h2>Perfume Joako</h2>
-    <p><strong>Precio:</strong> $4200</p>
-    <p><strong>Descripción:</strong> Aroma fresco con toques frutales y florales. Un clásico que nunca falla, ideal para el día a día o eventos especiales.</p>
-    <button id="agregarAlCarrito">Agregar al carrito</button>
-    <a class="volver-btn" href="index.html">← Volver al catálogo</a>
-  </div>
-
-  <div id="lightbox">
-    <img id="lightbox-img" src="" alt="Imagen ampliada">
-  </div>
-
-  <script>
-    function openSidebar() {
-      document.getElementById("sidebar").style.width = "80%";
-    }
-    function closeSidebar() {
-      document.getElementById("sidebar").style.width = "0";
-    }
-    const detalleImg = document.querySelector('.producto-detalle img');
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-
-    detalleImg.addEventListener('click', () => {
-      lightboxImg.src = detalleImg.src;
-      lightbox.style.display = 'flex';
-    });
-
-    lightbox.addEventListener('click', () => {
-      lightbox.style.display = 'none';
-    });
-
-    // Agregar al carrito
-    document.getElementById('agregarAlCarrito').addEventListener('click', function() {
-      const producto = {
-        id: "2",
-        nombre: "Perfume Joako",
-        precio: 4200,
-        cantidad: 1
-      };
-      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-      const existente = carrito.find(item => item.id === producto.id);
-      if (existente) {
-        existente.cantidad = (existente.cantidad || 1) + 1;
-      } else {
-        carrito.push(producto);
-      }
-      localStorage.setItem('carrito', JSON.stringify(carrito));
-      alert('Producto agregado al carrito');
-    });
-  </script>
-<script src="scripts/carrito.js"></script>
-</body>
-</html>
