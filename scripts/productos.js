@@ -2,26 +2,32 @@
 
 // Array de productos. Puedes agregar los campos que necesites (id, nombre, precio, imagen, descripción, etc.)
 const productos = [
-  {
-    id: 1,
-    nombre: "Camiseta React",
-    precio: 3500,
-    imagen: "img/camiseta-react.jpg",
-    descripcion: "Camiseta cómoda con logo de React."
-  },
-  {
-    id: 2,
-    nombre: "Taza JavaScript",
-    precio: 1500,
-    imagen: "img/taza-js.jpg",
-    descripcion: "Taza para amantes de JavaScript."
-  },
-  {
-    id: 3,
-    nombre: "Sticker HTML",
-    precio: 500,
-    imagen: "img/sticker-html.png",
-    descripcion: "Sticker resistente al agua con logo HTML5."
+  const producto1 = {
+  id: "1",
+  nombre: "Perfume Gonzalo",
+  precio: 3500,
+  imagen: "https://i.imgur.com/6a1VHRQ.jpeg",
+  descripcion: "Perfume Gonzalo",
+  stock: true
+};
+
+const producto2 = {
+  id: "2",
+  nombre: "Perfume Joako",
+  precio: 2500,
+  imagen: "https://i.imgur.com/OTDMKmW.jpeg",
+  descripcion: "Perfume Joako",
+  stock: false
+};
+
+const producto3 = {
+  id: "3",
+  nombre: "Perfume Dylan",
+  precio: 8700,
+  imagen: "https://i.imgur.com/HjDx5RW.jpeg",
+  descripcion: "Perfume Dylan",
+  stock: true
+};
   }
   // ...agrega más productos aquí
 ];
