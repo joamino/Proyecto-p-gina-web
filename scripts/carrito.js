@@ -1,14 +1,4 @@
-<script>
-function actualizarCarritoCantidad() {
-  let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-  // Suma la cantidad total de productos
-  let total = carrito.reduce((sum, prod) => sum + (prod.cantidad || 1), 0);
-  document.getElementById('carrito-cantidad').textContent = total;
-}
-// Llama la función al cargar la página
-actualizarCarritoCantidad();
 document.addEventListener('DOMContentLoaded', function() {
-  // Carga carrito desde localStorage o vacío
   let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
   const carritoContainer = document.getElementById('carritoContainer');
   const carritoTotal = document.getElementById('carritoTotal');
@@ -23,17 +13,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     let total = 0;
-    carrito.forEach((producto, index) => {
-      total += producto.precio * (producto.cantidad || 1);
-
-      const prodDiv = document.createElement('div');
+');
       prodDiv.classList.add('producto');
       prodDiv.innerHTML = `
         <img src="${producto.imagen ? producto.imagen : 'https://cdn-icons-png.flaticon.com/512/479/479295.png'}" alt="${producto.nombre}" style="width:38px;height:38px;object-fit:cover;border-radius:5px;margin-right:12px;">
         <div class="producto-info">
           <span class="producto-nombre">${producto.nombre}</span>
           <span class="producto-cantidad">Cantidad: ${producto.cantidad || 1}</span>
-          <span style="margin-left:10px; color:#888;">$${producto.precio}</span>
+          <span style="margin}</span>
         </div>
         <button class="eliminar" aria-label="Eliminar ${producto.nombre}" data-index="${index}">Eliminar</button>
       `;
@@ -49,22 +36,13 @@ document.addEventListener('DOMContentLoaded', function() {
         carrito.splice(idx, 1);
         localStorage.setItem('carrito', JSON.stringify(carrito));
         mostrarCarrito();
-        actualizarCarritoCantidad(); // Actualiza el numerito del carrito si lo tienes en el header
+        // Si usás el utilitario:
+        if (typeof actualizarContadorCarrito === "function") actualizarContadorCarrito();
       });
     });
   }
 
-  function actualizarCarritoCantidad() {
-    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-    let total = carrito.reduce((sum, prod) => sum + (prod.cantidad || 1), 0);
-    const spanCantidad = document.getElementById('carrito-cantidad');
-    if (spanCantidad) {
-      spanCantidad.textContent = total;
-    }
-  }
-
   mostrarCarrito();
-  actualizarCarritoCantidad();
 
   // Enviar pedido por WhatsApp
   document.getElementById('enviarPedido').addEventListener('click', () => {
@@ -92,9 +70,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const mensajeCodificado = encodeURIComponent(mensaje);
 
-    // Cambia este número por tu número real de WhatsApp, ej: 5491122223333
+    // Cambia este número por ej: 5491122223333
     const NUMERO_WHATSAPP = "TUNUMEROAQUI";
     window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${mensajeCodificado}`, '_blank');
   });
 });
-</script>
