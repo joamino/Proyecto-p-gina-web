@@ -13,14 +13,16 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     let total = 0;
-');
+    carrito.forEach((producto, index) => {
+      total += producto.precio * (producto.cantidad || 1);
+
+      const prodDiv = document.createElement('div');
       prodDiv.classList.add('producto');
-      prodDiv.innerHTML = `
-        <img src="${producto.imagen ? producto.imagen : 'https://cdn-icons-png.flaticon.com/512/479/479295.png'}" alt="${producto.nombre}" style="width:38px;height:38px;object-fit:cover;border-radius:5px;margin-right:12px;">
+     ="width:38px;height:38px;object-fit:cover;border-radius:5px;margin-right:12px;">
         <div class="producto-info">
           <span class="producto-nombre">${producto.nombre}</span>
           <span class="producto-cantidad">Cantidad: ${producto.cantidad || 1}</span>
-          <span style="margin}</span>
+          <span style="margin-left:10px; color:#888;">$${producto.precio}</span>
         </div>
         <button class="eliminar" aria-label="Eliminar ${producto.nombre}" data-index="${index}">Eliminar</button>
       `;
@@ -52,8 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     const nombre = document.getElementById('nombre').value.trim();
-    const apellido = document.getElementById('apellido').value.trim();
-    const domicilio = document.getElementById('domicilio').value.trim();
+    const apellido = document.getElementBy.getElementById('domicilio').value.trim();
     const provincia = document.getElementById('provincia').value.trim();
     const ciudad = document.getElementById('ciudad').value.trim();
 
@@ -64,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let mensaje = 'Pedido:\n\n';
     carrito.forEach((producto, i) => {
-      mensaje += `${i + 1}. ${producto.nombre} - Cantidad: ${producto.cantidad || 1}\n`;
+      mensaje += `${i + 1}. ${producto.nombre} - Cantidad: ${producto.cantidadn`;
     });
     mensaje += `\nDatos del cliente:\nNombre: ${nombre} ${apellido}\nDomicilio: ${domicilio}\nProvincia: ${provincia}\nCiudad: ${ciudad}\n`;
 
