@@ -170,37 +170,41 @@
   </form>
 
   <script>
-  // Carga carrito desde localStorage o vacío
+  // Obtener carrito o inicializar vacío
   let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
   const carritoContainer = document.getElementById('carritoContainer');
+  const carritoTotal = document.getElementById('carritoTotal');
 
   function mostrarCarrito() {
     carritoContainer.innerHTML = '';
 
     if (carrito.length === 0) {
       carritoContainer.innerHTML = '<p class="vacio">Tu carrito está vacío.</p>';
-      document.getElementById("carritoTotal").textContent = ""; // Limpia el total
+      carritoTotal.textContent = "";
       return;
     }
 
     let total = 0;
     carrito.forEach((producto, index) => {
       total += producto.precio * (producto.cantidad || 1);
+
       const prodDiv = document.createElement('div');
       prodDiv.classList.add('producto');
       prodDiv.innerHTML = `
         <img src="${producto.imagen ? producto.imagen : 'https://cdn-icons-png.flaticon.com/512/479/479295.png'}" alt="${producto.nombre}" style="width:38px;height:38px;object-fit:cover;border-radius:5px;margin-right:12px;">
         <div class="producto-info">
           <span class="producto-nombre">${producto.nombre}</span>
-          <span class="producto-cantidad">Cantidad: ${producto.cantidad}</span>
+          <span class="producto-cantidad">Cantidad: ${producto.cantidad || 1}</span>
           <span style="margin-left:10px; color:#888;">$${producto.precio}</span>
         </div>
-        <.appendChild(prodDiv);
+        <button class="eliminar" aria-label="Eliminar ${producto.nombre}" data-index="${index}">Eliminar</button>
+      `;
+      carritoContainer.appendChild(prodDiv);
     });
 
-    document.getElementById("carritoTotal").textContent = "Total: $" + total;
+    carritoTotal.textContent = "Total: $" + total;
 
-    // Agregar event listeners a botones eliminar
+    // Event listeners para eliminar
     document.querySelectorAll('button.eliminar').forEach(btn => {
       btn.addEventListener('click', e => {
         const idx = e.target.dataset.index;
@@ -231,16 +235,15 @@
       return;
     }
 
-    // Armar mensaje con productos y datos
     let mensaje = 'Pedido:\n\n';
     carrito.forEach((producto, i) => {
-      mensaje += `${i + 1}. ${producto.nombre} - Cantidad: ${producto.cantidad}\n`;
+      mensaje += `${i + 1}. ${producto.nombre} - Cantidad: ${producto.cantidad || 1}\n`;
     });
     mensaje += `\nDatos del cliente:\nNombre: ${nombre} ${apellido}\nDomicilio: ${domicilio}\nProvincia: ${provincia}\nCiudad: ${ciudad}\n`;
 
     const mensajeCodificado = encodeURIComponent(mensaje);
 
-    // Cambia este número por tu número de WhatsApp (sin espacios, con código de país, ej: 5491123456789)
+    // Cambia este número por tu número de WhatsApp real, ejemplo: 5491122223333
     const NUMERO_WHATSAPP = "TUNUMEROAQUI";
     window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${mensajeCodificado}`, '_blank');
   });
