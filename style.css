@@ -1,77 +1,346 @@
-/* style.css */
-
+/* Reset y base */
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #121212;
-  color: #FFFFFF;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f7f7fa;
+  color: #242424;
+  min-height: 100vh;
 }
 
+/* HEADER ANIMADO */
 header {
-  background-color: #2C2C2C;
-  color: #FFFFFF;
-  padding: 20px;
-  text-align: center;
+  background: #232323;
+  color: #fff;
+  padding: 18px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  animation: fadeDown 0.8s cubic-bezier(.45,.09,.47,1.02);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
 }
 
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-40px);}
+  to   { opacity: 1; transform: translateY(0);}
+}
+
+header img {
+  height: 56px;
+  margin: 0 0 0 0;
+  transition: transform 0.2s;
+}
+
+@media (max-width: 700px) {
+  header img {
+    height: 38px;
+  }
+}
+
+.menu-btn {
+  position: absolute;
+  left: 18px;
+  top: 22px;
+  font-size: 26px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s;
+  z-index: 1050;
+}
+
+.menu-btn:hover { transform: scale(1.15) rotate(-8deg); }
+
+.cart-btn {
+  position: absolute;
+  right: 22px;
+  top: 22px;
+  text-decoration: none;
+  background: none;
+  border: none;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s;
+}
+
+.cart-btn:hover { transform: scale(1.13) rotate(7deg); }
+
+.cart-btn img {
+  width: 26px;
+  vertical-align: middle;
+}
+
+.cart-count {
+  background: #ff2222;
+  color: #fff;
+  border-radius: 50%;
+  padding: 2px 8px;
+  font-size: 0.92em;
+  min-width: 20px;
+  text-align: center;
+  margin-left: -10px;
+  animation: pop 0.4s;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+@keyframes pop {
+  0% { transform: scale(0.6);}
+  60% { transform: scale(1.3);}
+  100% { transform: scale(1);}
+}
+
+/* SIDEBAR ANIMADA */
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(23,23,23,0.97);
+  overflow-x: hidden;
+  transition: width 0.35s cubic-bezier(.45,.09,.47,1.02);
+  padding-top: 54px;
+  z-index: 1200;
+  max-width: 420px;
+  box-shadow: 2px 0 14px rgba(0,0,0,0.13);
+  backdrop-filter: blur(1px);
+}
+
+/* .sidebar.open se debe agregar por JS al abrir el menu */
+.sidebar.open {
+  width: 70vw;
+  min-width: 240px;
+  max-width: 420px;
+  animation: sidebarSlideIn 0.33s;
+}
+
+@media (max-width: 700px) {
+  .sidebar.open {
+    width: 70vw;
+  }
+}
+
+@keyframes sidebarSlideIn {
+  from { width: 0;}
+  to { width: 70vw;}
+}
+
+.sidebar a, .sidebar .submenu a {
+  padding: 13px 25px;
+  text-decoration: none;
+  color: #fff;
+  display: block;
+  font-size: 1.12em;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  transition: background 0.17s, color 0.17s;
+  border-radius: 7px;
+}
+
+.sidebar a:hover {
+  background: #292929;
+  color: #ffe081;
+}
+
+.sidebar .submenu {
+  margin-left: 18px;
+  font-size: 0.97em;
+  margin-bottom: 8px;
+}
+
+.closebtn {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  font-size: 33px;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1300;
+}
+
+.instagram-icon {
+  width: 28px;
+  margin: 38px 25px 0;
+  filter: brightness(0) invert(1);
+  transition: transform 0.2s;
+}
+.instagram-icon:hover { transform: scale(1.18) rotate(-9deg); }
+
+/* CATÁLOGO - PRODUCTOS */
+.catalogo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 32px 5px 60px;
+  animation: fadeInUp 0.7s cubic-bezier(.45,.09,.47,1.02);
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px);}
+  to   { opacity: 1; transform: translateY(0);}
+}
+
+.producto {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+  width: 260px;
+  padding: 14px 14px 16px;
+  text-align: center;
+  transition: box-shadow 0.2s, transform 0.2s;
+  animation: fadeInCard 1s cubic-bezier(.45,.09,.47,1.02);
+  font-size: 1em;
+  margin-bottom: 10px;
+}
+@keyframes fadeInCard {
+  0% {opacity: 0;transform: translateY(55px) scale(0.93);}
+  70% {opacity: 1;}
+  100% {transform: translateY(0) scale(1);}
+}
+
+.producto:hover {
+  box-shadow: 0 6px 19px rgba(0,0,0,0.13);
+  transform: translateY(-6px) scale(1.022);
+}
+
+.producto img {
+  width: 100%;
+  height: 168px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 7px;
+  transition: transform 0.18s;
+}
+.producto img:hover { transform: scale(1.06) rotate(-2deg); }
+
+.producto h3 {
+  margin: 9px 0 6px;
+  font-size: 1.12em;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+}
+
+.producto p {
+  color: #444;
+  font-size: 0.98em;
+  margin: 7px 0 0;
+}
+
+.producto .precio {
+  font-weight: bold;
+  color: #232323;
+  margin: 10px 0 7px;
+  font-size: 1.04em;
+}
+
+.ver-detalle-btn, .agregar-btn {
+  padding: 6px 12px;
+  border-radius: 5px;
+  border: none;
+  font-size: 0.98em;
+  cursor: pointer;
+  margin: 4px 2px 0 2px;
+  transition: background 0.2s, transform 0.2s;
+}
+.ver-detalle-btn {
+  background: #232323;
+  color: #fff;
+  text-decoration: none;
+  display: inline-block;
+}
+.ver-detalle-btn:hover { background: #444; transform: scale(1.07);}
+.agregar-btn {
+  background: #1976d2;
+  color: #fff;
+}
+.agregar-btn:hover { background: #115293; transform: scale(1.08) rotate(-3deg); }
+
+/* PRODUCTO DETALLE */
 .producto-detalle {
-  max-width: 600px;
-  margin: 40px auto;
-  padding: 20px;
-  background: #2C2C2C;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  max-width: 500px;
+  margin: 32px auto;
+  background: #fff;
+  padding: 16px 16px 22px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
   text-align: center;
+  animation: fadeInUp 0.7s cubic-bezier(.45,.09,.47,1.02);
+  font-size: 1em;
 }
-
 .producto-detalle img {
   width: 100%;
-  max-height: 400px;
+  max-height: 320px;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 8px;
+  transition: transform 0.19s;
+  margin-bottom: 8px;
 }
-
-.producto-detalle h1 {
-  color: #D4AF37;
-  margin: 20px 0 10px;
+.producto-detalle img:hover { transform: scale(1.04) rotate(-1deg);}
+.producto-detalle h2 {
+  margin: 16px 0 7px;
+  font-size: 1.15em;
 }
-
 .producto-detalle p {
-  font-size: 18px;
-  margin: 5px 0;
+  font-size: 1.03em;
+  color: #333;
+  margin: 9px 0;
 }
-
-a.volver {
-  display: inline-block;
-  margin-top: 20px;
-  color: #D4AF37;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-a.volver:hover {
-  text-decoration: underline;
-}
-#carrito {
-  position: absolute;
-  top: 50px;
-  right: 20px;
-  background: white;
-  border: 1px solid #ccc;
-  padding: 10px;
-  width: 200px;
-  display: none;
-  z-index: 999;
-}
-
-#carrito.mostrar {
-  display: block;
-}
-
-#carrito-icono {
-  position: absolute;
-  top: 10px;
-  right: 20px;
+#agregarAlCarrito {
+  margin-top: 18px;
+  padding: 9px 20px;
+  background: #232323;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
   cursor: pointer;
-  font-size: 24px;
+  transition: background 0.18s, transform 0.18s;
+  animation: pop 0.5s;
 }
+#agregarAlCarrito:hover { background: #444; transform: scale(1.08) rotate(-3deg);}
+.volver-btn {
+  display: inline-block;
+  margin-top: 22px;
+  padding: 8px 16px;
+  background-color: #232323;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.2s, transform 0.2s;
+  font-size: 0.95em;
+}
+.volver-btn:hover { background-color: #444; transform: scale(1.08); }
+
+/* Textos y títulos */
+h1, h2, h3, h4 {
+  color: #232323;
+  letter-spacing: 0.02em;
+}
+
+h1 {
+  font-size: 1.5em;
+  margin: 35px 0 10px;
+  font-weight: 700;
+  text-align: center;
+}
+
+@media (max-width: 700px) {
+  .catalogo { gap: 11px;}
+  .producto { width: 93vw; max-width: 310px;}
+  .producto-detalle { max-width: 97vw; }
+}
+
+@media (max-width: 480px) {
+  header img { height: 30px; }
+  .producto img { height: 112px;}
+  .catalogo { padding: 12px 2px 40px;}
+  h1 { font-size: 1.08em;}
+}
+
+/* Scroll suave */
+html { scroll-behavior: smooth; }
