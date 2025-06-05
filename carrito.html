@@ -254,11 +254,44 @@
           const idx = e.target.dataset.index;
           carrito.splice(idx, 1);
           localStorage.setItem('carrito', JSON.stringify(carrito));
-          mostrarCarrito();
-        });
-      });
-    }
-    mostrarCarrito();
+          function mostrarCarrito() {
+  carritoContainer.innerHTML = '';
+
+  if (carrito.length === 0) {
+    carritoContainer.innerHTML = '<p class="vacio">Tu carrito está vacío.</p>';
+    document.getElementById("carritoTotal").textContent = ""; // Limpia el total
+    return;
+  }
+
+  let total = 0;
+  carrito.forEach((producto, index) => {
+    total += producto.precio * (producto.cantidad || 1);
+    const prodDiv = document.createElement('div');
+    prodDiv.classList.add('producto');
+    prodDiv.innerHTML = `
+      <img src="${producto.imagen ? producto.imagen : 'https://cdn-icons-png.flaticon.com/512/479/479295.png'}" alt="${producto.nombre}" styleobject-fit:cover;border-radius:5px;margin-right:12px;">
+      <div class="producto-info">
+        <span class="producto-nombre">${producto.nombre}</span>
+        <span class="producto-cantidad">Cantidad: ${producto.cantidad}</span>
+        <span style="margin-left:10px; color:#888;">$${producto.precio>
+      </div>
+      <button class="eliminar" aria-label="Eliminar ${producto.nombre}" data-index="${index}">Eliminar</button>
+    `;
+    carritoContainer.appendChild(prodDiv);
+  });
+
+  document.getElementById("carritoTotal").textContent = "Total: $" + total;
+
+  // Agregar event listeners a botones eliminar
+  document.querySelectorAll('button.eliminar').forEach(btn => {
+    btn.addEventListener('click', e => {
+      const idx = e.target.dataset.index;
+      carrito.splice(idx, 1);
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      mostrarCarrito();
+    });
+  });
+}
 
     // Enviar pedido por WhatsApp
     document.getElementById('enviarPedido').addEventListener('click', () => {
