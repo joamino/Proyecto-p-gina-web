@@ -98,7 +98,7 @@ const imagen = producto.querySelector("img").src;  // <--- AGREGA esta línea
     if (existente) {
       existente.cantidad = (existente.cantidad || 1) + 1;
     } else {
-      carrito.push({ id, nombre, precio, cantidad: 1 });
+      carrito.push({ id, nombre, precio, cantidad: 1, imagen });
     }
 
     // Guardar carrito actualizado en localStorage
