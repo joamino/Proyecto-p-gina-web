@@ -84,3 +84,16 @@ document.addEventListener('DOMContentLoaded', function () {
     window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${mensajeCodificado}`, '_blank');
   });
 });
+// Abre WhatsApp
+window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${mensajeCodificado}`, '_blank');
+
+// Vacía el carrito
+carrito = [];
+localStorage.setItem('carrito', JSON.stringify(carrito));
+mostrarCarrito();
+
+// Limpia el formulario
+document.getElementById('datosForm').reset();
+
+// Muestra mensaje de confirmación
+alert('¡Pedido enviado exitosamente! Te contactaremos por WhatsApp.');
