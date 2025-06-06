@@ -16,10 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let total = 0;
 
     carrito.forEach((producto, index) => {
-      const prodDiv = document.createElement('div');
-      prodDiv.classList.add('producto');
-
-      const imagen = producto.imagen ? producto.imagen : 'https://cdn-icons-png.flaticon.com/512/479/479295.png';
+      const prodDiv = document.createElement-icons-png.flaticon.com/512/479/479295.png';
 
       prodDiv.innerHTML = `
         <div style="display: flex; align-items: center;" class="producto-info">
@@ -64,9 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const ciudad = document.getElementById('ciudad').value.trim();
 
     if (!nombre || !apellido || !domicilio || !provincia || !ciudad) {
-      alert('Por favor, completa todos los datos personales antes de enviar el pedido.');
-      return;
-    }
+      alert('Por favor, completa todos los datos personales }
 
     let mensaje = '🛒 *Pedido:*\n\n';
     carrito.forEach((producto, i) => {
@@ -78,22 +73,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const mensajeCodificado = encodeURIComponent(mensaje);
 
-    // ⚠️ Cambia este número por tu número de WhatsApp real (ejemplo: 5491122223333)
-    const NUMERO_WHATSAPP = "TUNUMEROAQUI";
-
+    // ⚠️ Cambia este número por tu número de Whats Abre WhatsApp
     window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${mensajeCodificado}`, '_blank');
+
+    // Vacía el carrito
+    carrito = [];
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    mostrarCarrito();
+
+    // Limpia el formulario
+    document.getElementById('datosForm').reset();
+
+    // Muestra mensaje de confirmación
+    alert('¡Pedido enviado exitosamente! Te contactaremos por WhatsApp.');
   });
 });
-// Abre WhatsApp
-window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${mensajeCodificado}`, '_blank');
-
-// Vacía el carrito
-carrito = [];
-localStorage.setItem('carrito', JSON.stringify(carrito));
-mostrarCarrito();
-
-// Limpia el formulario
-document.getElementById('datosForm').reset();
-
-// Muestra mensaje de confirmación
-alert('¡Pedido enviado exitosamente! Te contactaremos por WhatsApp.');
