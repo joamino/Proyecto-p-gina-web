@@ -185,6 +185,42 @@ header img {
   to   { opacity: 1; transform: translateY(0);}
 }
 
+.productos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px; /* espacio entre los productos */
+  padding: 10px;
+}
+
+.producto-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: none; /* sin fondo ni borde */
+}
+
+.producto-card img {
+  width: 100%;
+  max-width: 200px; /* ajusta el tamaño */
+  border-radius: 8px; /* opcional, para bordes suaves */
+}
+
+.producto-card h3 {
+  font-size: 16px;
+  margin: 5px 0 2px;
+}
+
+.producto-card p {
+  font-size: 14px;
+  margin: 2px 0 5px;
+}
+
+.producto-card button {
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
 .producto {
   background: #fff;
   border-radius: 8px;
