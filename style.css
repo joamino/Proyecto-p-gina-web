@@ -435,3 +435,10 @@ button,
 .popup.show {
   opacity: 1;
 }
+@media (max-width: 600px) {
+  .productos-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 6px;
+  }
+}
