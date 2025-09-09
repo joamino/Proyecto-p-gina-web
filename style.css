@@ -192,6 +192,18 @@ header img {
   padding: 10px;
 }
 
+.producto-card:link,
+.producto-card:visited {
+  text-decoration: none;
+  color: inherit;
+}
+
+.producto-card:hover,
+.producto-card:active {
+  text-decoration: none;
+  color: inherit;
+}
+
 .producto-card {
   display: flex;
   flex-direction: column;
