@@ -204,15 +204,16 @@ header img {
   color: inherit;
 }
 
-.producto-card {
+producto-card {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* alineación arriba */
-  align-items: center;
+  justify-content: flex-start; /* El contenido arranca arriba */
+  align-items: center; /* Centra horizontalmente */
   text-align: center;
   background: none;
-  height: 100%; /* ¡OBLIGA QUE LA CARD OCUPA TODO! */
+  height: 100%;           /* Ocupa todo el alto de la celda */
   box-sizing: border-box;
+}
 
 .producto-card img {
   width: 100%;
