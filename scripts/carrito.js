@@ -1,17 +1,17 @@
-document.addEventListener('DOMContentLoaded', () => {
+// carrito.js
+document.addEventListener('DOMContentLoaded', function () {
   let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-
   const carritoContainer = document.getElementById('carritoContainer');
   const carritoTotal = document.getElementById('carritoTotal');
   const enviarBtn = document.getElementById('enviarPedido');
 
-  // Función para mostrar carrito
+  // Función para mostrar el carrito
   function mostrarCarrito() {
     carritoContainer.innerHTML = '';
 
-    if(carrito.length === 0){
+    if (carrito.length === 0) {
       carritoContainer.innerHTML = '<p class="vacio">Tu carrito está vacío.</p>';
-      carritoTotal.textContent = "";
+      carritoTotal.textContent = '';
       return;
     }
 
@@ -20,68 +20,69 @@ document.addEventListener('DOMContentLoaded', () => {
     carrito.forEach((producto, index) => {
       const prodDiv = document.createElement('div');
       prodDiv.classList.add('producto');
+
       const imagen = producto.imagen || 'ruta_por_defecto.png';
 
       prodDiv.innerHTML = `
-        <div class="producto-info" style="display:flex;align-items:center;">
+        <div style="display: flex; align-items: center;" class="producto-info">
           <img src="${imagen}" alt="${producto.nombre}" />
           <span class="producto-nombre">${producto.nombre}</span>
-          <span class="producto-cantidad">Cantidad: ${producto.cantidad}</span>
-          <span style="margin-left:10px;color:#888;">$${producto.precio}</span>
+          <span class="producto-cantidad">Cantidad: ${producto.cantidad || 1}</span>
+          <span style="margin-left: 10px; color: #888;">$${producto.precio}</span>
         </div>
-        <button class="eliminar" data-index="${index}">Eliminar</button>
+        <button class="eliminar" aria-label="Eliminar ${producto.nombre}" data-index="${index}">Eliminar</button>
       `;
+
       carritoContainer.appendChild(prodDiv);
 
-      total += producto.precio * producto.cantidad;
+      total += (producto.precio || 0) * (producto.cantidad || 1);
     });
 
     carritoTotal.textContent = "Total: $" + total.toFixed(2);
 
-    // Botones eliminar
+    // Event listeners para eliminar
     document.querySelectorAll('button.eliminar').forEach(btn => {
       btn.addEventListener('click', e => {
         const idx = e.target.dataset.index;
-        carrito.splice(idx,1);
+        carrito.splice(idx, 1);
         localStorage.setItem('carrito', JSON.stringify(carrito));
         mostrarCarrito();
       });
     });
   }
 
-  mostrarCarrito();
+  // Función para agregar al carrito
+  function agregarAlCarrito(productoCard) {
+    const producto = {
+      id: productoCard.dataset.id,
+      nombre: productoCard.dataset.nombre,
+      precio: parseFloat(productoCard.dataset.precio),
+      imagen: productoCard.querySelector('img').src
+    };
 
-  // Agregar productos al carrito automáticamente
-  document.querySelectorAll('.producto-card button').forEach(btn => {
-    btn.addEventListener('click', e => {
-      e.stopPropagation();  // evita que el <a> se abra
-      e.preventDefault();
+    const index = carrito.findIndex(p => p.id == producto.id);
+    if (index !== -1) {
+      carrito[index].cantidad += 1;
+    } else {
+      carrito.push({ ...producto, cantidad: 1 });
+    }
 
-      const card = btn.closest('.producto-card');
-      const producto = {
-        id: card.dataset.id,
-        nombre: card.dataset.nombre,
-        precio: parseFloat(card.dataset.precio),
-        imagen: card.querySelector('img').src,
-        cantidad: 1
-      };
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    mostrarCarrito();
+  }
 
-      const index = carrito.findIndex(p => p.id === producto.id);
-      if(index !== -1){
-        carrito[index].cantidad += 1;
-      } else {
-        carrito.push(producto);
-      }
-
-      localStorage.setItem('carrito', JSON.stringify(carrito));
-      mostrarCarrito();
-      alert(`Agregaste ${producto.nombre} al carrito!`);
+  // Detectar todos los botones y asignar listener
+  document.querySelectorAll('.btn-agregar').forEach(btn => {
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation(); // Evita que el clic vaya al <a>
+      const productoCard = btn.closest('.producto-card');
+      agregarAlCarrito(productoCard);
     });
   });
 
   // Enviar pedido por WhatsApp
-  enviarBtn.addEventListener('click', () => {
-    if(carrito.length === 0){
+  enviarBtn.addEventListener('click', function () {
+    if (carrito.length === 0) {
       alert('El carrito está vacío. Agrega productos antes de enviar el pedido.');
       return;
     }
@@ -92,26 +93,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const provincia = document.getElementById('provincia').value.trim();
     const ciudad = document.getElementById('ciudad').value.trim();
 
-    if(!nombre || !apellido || !domicilio || !provincia || !ciudad){
-      alert('Por favor completa todos los datos personales.');
+    if (!nombre || !apellido || !domicilio || !provincia || !ciudad) {
+      alert('Por favor, completa todos los datos personales');
       return;
     }
 
     let mensaje = '🛒 *Pedido:*\n\n';
-    carrito.forEach((producto,i)=>{
-      mensaje += `${i+1}. ${producto.nombre} - Cantidad: ${producto.cantidad}\n`;
+    carrito.forEach((producto, i) => {
+      mensaje += `${i + 1}. ${producto.nombre} - Cantidad: ${producto.cantidad || 1}\n`;
     });
+
     mensaje += `\n📍 *Datos del cliente:*\n`;
     mensaje += `Nombre: ${nombre} ${apellido}\nDomicilio: ${domicilio}\nProvincia: ${provincia}\nCiudad: ${ciudad}\n`;
 
     const mensajeCodificado = encodeURIComponent(mensaje);
+
+    // Usar la variable de configuración que tienes
     window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${mensajeCodificado}`, '_blank');
 
-    // Vaciar carrito
     carrito = [];
     localStorage.setItem('carrito', JSON.stringify(carrito));
     mostrarCarrito();
     document.getElementById('datosForm').reset();
     alert('¡Pedido enviado exitosamente! Te contactaremos por WhatsApp.');
   });
+
+  mostrarCarrito();
 });
