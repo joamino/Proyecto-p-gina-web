@@ -4,6 +4,27 @@ document.addEventListener('DOMContentLoaded', function () {
   const carritoTotal = document.getElementById('carritoTotal');
   const enviarBtn = document.getElementById('enviarPedido');
 
+function agregarAlCarrito(btn) {
+  const productoCard = btn.closest('.producto-card');
+
+  const producto = {
+    id: productoCard.dataset.id,
+    nombre: productoCard.dataset.nombre,
+    precio: parseFloat(productoCard.dataset.precio),
+    imagen: productoCard.querySelector('img').src
+  };
+
+  const index = carrito.findIndex(p => p.id == producto.id);
+  if (index !== -1) {
+    carrito[index].cantidad += 1;
+  } else {
+    carrito.push({ ...producto, cantidad: 1 });
+  }
+
+  localStorage.setItem('carrito', JSON.stringify(carrito));
+  mostrarCarrito();
+}
+
   function mostrarCarrito() {
     carritoContainer.innerHTML = '';
 
