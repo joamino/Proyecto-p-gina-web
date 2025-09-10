@@ -209,10 +209,12 @@ header img {
 .producto-card {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start; /* alineación arriba */
+  align-items: center;
   text-align: center;
-  background: none; /* sin fondo ni borde */
-height: 100%; 
-}
+  background: none;
+  height: 100%; /* ¡OBLIGA QUE LA CARD OCUPA TODO! */
+  box-sizing: border-box;
 
 .producto-card img {
   width: 100%;
