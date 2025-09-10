@@ -190,10 +190,8 @@ header img {
   grid-template-columns: repeat(3, 1fr);
   gap: 15px;
   padding: 10px;
-  align-items: stretch; /* ¡ESTE ES EL SECRETO! */
-  text-align: center;
+  align-items: stretch; /* Fuerza igual altura en la fila */
 }
-
 .producto-card:link,
 .producto-card:visited {
   text-decoration: none;
