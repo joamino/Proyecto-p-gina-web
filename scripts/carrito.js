@@ -1,6 +1,3 @@
-// Asegúrate de definir tu número de WhatsApp antes del script
-const NUMERO_WHATSAPP = '5491123456789'; // Cambia por tu número real
-
 document.addEventListener('DOMContentLoaded', function () {
   let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
   const carritoContainer = document.getElementById('carritoContainer');
@@ -10,9 +7,10 @@ document.addEventListener('DOMContentLoaded', function () {
   // Función para mostrar el carrito
   function mostrarCarrito() {
     carritoContainer.innerHTML = '';
+
     if (carrito.length === 0) {
       carritoContainer.innerHTML = '<p class="vacio">Tu carrito está vacío.</p>';
-      carritoTotal.textContent = '';
+      carritoTotal.textContent = "";
       return;
     }
 
@@ -22,23 +20,26 @@ document.addEventListener('DOMContentLoaded', function () {
       const prodDiv = document.createElement('div');
       prodDiv.classList.add('producto');
 
+      const imagen = producto.imagen || 'ruta_por_defecto.png';
+
       prodDiv.innerHTML = `
-        <div class="producto-info" style="display:flex; align-items:center;">
-          <img src="${producto.imagen}" alt="${producto.nombre}" />
-          <span class="producto-nombre" style="margin-left:10px;">${producto.nombre}</span>
-          <span class="producto-cantidad" style="margin-left:10px;">Cantidad: ${producto.cantidad}</span>
-          <span style="margin-left:10px; color:#888;">$${producto.precio}</span>
+        <div style="display: flex; align-items: center;" class="producto-info">
+          <img src="${imagen}" alt="${producto.nombre}" />
+          <span class="producto-nombre">${producto.nombre}</span>
+          <span class="producto-cantidad">Cantidad: ${producto.cantidad || 1}</span>
+          <span style="margin-left: 10px; color: #888;">$${producto.precio}</span>
         </div>
-        <button class="eliminar" data-index="${index}">Eliminar</button>
+        <button class="eliminar" aria-label="Eliminar ${producto.nombre}" data-index="${index}">Eliminar</button>
       `;
 
       carritoContainer.appendChild(prodDiv);
-      total += producto.precio * producto.cantidad;
+
+      total += (producto.precio || 0) * (producto.cantidad || 1);
     });
 
-    carritoTotal.textContent = 'Total: $' + total.toFixed(2);
+    carritoTotal.textContent = "Total: $" + total.toFixed(2);
 
-    // Event listeners para eliminar productos
+    // Event listeners para eliminar
     document.querySelectorAll('button.eliminar').forEach(btn => {
       btn.addEventListener('click', e => {
         const idx = e.target.dataset.index;
@@ -51,10 +52,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   mostrarCarrito();
 
-  // Botones de agregar al carrito
+  // Agregar productos al carrito
   document.querySelectorAll('.producto-card button').forEach(btn => {
     btn.addEventListener('click', e => {
-      e.preventDefault(); // Evita que <a> navegue al hacer click en el botón
+      e.stopPropagation(); // Detiene que el click suba al <a>
+      e.preventDefault();  // Previene la navegación
+
       const card = btn.closest('.producto-card');
       const producto = {
         id: card.dataset.id,
@@ -96,21 +99,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let mensaje = '🛒 *Pedido:*\n\n';
     carrito.forEach((producto, i) => {
-      mensaje += `${i + 1}. ${producto.nombre} - Cantidad: ${producto.cantidad}\n`;
+      mensaje += `${i + 1}. ${producto.nombre} - Cantidad: ${producto.cantidad || 1}\n`;
     });
 
     mensaje += `\n📍 *Datos del cliente:*\n`;
     mensaje += `Nombre: ${nombre} ${apellido}\nDomicilio: ${domicilio}\nProvincia: ${provincia}\nCiudad: ${ciudad}\n`;
 
     const mensajeCodificado = encodeURIComponent(mensaje);
+
+    // Abre WhatsApp con tu número protegido
     window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${mensajeCodificado}`, '_blank');
 
-    // Vaciar carrito y actualizar
+    // Vacía el carrito y limpia el formulario
     carrito = [];
     localStorage.setItem('carrito', JSON.stringify(carrito));
     mostrarCarrito();
-
-    // Limpiar formulario
     document.getElementById('datosForm').reset();
 
     alert('¡Pedido enviado exitosamente! Te contactaremos por WhatsApp.');
