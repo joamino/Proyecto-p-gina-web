@@ -219,7 +219,7 @@ producto-card {
   width: 100%;
   aspect-ratio: 3/4; /* o el que estés usando */
   object-fit: cover;
-  object-position: center 90%; /* ¡Esto baja el foco aún más! */
+  object-position: center 98%; /* ¡Esto baja el foco aún más! */
   display: block;
   max-width: none;
   height: auto;
