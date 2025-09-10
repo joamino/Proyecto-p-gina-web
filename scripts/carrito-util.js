@@ -10,7 +10,8 @@ function actualizarContadorCarrito() {
 }
 
 function agregarAlCarrito(button) {
-  const producto = button.closest(".producto");
+  // 🔥 OJO: ahora busca el contenedor correcto
+  const producto = button.closest(".producto-card");
   const id = producto.dataset.id;
   const nombre = producto.dataset.nombre;
   const precio = parseFloat(producto.dataset.precio);
