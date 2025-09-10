@@ -217,11 +217,12 @@ producto-card {
 
 .producto-card img {
   width: 100%;
-  aspect-ratio: 1/1;      /* Imagen cuadrada, puedes usar 4/5 o 3/4 si prefieres rectangular */
+  aspect-ratio: 3/4;        /* Ajusta a tu gusto: 3/4 o 2/3 */
   object-fit: cover;
+  object-position: center bottom; /* Muestra más la base del perfume */
   display: block;
   max-width: none;
-  height: auto;           /* Esto es clave */
+  height: auto;
 }
 
 .producto-card h3 {
