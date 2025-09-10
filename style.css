@@ -235,21 +235,11 @@ header img {
 }
 
 /* Ajustes extra para pantallas muy pequeñas */
-@media (max-width: 480px) {
-  .productos-grid {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 10px;
-  }
-
-  .producto-card img {
-    max-width: 120px;
-  }
-
-  .producto-card h3, 
-  .producto-card p, 
-  .producto-card button {
-    font-size: 12px;
-  }
+@.productos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Siempre 3 columnas */
+  gap: 15px;
+  padding: 10px;
 }
 
 .ver-detalle-btn, .agregar-btn {
