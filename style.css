@@ -217,8 +217,10 @@ producto-card {
 
 .producto-card img {
   width: 100%;
-  max-width: 150px; /* más pequeño para móviles */
-  border-radius: 8px; /* opcional */
+  height: 180px; /* Puedes ajustar este valor */
+  object-fit: cover; /* Hace que la imagen se recorte y llene el espacio */
+  max-width: none; /* Por si tienes un max-width anterior */
+  display: block;
 }
 
 .producto-card h3 {
