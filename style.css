@@ -29,8 +29,8 @@ header {
   background: #181818;   /* negro oscuro */
   color: #f8f3e3;        /* mismo color claro de tus botones */
   border: none;
-  border-radius: 8px;
-  font-size: 2rem;       /* ajusta el tamaño si lo ves muy chico o grande */
+  border-radius: 4px;
+  font-size: 1rem;       /* ajusta el tamaño si lo ves muy chico o grande */
   padding: 4px 8px;
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
