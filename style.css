@@ -217,10 +217,11 @@ producto-card {
 
 .producto-card img {
   width: 100%;
-  height: 180px; /* Puedes ajustar este valor */
-  object-fit: cover; /* Hace que la imagen se recorte y llene el espacio */
-  max-width: none; /* Por si tienes un max-width anterior */
+  aspect-ratio: 1/1;      /* Imagen cuadrada, puedes usar 4/5 o 3/4 si prefieres rectangular */
+  object-fit: cover;
   display: block;
+  max-width: none;
+  height: auto;           /* Esto es clave */
 }
 
 .producto-card h3 {
