@@ -1,10 +1,42 @@
 document.addEventListener('DOMContentLoaded', function () {
+  // Obtenemos el carrito del localStorage
   let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
   const carritoContainer = document.getElementById('carritoContainer');
   const carritoTotal = document.getElementById('carritoTotal');
   const enviarBtn = document.getElementById('enviarPedido');
 
-  // Función para mostrar el carrito
+  // Función para agregar producto
+  function agregarProducto(card) {
+    const producto = {
+      id: card.dataset.id,
+      nombre: card.dataset.nombre,
+      precio: parseFloat(card.dataset.precio),
+      imagen: card.querySelector('img').src
+    };
+
+    const index = carrito.findIndex(p => p.id == producto.id);
+    if (index !== -1) {
+      carrito[index].cantidad += 1;
+    } else {
+      carrito.push({ ...producto, cantidad: 1 });
+    }
+
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    mostrarCarrito();
+  }
+
+  // Capturamos todos los botones de agregar al carrito
+  document.querySelectorAll('.producto-card button').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();  // Evita que el <a> navegue
+      e.stopPropagation(); // Evita propagación
+
+      const card = btn.closest('.producto-card');
+      agregarProducto(card);
+    });
+  });
+
+  // Función para mostrar carrito
   function mostrarCarrito() {
     carritoContainer.innerHTML = '';
 
@@ -26,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
         <div style="display: flex; align-items: center;" class="producto-info">
           <img src="${imagen}" alt="${producto.nombre}" />
           <span class="producto-nombre">${producto.nombre}</span>
-          <span class="producto-cantidad">Cantidad: ${producto.cantidad || 1}</span>
+          <span class="producto-cantidad">Cantidad: ${producto.cantidad}</span>
           <span style="margin-left: 10px; color: #888;">$${producto.precio}</span>
         </div>
         <button class="eliminar" aria-label="Eliminar ${producto.nombre}" data-index="${index}">Eliminar</button>
@@ -34,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       carritoContainer.appendChild(prodDiv);
 
-      total += (producto.precio || 0) * (producto.cantidad || 1);
+      total += producto.precio * producto.cantidad;
     });
 
     carritoTotal.textContent = "Total: $" + total.toFixed(2);
@@ -51,33 +83,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   mostrarCarrito();
-
-  // Agregar productos al carrito
-  document.querySelectorAll('.producto-card button').forEach(btn => {
-    btn.addEventListener('click', e => {
-      e.stopPropagation(); // Detiene que el click suba al <a>
-      e.preventDefault();  // Previene la navegación
-
-      const card = btn.closest('.producto-card');
-      const producto = {
-        id: card.dataset.id,
-        nombre: card.dataset.nombre,
-        precio: parseFloat(card.dataset.precio),
-        imagen: card.querySelector('img').src,
-        cantidad: 1
-      };
-
-      const index = carrito.findIndex(p => p.id == producto.id);
-      if (index !== -1) {
-        carrito[index].cantidad += 1;
-      } else {
-        carrito.push(producto);
-      }
-
-      localStorage.setItem('carrito', JSON.stringify(carrito));
-      mostrarCarrito();
-    });
-  });
 
   // Enviar pedido por WhatsApp
   enviarBtn.addEventListener('click', function () {
@@ -99,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let mensaje = '🛒 *Pedido:*\n\n';
     carrito.forEach((producto, i) => {
-      mensaje += `${i + 1}. ${producto.nombre} - Cantidad: ${producto.cantidad || 1}\n`;
+      mensaje += `${i + 1}. ${producto.nombre} - Cantidad: ${producto.cantidad}\n`;
     });
 
     mensaje += `\n📍 *Datos del cliente:*\n`;
@@ -107,13 +112,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const mensajeCodificado = encodeURIComponent(mensaje);
 
-    // Abre WhatsApp con tu número protegido
+    // Abrir WhatsApp con el número de config.js
     window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${mensajeCodificado}`, '_blank');
 
-    // Vacía el carrito y limpia el formulario
+    // Vaciar carrito
     carrito = [];
     localStorage.setItem('carrito', JSON.stringify(carrito));
     mostrarCarrito();
+
+    // Limpiar formulario
     document.getElementById('datosForm').reset();
 
     alert('¡Pedido enviado exitosamente! Te contactaremos por WhatsApp.');
