@@ -217,19 +217,13 @@ producto-card {
 
 .producto-card img {
   width: 100%;
-  aspect-ratio: 3/4; /* o el que estés usando */
+  aspect-ratio: 3/4;
   object-fit: cover;
-  object-position: center 98%; /* ¡Esto baja el foco aún más! */
+  object-position: center 100%;
   display: block;
   max-width: none;
   height: auto;
 }
-.producto-card h3 {
-  font-size: 14px;
-  margin: 5px 0 2px;
-}
-
-.producto-card p {
   font-size: 13px;
   margin: 2px 0 5px;
 }
