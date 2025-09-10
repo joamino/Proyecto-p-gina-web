@@ -187,8 +187,8 @@ header img {
 
 .productos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 15px; /* espacio entre productos */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
   padding: 10px;
 }
 
@@ -412,11 +412,4 @@ button,
 }
 .popup.show {
   opacity: 1;
-}
-@media (max-width: 600px) {
-  .productos-grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-    padding: 6px;
-  }
 }
