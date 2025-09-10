@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const NUMERO_WHATSAPP = "5491123456789"; // tu número real
   let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
   const carritoContainer = document.getElementById('carritoContainer');
