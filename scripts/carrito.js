@@ -25,6 +25,13 @@ function agregarAlCarrito(btn) {
   mostrarCarrito();
 }
 
+document.querySelector('.productos-grid').addEventListener('click', function(e) {
+    if (e.target.tagName === 'BUTTON') {
+      const productoCard = e.target.closest('.producto-card');
+      agregarAlCarrito(productoCard);
+    }
+  });
+
   function mostrarCarrito() {
     carritoContainer.innerHTML = '';
 
