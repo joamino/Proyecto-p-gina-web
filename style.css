@@ -229,9 +229,23 @@ producto-card {
 }
 
 .producto-card button {
-  padding: 5px 10px;
-  font-size: 13px;
+  background-color: #181818;      /* Negro oscuro */
+  color: #f8f3e3;                 /* Letras color claro */
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+.producto-card button:hover,
+.producto-card button:focus {
+  background-color: #242424;      /* Un poco más claro al pasar el mouse */
+  transform: translateY(-2px) scale(1.03);
+  outline: none;
 }
 
 /* Ajustes extra para pantallas muy pequeñas */
