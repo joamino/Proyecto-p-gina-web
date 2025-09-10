@@ -16,7 +16,10 @@ document.addEventListener('DOMContentLoaded', function () {
     let total = 0;
 
     carrito.forEach((producto, index) => {
-      const prodDiv = document.createElement-icons-png.flaticon.com/512/479/479295.png';
+      const prodDiv = document.createElement('div');
+      prodDiv.classList.add('producto');
+
+      const imagen = producto.imagen || 'ruta_por_defecto.png';
 
       prodDiv.innerHTML = `
         <div style="display: flex; align-items: center;" class="producto-info">
@@ -61,7 +64,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const ciudad = document.getElementById('ciudad').value.trim();
 
     if (!nombre || !apellido || !domicilio || !provincia || !ciudad) {
-      alert('Por favor, completa todos los datos personales }
+      alert('Por favor, completa todos los datos personales');
+      return;
+    }
 
     let mensaje = '🛒 *Pedido:*\n\n';
     carrito.forEach((producto, i) => {
@@ -73,8 +78,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const mensajeCodificado = encodeURIComponent(mensaje);
 
-    // ⚠️ Cambia este número por tu número de Whats Abre WhatsApp
-    window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${mensajeCodificado}`, '_blank');
+    // Cambia por tu número real
+    window.open(`https://wa.me/5491123456789?text=${mensajeCodificado}`, '_blank');
 
     // Vacía el carrito
     carrito = [];
@@ -84,7 +89,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Limpia el formulario
     document.getElementById('datosForm').reset();
 
-    // Muestra mensaje de confirmación
     alert('¡Pedido enviado exitosamente! Te contactaremos por WhatsApp.');
   });
 });
