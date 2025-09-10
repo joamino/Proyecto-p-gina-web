@@ -28,6 +28,7 @@ header {
 #menuBtn, .menu-btn {
   background: #181818;   /* negro oscuro */
   color: #f8f3e3;        /* mismo color claro de tus botones */
+display: center;
   border: none;
   border-radius: 4px;
   font-size: 1rem;       /* ajusta el tamaño si lo ves muy chico o grande */
