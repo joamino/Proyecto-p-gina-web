@@ -31,7 +31,7 @@ header {
   border: none;
   border-radius: 8px;
   font-size: 2rem;       /* ajusta el tamaño si lo ves muy chico o grande */
-  padding: 8px 16px;
+  padding: 4px 8px;
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
 }
