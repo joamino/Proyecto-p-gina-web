@@ -1,45 +1,18 @@
+// Asegúrate de definir tu número de WhatsApp antes del script
+const NUMERO_WHATSAPP = '5491123456789'; // Cambia por tu número real
+
 document.addEventListener('DOMContentLoaded', function () {
   let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
   const carritoContainer = document.getElementById('carritoContainer');
   const carritoTotal = document.getElementById('carritoTotal');
   const enviarBtn = document.getElementById('enviarPedido');
 
-  function agregarAlCarrito(btn) {
-    const productoCard = btn.closest('.producto-card');
-
-    const producto = {
-      id: productoCard.dataset.id,
-      nombre: productoCard.dataset.nombre,
-      precio: parseFloat(productoCard.dataset.precio),
-      imagen: productoCard.querySelector('img').src
-    };
-
-    const index = carrito.findIndex(p => p.id == producto.id);
-    if (index !== -1) {
-      carrito[index].cantidad += 1;
-    } else {
-      carrito.push({ ...producto, cantidad: 1 });
-    }
-
-    localStorage.setItem('carrito', JSON.stringify(carrito));
-    mostrarCarrito();
-  }
-
-  // ← Event listener para todos los botones
-  document.querySelectorAll('.producto-card button').forEach(btn => {
-    btn.addEventListener('click', e => {
-      e.stopPropagation();  // evita que el click afecte al <a> padre
-      e.preventDefault();   // evita que el <a> navegue
-      agregarAlCarrito(btn);
-    });
-  });
-
+  // Función para mostrar el carrito
   function mostrarCarrito() {
     carritoContainer.innerHTML = '';
-
     if (carrito.length === 0) {
       carritoContainer.innerHTML = '<p class="vacio">Tu carrito está vacío.</p>';
-      carritoTotal.textContent = "";
+      carritoTotal.textContent = '';
       return;
     }
 
@@ -49,26 +22,23 @@ document.addEventListener('DOMContentLoaded', function () {
       const prodDiv = document.createElement('div');
       prodDiv.classList.add('producto');
 
-      const imagen = producto.imagen || 'ruta_por_defecto.png';
-
       prodDiv.innerHTML = `
-        <div style="display: flex; align-items: center;" class="producto-info">
-          <img src="${imagen}" alt="${producto.nombre}" />
-          <span class="producto-nombre">${producto.nombre}</span>
-          <span class="producto-cantidad">Cantidad: ${producto.cantidad || 1}</span>
-          <span style="margin-left: 10px; color: #888;">$${producto.precio}</span>
+        <div class="producto-info" style="display:flex; align-items:center;">
+          <img src="${producto.imagen}" alt="${producto.nombre}" />
+          <span class="producto-nombre" style="margin-left:10px;">${producto.nombre}</span>
+          <span class="producto-cantidad" style="margin-left:10px;">Cantidad: ${producto.cantidad}</span>
+          <span style="margin-left:10px; color:#888;">$${producto.precio}</span>
         </div>
-        <button class="eliminar" aria-label="Eliminar ${producto.nombre}" data-index="${index}">Eliminar</button>
+        <button class="eliminar" data-index="${index}">Eliminar</button>
       `;
 
       carritoContainer.appendChild(prodDiv);
-
-      total += (producto.precio || 0) * (producto.cantidad || 1);
+      total += producto.precio * producto.cantidad;
     });
 
-    carritoTotal.textContent = "Total: $" + total.toFixed(2);
+    carritoTotal.textContent = 'Total: $' + total.toFixed(2);
 
-    // Event listeners para eliminar
+    // Event listeners para eliminar productos
     document.querySelectorAll('button.eliminar').forEach(btn => {
       btn.addEventListener('click', e => {
         const idx = e.target.dataset.index;
@@ -81,6 +51,32 @@ document.addEventListener('DOMContentLoaded', function () {
 
   mostrarCarrito();
 
+  // Botones de agregar al carrito
+  document.querySelectorAll('.producto-card button').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault(); // Evita que <a> navegue al hacer click en el botón
+      const card = btn.closest('.producto-card');
+      const producto = {
+        id: card.dataset.id,
+        nombre: card.dataset.nombre,
+        precio: parseFloat(card.dataset.precio),
+        imagen: card.querySelector('img').src,
+        cantidad: 1
+      };
+
+      const index = carrito.findIndex(p => p.id == producto.id);
+      if (index !== -1) {
+        carrito[index].cantidad += 1;
+      } else {
+        carrito.push(producto);
+      }
+
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      mostrarCarrito();
+    });
+  });
+
+  // Enviar pedido por WhatsApp
   enviarBtn.addEventListener('click', function () {
     if (carrito.length === 0) {
       alert('El carrito está vacío. Agrega productos antes de enviar el pedido.');
@@ -100,23 +96,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let mensaje = '🛒 *Pedido:*\n\n';
     carrito.forEach((producto, i) => {
-      mensaje += `${i + 1}. ${producto.nombre} - Cantidad: ${producto.cantidad || 1}\n`;
+      mensaje += `${i + 1}. ${producto.nombre} - Cantidad: ${producto.cantidad}\n`;
     });
 
     mensaje += `\n📍 *Datos del cliente:*\n`;
     mensaje += `Nombre: ${nombre} ${apellido}\nDomicilio: ${domicilio}\nProvincia: ${provincia}\nCiudad: ${ciudad}\n`;
 
     const mensajeCodificado = encodeURIComponent(mensaje);
-
-    // ⚠️ Usá tu variable NUMERO_WHATSAPP
     window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${mensajeCodificado}`, '_blank');
 
-    // Vacía el carrito
+    // Vaciar carrito y actualizar
     carrito = [];
     localStorage.setItem('carrito', JSON.stringify(carrito));
     mostrarCarrito();
 
-    // Limpia el formulario
+    // Limpiar formulario
     document.getElementById('datosForm').reset();
 
     alert('¡Pedido enviado exitosamente! Te contactaremos por WhatsApp.');
