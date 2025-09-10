@@ -26,6 +26,13 @@ document.addEventListener('DOMContentLoaded', function () {
         mostrarCarrito();
     }
 
+document.querySelectorAll('.producto-card button').forEach(btn => {
+    btn.addEventListener('click', e => {
+        e.preventDefault(); // evita que el <a> navegue
+        agregarAlCarrito(btn);
+    });
+});
+
     // ===== Función para mostrar el carrito =====
     function mostrarCarrito() {
         carritoContainer.innerHTML = '';
