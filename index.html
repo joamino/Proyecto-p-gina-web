@@ -304,6 +304,10 @@ const imagen = producto.querySelector("img").src;  // <--- AGREGA esta línea
 
   // Inicializa contador al cargar la página
   document.addEventListener('DOMContentLoaded', actualizarContadorCarrito);
+// Vincular los botones "Agregar al carrito"
+document.querySelectorAll(".producto-card button").forEach(button => {
+  button.addEventListener("click", () => agregarAlCarrito(button));
+});
 </script>
 <script src="scripts/carrito-util.js"></script>
 <script src="scripts/sidebar.js"></script>
