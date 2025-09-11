@@ -221,14 +221,14 @@ header img {
   color: inherit;
 }
 
-producto-card {
+.producto-card {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* El contenido arranca arriba */
-  align-items: center; /* Centra horizontalmente */
+  justify-content: flex-start;
+  align-items: center;
   text-align: center;
   background: none;
-  height: 100%;           /* Ocupa todo el alto de la celda */
+  height: 100%;
   box-sizing: border-box;
 }
 
@@ -241,10 +241,19 @@ producto-card {
   max-width: none;
   height: auto;
 }
-  font-size: 13px;
-  margin: 2px 0 5px;
+
+/* ---- AÑADIR ESTO PARA LOS LINKS ---- */
+.producto-card a {
+  text-decoration: none;
+  color: inherit;
 }
 
+.producto-card a:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Resto de tu CSS */
 .producto-card button {
   display: flex;
   align-items: center;
