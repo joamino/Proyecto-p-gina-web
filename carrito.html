@@ -241,6 +241,7 @@
       mensaje += `Provincia: ${provincia}%0A`;
       mensaje += `Ciudad: ${ciudad}`;
 
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
       let url = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
       window.open(url, "_blank");
     });
