@@ -58,3 +58,33 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.addEventListener("click", () => agregarAlCarrito(btn));
   });
 });
+
+function generarMensajePedido(productos, datosEnvio) {
+  // productos: array de objetos { nombre, cantidad, precio }
+  // datosEnvio: objeto { nombre, domicilio, provincia, ciudad }
+
+  let mensaje = "¡Hola! Quiero realizar el siguiente pedido:\n\n";
+
+  mensaje += "🛒 Productos:\n";
+  let total = 0;
+  productos.forEach(p => {
+    mensaje += `• ${p.nombre} x${p.cantidad} - $${p.precio * p.cantidad}\n`;
+    total += p.precio * p.cantidad;
+  });
+
+  mensaje += `\n💰 Total: $${total}\n\n`;
+  mensaje += "📦 Datos de envío:\n";
+  mensaje += `Nombre: ${datosEnvio.nombre}\n`;
+  mensaje += `Domicilio: ${datosEnvio.domicilio}\n`;
+  mensaje += `Provincia: ${datosEnvio.provincia}\n`;
+  mensaje += `Ciudad: ${datosEnvio.ciudad}\n`;
+
+  return mensaje;
+}
+
+// Ejemplo de uso:
+const productos = [{ nombre: "Bacca – Leduft", cantidad: 1, precio: 40000 }];
+const datosEnvio = { nombre: "W S", domicilio: "S", provincia: "S", ciudad: "S" };
+
+const mensaje = generarMensajePedido(productos, datosEnvio);
+console.log(mensaje);
