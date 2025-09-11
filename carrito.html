@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://i.imgur.com https://cdn-icons-png.flaticon.com; script-src 'self'; style-src 'self' 'unsafe-inline';">
   <title>Carrito de Compras</title>
   <style>
@@ -36,13 +36,15 @@
     }
     .producto-info {
       flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
     .producto img {
-     width: 38px;
-     height: 38px;
-     object-fit: cover;
-     border-radius: 5px;
-     margin-right: 12px;
+      width: 38px;
+      height: 38px;
+      object-fit: cover;
+      border-radius: 5px;
     }
     .producto-nombre {
       font-weight: bold;
@@ -63,6 +65,12 @@
     }
     button.eliminar:hover {
       background: #c9302c;
+    }
+    .total {
+      text-align: right;
+      font-weight: bold;
+      font-size: 1.3em;
+      margin-top: 15px;
     }
     form {
       max-width: 700px;
@@ -109,84 +117,40 @@
       max-width: 700px;
       margin: 0 auto;
     }
-@media (max-width: 700px) {
-  .carrito, form, .vacio {
-    max-width: 100%;
-    margin: 10px;
-    padding: 10px;
-    box-sizing: border-box;
-  }
-  h1, h2 {
-    font-size: 1.5rem;
-  }
-  .producto {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 15px 5px;
-    gap: 8px;
-  }
-  .producto-info {
-    width: 100%;
-  }
-  button.eliminar, #enviarPedido {
-    width: 100%;
-    font-size: 1rem;
-    padding: 10px;
-  }
-  form input {
-    font-size: 1rem;
-    padding: 10px;
-  }
-}
+    @media (max-width: 700px) {
+      .carrito, form, .vacio {
+        max-width: 100%;
+        margin: 10px;
+        padding: 10px;
+        box-sizing: border-box;
+      }
+      h1, h2 {
+        font-size: 1.5rem;
+      }
+      .producto {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px 5px;
+        gap: 8px;
+      }
+      button.eliminar, #enviarPedido {
+        width: 100%;
+        font-size: 1rem;
+        padding: 10px;
+      }
+      form input {
+        font-size: 1rem;
+        padding: 10px;
+      }
+    }
   </style>
 </head>
 <body>
 
   <h1>Tu Carrito de Compras</h1>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const carritoContainer = document.querySelector(".carrito");
-  let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-
-  if (carrito.length === 0) {
-    carritoContainer.innerHTML = "<p class='vacio'>Tu carrito está vacío</p>";
-    return;
-  }
-
-  carrito.forEach((item, index) => {
-    const productoDiv = document.createElement("div");
-    productoDiv.classList.add("producto");
-
-    productoDiv.innerHTML = `
-      <div class="producto-info">
-        <img src="${item.imagen}" alt="${item.nombre}">
-        <span class="producto-nombre">${item.nombre}</span>
-        <span class="producto-cantidad">x${item.cantidad}</span>
-      </div>
-      <div class="producto-precio">$${item.precio * item.cantidad}</div>
-      <button class="eliminar" data-index="${index}">Eliminar</button>
-    `;
-
-    carritoContainer.appendChild(productoDiv);
-  });
-
-  // Botones de eliminar
-  document.querySelectorAll(".eliminar").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-      const idx = e.target.dataset.index;
-      carrito.splice(idx, 1); // elimina el producto
-      localStorage.setItem("carrito", JSON.stringify(carrito));
-      location.reload(); // recarga carrito.html para actualizar vista
-    });
-  });
-});
-</script>
- 
-<div id="carritoContainer" class="carrito">
-  <!-- Productos cargados aquí -->
-</div>
-<div id="carritoTotal" style="max-width:700px;margin:0 auto 30px auto;font-weight:bold;font-size:1.3em;text-align:right;"></div>
+  <div id="carritoContainer" class="carrito"></div>
+  <div id="carritoTotal" class="total"></div>
 
   <form id="datosForm">
     <h2>Datos personales para el envío</h2>
@@ -207,8 +171,84 @@ document.addEventListener("DOMContentLoaded", () => {
 
     <button type="button" id="enviarPedido">Enviar pedido por WhatsApp</button>
   </form>
-  <script src="scripts/config.js"></script>
-<script src="scripts/recomendaciones.js"></script>
-<script src="scripts/carrito-util.js"></script>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const carritoContainer = document.getElementById("carritoContainer");
+    const carritoTotal = document.getElementById("carritoTotal");
+    const btnEnviar = document.getElementById("enviarPedido");
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+    if (carrito.length === 0) {
+      carritoContainer.innerHTML = "<p class='vacio'>Tu carrito está vacío</p>";
+      carritoTotal.innerHTML = "";
+      return;
+    }
+
+    let total = 0;
+
+    carrito.forEach((item, index) => {
+      const productoDiv = document.createElement("div");
+      productoDiv.classList.add("producto");
+
+      productoDiv.innerHTML = `
+        <div class="producto-info">
+          <img src="${item.imagen}" alt="${item.nombre}">
+          <span class="producto-nombre">${item.nombre}</span>
+          <span class="producto-cantidad">x${item.cantidad}</span>
+        </div>
+        <div class="producto-precio">$${item.precio * item.cantidad}</div>
+        <button class="eliminar" data-index="${index}">Eliminar</button>
+      `;
+
+      carritoContainer.appendChild(productoDiv);
+      total += item.precio * item.cantidad;
+    });
+
+    carritoTotal.innerHTML = `Total: $${total}`;
+
+    // Botones de eliminar
+    document.querySelectorAll(".eliminar").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        const idx = e.target.dataset.index;
+        carrito.splice(idx, 1);
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+        location.reload();
+      });
+    });
+
+    // Botón enviar a WhatsApp
+    btnEnviar.addEventListener("click", () => {
+      const nombre = document.getElementById("nombre").value.trim();
+      const apellido = document.getElementById("apellido").value.trim();
+      const domicilio = document.getElementById("domicilio").value.trim();
+      const provincia = document.getElementById("provincia").value.trim();
+      const ciudad = document.getElementById("ciudad").value.trim();
+
+      if (!nombre || !apellido || !domicilio || !provincia || !ciudad) {
+        alert("Por favor completa todos los campos del formulario.");
+        return;
+      }
+
+      let mensaje = `¡Hola! Quiero hacer un pedido:%0A%0A`;
+      carrito.forEach(item => {
+        mensaje += `• ${item.nombre} x${item.cantidad} - $${item.precio * item.cantidad}%0A`;
+      });
+      mensaje += `%0ATotal: $${total}%0A%0A`;
+      mensaje += `Datos de envío:%0A`;
+      mensaje += `Nombre: ${nombre} ${apellido}%0A`;
+      mensaje += `Domicilio: ${domicilio}%0A`;
+      mensaje += `Provincia: ${provincia}%0A`;
+      mensaje += `Ciudad: ${ciudad}`;
+
+      // Número de WhatsApp (cámbialo por el tuyo con código de país, sin + ni 0 inicial)
+      const numeroWhatsApp = 
+
+      const url = `https://wa.me/${numeroWhatsApp}?text=${mensaje}`;
+      window.open(url, "_blank");
+    });
+  });
+  </script>
+
 </body>
 </html>
