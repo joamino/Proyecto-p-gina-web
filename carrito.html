@@ -7,142 +7,25 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://i.imgur.com https://cdn-icons-png.flaticon.com; script-src 'self'; style-src 'self' 'unsafe-inline';">
   <title>Carrito de Compras</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background: #f9f9f9;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .carrito {
-      max-width: 700px;
-      margin: 0 auto 30px auto;
-      background: white;
-      border-radius: 8px;
-      padding: 15px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    .producto {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #ddd;
-      padding: 10px 0;
-    }
-    .producto:last-child {
-      border-bottom: none;
-    }
-    .producto-info {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .producto img {
-      width: 38px;
-      height: 38px;
-      object-fit: cover;
-      border-radius: 5px;
-    }
-    .producto-nombre {
-      font-weight: bold;
-    }
-    .producto-cantidad {
-      margin-left: 10px;
-      font-size: 14px;
-      color: #555;
-    }
-    button.eliminar {
-      background: #d9534f;
-      border: none;
-      color: white;
-      padding: 6px 12px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    button.eliminar:hover {
-      background: #c9302c;
-    }
-    .total {
-      text-align: right;
-      font-weight: bold;
-      font-size: 1.3em;
-      margin-top: 15px;
-    }
-    form {
-      max-width: 700px;
-      margin: 0 auto 30px auto;
-      background: white;
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    form label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: bold;
-    }
-    form input {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 16px;
-    }
-    #enviarPedido {
-      display: block;
-      width: 100%;
-      padding: 12px;
-      background-color: #28a745;
-      color: white;
-      border: none;
-      font-size: 18px;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    #enviarPedido:hover {
-      background-color: #218838;
-    }
-    .vacio {
-      text-align: center;
-      color: #666;
-      font-style: italic;
-      padding: 40px 0;
-      background: white;
-      border-radius: 8px;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-    @media (max-width: 700px) {
-      .carrito, form, .vacio {
-        max-width: 100%;
-        margin: 10px;
-        padding: 10px;
-        box-sizing: border-box;
-      }
-      h1, h2 {
-        font-size: 1.5rem;
-      }
-      .producto {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 15px 5px;
-        gap: 8px;
-      }
-      button.eliminar, #enviarPedido {
-        width: 100%;
-        font-size: 1rem;
-        padding: 10px;
-      }
-      form input {
-        font-size: 1rem;
-        padding: 10px;
-      }
-    }
+    body { font-family: Arial, sans-serif; margin: 20px; background: #f9f9f9; }
+    h1 { text-align: center; margin-bottom: 20px; }
+    .carrito { max-width: 700px; margin: 0 auto 30px auto; background: white; border-radius: 8px; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .producto { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; padding: 10px 0; }
+    .producto:last-child { border-bottom: none; }
+    .producto-info { flex: 1; display: flex; align-items: center; gap: 10px; }
+    .producto img { width: 38px; height: 38px; object-fit: cover; border-radius: 5px; }
+    .producto-nombre { font-weight: bold; }
+    .producto-cantidad { margin-left: 10px; font-size: 14px; color: #555; }
+    button.eliminar { background: #d9534f; border: none; color: white; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 14px; }
+    button.eliminar:hover { background: #c9302c; }
+    .total { text-align: right; font-weight: bold; font-size: 1.3em; margin-top: 15px; }
+    form { max-width: 700px; margin: 0 auto 30px auto; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    form label { display: block; margin-bottom: 6px; font-weight: bold; }
+    form input { width: 100%; padding: 8px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; }
+    #enviarPedido { display: block; width: 100%; padding: 12px; background-color: #28a745; color: white; border: none; font-size: 18px; border-radius: 6px; cursor: pointer; }
+    #enviarPedido:hover { background-color: #218838; }
+    .vacio { text-align: center; color: #666; font-style: italic; padding: 40px 0; background: white; border-radius: 8px; max-width: 700px; margin: 0 auto; }
+    @media (max-width: 700px) { .carrito, form, .vacio { max-width: 100%; margin: 10px; padding: 10px; box-sizing: border-box; } h1, h2 { font-size: 1.5rem; } .producto { flex-direction: column; align-items: flex-start; padding: 15px 5px; gap: 8px; } button.eliminar, #enviarPedido { width: 100%; font-size: 1rem; padding: 10px; } form input { font-size: 1rem; padding: 10px; } }
   </style>
 </head>
 <body>
@@ -173,81 +56,79 @@
   </form>
 
   <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const carritoContainer = document.getElementById("carritoContainer");
-    const carritoTotal = document.getElementById("carritoTotal");
-    const btnEnviar = document.getElementById("enviarPedido");
-    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+    const NUMERO_WHATSAPP = "2901565241"; // tu número
 
-    if (carrito.length === 0) {
-      carritoContainer.innerHTML = "<p class='vacio'>Tu carrito está vacío</p>";
-      carritoTotal.innerHTML = "";
-      return;
-    }
+    document.addEventListener("DOMContentLoaded", () => {
+      const carritoContainer = document.getElementById("carritoContainer");
+      const carritoTotal = document.getElementById("carritoTotal");
+      const btnEnviar = document.getElementById("enviarPedido");
 
-    let total = 0;
+      let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-    carrito.forEach((item, index) => {
-      const productoDiv = document.createElement("div");
-      productoDiv.classList.add("producto");
-
-      productoDiv.innerHTML = `
-        <div class="producto-info">
-          <img src="${item.imagen}" alt="${item.nombre}">
-          <span class="producto-nombre">${item.nombre}</span>
-          <span class="producto-cantidad">x${item.cantidad}</span>
-        </div>
-        <div class="producto-precio">$${item.precio * item.cantidad}</div>
-        <button class="eliminar" data-index="${index}">Eliminar</button>
-      `;
-
-      carritoContainer.appendChild(productoDiv);
-      total += item.precio * item.cantidad;
-    });
-
-    carritoTotal.innerHTML = `Total: $${total}`;
-
-    // Botones de eliminar
-    document.querySelectorAll(".eliminar").forEach(btn => {
-      btn.addEventListener("click", (e) => {
-        const idx = e.target.dataset.index;
-        carrito.splice(idx, 1);
-        localStorage.setItem("carrito", JSON.stringify(carrito));
-        location.reload();
-      });
-    });
-
-    // Botón enviar a WhatsApp
-    btnEnviar.addEventListener("click", () => {
-      const nombre = document.getElementById("nombre").value.trim();
-      const apellido = document.getElementById("apellido").value.trim();
-      const domicilio = document.getElementById("domicilio").value.trim();
-      const provincia = document.getElementById("provincia").value.trim();
-      const ciudad = document.getElementById("ciudad").value.trim();
-
-      if (!nombre || !apellido || !domicilio || !provincia || !ciudad) {
-        alert("Por favor completa todos los campos del formulario.");
+      if (carrito.length === 0) {
+        carritoContainer.innerHTML = "<p class='vacio'>Tu carrito está vacío</p>";
+        carritoTotal.innerHTML = "";
         return;
       }
 
-      let mensaje = `¡Hola! Quiero hacer un pedido:%0A%0A`;
-      carrito.forEach(item => {
-        mensaje += `• ${item.nombre} x${item.cantidad} - $${item.precio * item.cantidad}%0A`;
-      });
-      mensaje += `%0ATotal: $${total}%0A%0A`;
-      mensaje += `Datos de envío:%0A`;
-      mensaje += `Nombre: ${nombre} ${apellido}%0A`;
-      mensaje += `Domicilio: ${domicilio}%0A`;
-      mensaje += `Provincia: ${provincia}%0A`;
-      mensaje += `Ciudad: ${ciudad}`;
+      let total = 0;
 
-let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-      let url = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
-      window.open(url, "_blank");
+      carrito.forEach((item, index) => {
+        const productoDiv = document.createElement("div");
+        productoDiv.classList.add("producto");
+        productoDiv.innerHTML = `
+          <div class="producto-info">
+            <img src="${item.imagen}" alt="${item.nombre}">
+            <span class="producto-nombre">${item.nombre}</span>
+            <span class="producto-cantidad">x${item.cantidad}</span>
+          </div>
+          <div class="producto-precio">$${item.precio * item.cantidad}</div>
+          <button class="eliminar" data-index="${index}">Eliminar</button>
+        `;
+        carritoContainer.appendChild(productoDiv);
+        total += item.precio * item.cantidad;
+      });
+
+      carritoTotal.innerHTML = `Total: $${total}`;
+
+      // Botones eliminar
+      document.querySelectorAll(".eliminar").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          const idx = e.target.dataset.index;
+          carrito.splice(idx, 1);
+          localStorage.setItem("carrito", JSON.stringify(carrito));
+          location.reload();
+        });
+      });
+
+      // Botón enviar a WhatsApp
+      btnEnviar.addEventListener("click", () => {
+        const nombre = document.getElementById("nombre").value.trim();
+        const apellido = document.getElementById("apellido").value.trim();
+        const domicilio = document.getElementById("domicilio").value.trim();
+        const provincia = document.getElementById("provincia").value.trim();
+        const ciudad = document.getElementById("ciudad").value.trim();
+
+        if (!nombre || !apellido || !domicilio || !provincia || !ciudad) {
+          alert("Por favor completa todos los campos del formulario.");
+          return;
+        }
+
+        let mensaje = `¡Hola! Quiero hacer un pedido:%0A%0A`;
+        carrito.forEach(item => {
+          mensaje += `• ${item.nombre} x${item.cantidad} - $${item.precio * item.cantidad}%0A`;
+        });
+        mensaje += `%0ATotal: $${total}%0A%0A`;
+        mensaje += `Datos de envío:%0A`;
+        mensaje += `Nombre: ${nombre} ${apellido}%0A`;
+        mensaje += `Domicilio: ${domicilio}%0A`;
+        mensaje += `Provincia: ${provincia}%0A`;
+        mensaje += `Ciudad: ${ciudad}`;
+
+        let url = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
+        window.open(url, "_blank");
+      });
     });
-    });
-  });
   </script>
-<script src="scripts/config.js"></script>
 </body>
 </html>
