@@ -68,12 +68,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-  if (carrito.length === 0) {
-    carritoContainer.innerHTML = "<p class='vacio'>Tu carrito está vacío</p>";
-    carritoTotal.innerHTML = "";
-  } else {
-    let total = 0;
+  function actualizarCarrito() {
+    carritoContainer.innerHTML = "";
+    if (carrito.length === 0) {
+      carritoContainer.innerHTML = "<p class='vacio'>Tu carrito está vacío</p>";
+      carritoTotal.innerHTML = "";
+      return;
+    }
 
+    let total = 0;
     carrito.forEach((item, index) => {
       const productoDiv = document.createElement("div");
       productoDiv.classList.add("producto");
@@ -98,70 +101,55 @@ document.addEventListener("DOMContentLoaded", () => {
         const idx = e.target.dataset.index;
         carrito.splice(idx, 1);
         localStorage.setItem("carrito", JSON.stringify(carrito));
-        location.reload();
+        actualizarCarrito(); // Re-renderiza sin recargar la página
       });
     });
+  }
 
-    // Botón enviar a WhatsApp
-    btnEnviar.addEventListener("click", () => {
-      const nombre = document.getElementById("nombre").value.trim();
-      const apellido = document.getElementById("apellido").value.trim();
-      const domicilio = document.getElementById("domicilio").value.trim();
-      const provincia = document.getElementById("provincia").value.trim();
-      const ciudad = document.getElementById("ciudad").value.trim();
+  actualizarCarrito();
 
-      if (!nombre || !apellido || !domicilio || !provincia || !ciudad) {
-        alert("Por favor completa todos los campos del formulario.");
-        return;
-      }
+  function generarMensajePedido(carrito, datosEnvio) {
+    let mensaje = "¡Hola! Quiero realizar el siguiente pedido:\n\n";
+    mensaje += "🛒 Productos:\n";
+    let total = 0;
+    carrito.forEach(item => {
+      mensaje += `• ${item.nombre} x${item.cantidad} - $${item.precio * item.cantidad}\n`;
+      total += item.precio * item.cantidad;
+    });
+    mensaje += `\n💰 Total: $${total}\n\n`;
+    mensaje += "📦 Datos de envío:\n";
+    mensaje += `Nombre: ${datosEnvio.nombre} ${datosEnvio.apellido}\n`;
+    mensaje += `Domicilio: ${datosEnvio.domicilio}\n`;
+    mensaje += `Provincia: ${datosEnvio.provincia}\n`;
+    mensaje += `Ciudad: ${datosEnvio.ciudad}\n`;
+    return mensaje;
+  }
 
-function generarMensajePedido(carrito, datosEnvio) {
-  let mensaje = "¡Hola! Quiero realizar el siguiente pedido:\n\n";
+  // Botón enviar a WhatsApp
+  btnEnviar.addEventListener("click", () => {
+    const nombre = document.getElementById("nombre").value.trim();
+    const apellido = document.getElementById("apellido").value.trim();
+    const domicilio = document.getElementById("domicilio").value.trim();
+    const provincia = document.getElementById("provincia").value.trim();
+    const ciudad = document.getElementById("ciudad").value.trim();
 
-  mensaje += "🛒 Productos:\n";
-  let total = 0;
-  carrito.forEach(item => {
-    mensaje += `• ${item.nombre} x${item.cantidad} - $${item.precio * item.cantidad}\n`;
-    total += item.precio * item.cantidad;
+    if (!nombre || !apellido || !domicilio || !provincia || !ciudad) {
+      alert("Por favor completa todos los campos del formulario.");
+      return;
+    }
+
+    const datosEnvio = { nombre, apellido, domicilio, provincia, ciudad };
+    const mensaje = generarMensajePedido(carrito, datosEnvio);
+
+    if (typeof NUMERO_WHATSAPP === "undefined") {
+      alert("Número de WhatsApp no configurado");
+      return;
+    }
+
+    const url = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
+    window.open(url, "_blank");
   });
-
-  mensaje += `\n💰 Total: $${total}\n\n`;
-  mensaje += "📦 Datos de envío:\n";
-  mensaje += `Nombre: ${datosEnvio.nombre} ${datosEnvio.apellido}\n`;
-  mensaje += `Domicilio: ${datosEnvio.domicilio}\n`;
-  mensaje += `Provincia: ${datosEnvio.provincia}\n`;
-  mensaje += `Ciudad: ${datosEnvio.ciudad}\n`;
-
-  return mensaje;
-}
-
-// Botón para enviar pedido por WhatsApp
-document.getElementById("whatsappBtn").addEventListener("click", () => {
-  const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-  if (carrito.length === 0) {
-    alert("El carrito está vacío");
-    return;
-  }
-
-  const datosEnvio = {
-    nombre: document.getElementById("nombre").value,
-    apellido: document.getElementById("apellido").value,
-    domicilio: document.getElementById("domicilio").value,
-    provincia: document.getElementById("provincia").value,
-    ciudad: document.getElementById("ciudad").value
-  };
-
-  const mensaje = generarMensajePedido(carrito, datosEnvio);
-
-  if (typeof NUMERO_WHATSAPP === "undefined") {
-    alert("Número de WhatsApp no configurado");
-    return;
-  }
-
-  const url = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
-  window.open(url, "_blank");
 });
 </script>
-
 </body>
 </html>
