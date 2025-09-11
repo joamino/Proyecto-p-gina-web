@@ -265,54 +265,63 @@
     sidebar.setAttribute("aria-hidden", "true");
   }
 
-  // Carrito y popup
-  const cartCount = document.getElementById("cartCount");
-  const popup = document.getElementById("popup");
+  // --- CARRITO UNIVERSAL ---
+  function actualizarContadorCarrito() {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const total = carrito.reduce((sum, item) => sum + (item.cantidad || 1), 0);
+    const cartCount = document.getElementById("cartCount");
+    if (cartCount) {
+      cartCount.textContent = total;
+      cartCount.style.display = total > 0 ? "inline-block" : "none";
+    }
+  }
+
+  function mostrarToast(mensaje) {
+    const toast = document.getElementById("toast");
+    toast.textContent = mensaje;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 3000);
+  }
 
   function agregarAlCarrito(button) {
     const producto = button.closest(".producto-card");
     const id = producto.dataset.id;
-const nombre = producto.dataset.nombre;
-const precio = parseFloat(producto.dataset.precio);
-const imagen = producto.querySelector("img").src;  // <--- AGREGA esta línea
-    // Leer carrito de localStorage o inicializar
-    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const nombre = producto.dataset.nombre;
+    const precio = parseFloat(producto.dataset.precio);
+    const imagen = producto.querySelector("img").src;
 
-    // Buscar si el producto ya está en el carrito
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
     const existente = carrito.find(item => item.id === id);
+
     if (existente) {
       existente.cantidad = (existente.cantidad || 1) + 1;
     } else {
       carrito.push({ id, nombre, precio, cantidad: 1, imagen });
     }
 
-    // Guardar carrito actualizado en localStorage
     localStorage.setItem('carrito', JSON.stringify(carrito));
-
-    // Actualizar contador visual
     actualizarContadorCarrito();
-
-    function mostrarToast(mensaje) {
-  const toast = document.getElementById("toast");
-  toast.textContent = mensaje;
-  toast.classList.add("show");
-  setTimeout(() => toast.classList.remove("show"), 3000);
-}
-
-  function actualizarContadorCarrito() {
-    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-    const total = carrito.reduce((sum, item) => sum + (item.cantidad || 1), 0);
-    cartCount.textContent = total;
-    cartCount.style.display = total > 0 ? "inline-block" : "none";
+    mostrarToast("Producto agregado al carrito");
   }
 
-  // Inicializa contador al cargar la página
-  document.addEventListener('DOMContentLoaded', actualizarContadorCarrito);
-// Vincular los botones "Agregar al carrito"
-document.querySelectorAll(".producto-card button").forEach(button => {
-  button.addEventListener("click", () => agregarAlCarrito(button));
-});
+  document.addEventListener("DOMContentLoaded", () => {
+    actualizarContadorCarrito();
+
+    // Botón carrito
+    const carritoBtn = document.querySelector(".cart-btn");
+    if (carritoBtn) {
+      carritoBtn.addEventListener("click", () => {
+        window.location.href = "carrito.html";
+      });
+    }
+
+    // Todos los botones "Agregar al carrito"
+    document.querySelectorAll(".producto-card button").forEach(button => {
+      button.addEventListener("click", () => agregarAlCarrito(button));
+    });
+  });
 </script>
+
 <script src="scripts/carrito-util.js"></script>
 <script src="scripts/sidebar.js"></script>
 </body>
