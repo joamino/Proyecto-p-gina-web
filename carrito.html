@@ -144,7 +144,46 @@
 
   <h1>Tu Carrito de Compras</h1>
 
-  <div id="carritoContainer" class="carrito">
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const carritoContainer = document.querySelector(".carrito");
+  let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+  if (carrito.length === 0) {
+    carritoContainer.innerHTML = "<p class='vacio'>Tu carrito está vacío</p>";
+    return;
+  }
+
+  carrito.forEach((item, index) => {
+    const productoDiv = document.createElement("div");
+    productoDiv.classList.add("producto");
+
+    productoDiv.innerHTML = `
+      <div class="producto-info">
+        <img src="${item.imagen}" alt="${item.nombre}">
+        <span class="producto-nombre">${item.nombre}</span>
+        <span class="producto-cantidad">x${item.cantidad}</span>
+      </div>
+      <div class="producto-precio">$${item.precio * item.cantidad}</div>
+      <button class="eliminar" data-index="${index}">Eliminar</button>
+    `;
+
+    carritoContainer.appendChild(productoDiv);
+  });
+
+  // Botones de eliminar
+  document.querySelectorAll(".eliminar").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      const idx = e.target.dataset.index;
+      carrito.splice(idx, 1); // elimina el producto
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+      location.reload(); // recarga carrito.html para actualizar vista
+    });
+  });
+});
+</script>
+ 
+<div id="carritoContainer" class="carrito">
   <!-- Productos cargados aquí -->
 </div>
 <div id="carritoTotal" style="max-width:700px;margin:0 auto 30px auto;font-weight:bold;font-size:1.3em;text-align:right;"></div>
