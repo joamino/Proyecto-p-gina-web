@@ -46,3 +46,20 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+function mostrarToast(mensaje) {
+  const toast = document.getElementById("toast");
+  toast.innerHTML = '✅ ' + mensaje;
+  toast.classList.add("show");
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 3000); // desaparece después de 3 segundos
+}
+
+// Ejemplo: cada vez que agregas un producto
+const agregarBtns = document.querySelectorAll(".agregar-carrito-btn");
+agregarBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    // Aquí va tu código de agregar al carrito
+    mostrarToast("Producto agregado al carrito");
+  });
+});
