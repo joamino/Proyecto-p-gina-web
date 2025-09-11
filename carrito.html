@@ -3,8 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://i.imgur.com https://cdn-icons-png.flaticon.com; script-src 'self'; style-src 'self' 'unsafe-inline';">
   <title>Carrito de Compras</title>
   <style>
     body { font-family: Arial, sans-serif; margin: 20px; background: #f9f9f9; }
@@ -25,37 +23,44 @@
     #enviarPedido { display: block; width: 100%; padding: 12px; background-color: #28a745; color: white; border: none; font-size: 18px; border-radius: 6px; cursor: pointer; }
     #enviarPedido:hover { background-color: #218838; }
     .vacio { text-align: center; color: #666; font-style: italic; padding: 40px 0; background: white; border-radius: 8px; max-width: 700px; margin: 0 auto; }
-    @media (max-width: 700px) { .carrito, form, .vacio { max-width: 100%; margin: 10px; padding: 10px; box-sizing: border-box; } h1, h2 { font-size: 1.5rem; } .producto { flex-direction: column; align-items: flex-start; padding: 15px 5px; gap: 8px; } button.eliminar, #enviarPedido { width: 100%; font-size: 1rem; padding: 10px; } form input { font-size: 1rem; padding: 10px; } }
+    @media (max-width: 700px) {
+      .carrito, form, .vacio { max-width: 100%; margin: 10px; padding: 10px; box-sizing: border-box; }
+      h1, h2 { font-size: 1.5rem; }
+      .producto { flex-direction: column; align-items: flex-start; padding: 15px 5px; gap: 8px; }
+      button.eliminar, #enviarPedido { width: 100%; font-size: 1rem; padding: 10px; }
+      form input { font-size: 1rem; padding: 10px; }
+    }
   </style>
 </head>
 <body>
 
-  <h1>Tu Carrito de Compras</h1>
+<h1>Tu Carrito de Compras</h1>
 
-  <div id="carritoContainer" class="carrito"></div>
-  <div id="carritoTotal" class="total"></div>
+<div id="carritoContainer" class="carrito"></div>
+<div id="carritoTotal" class="total"></div>
 
-  <form id="datosForm">
-    <h2>Datos personales para el envío</h2>
-    <label for="nombre">Nombre *</label>
-    <input type="text" id="nombre" required />
+<form id="datosForm">
+  <h2>Datos personales para el envío</h2>
+  <label for="nombre">Nombre *</label>
+  <input type="text" id="nombre" required />
 
-    <label for="apellido">Apellido *</label>
-    <input type="text" id="apellido" required />
+  <label for="apellido">Apellido *</label>
+  <input type="text" id="apellido" required />
 
-    <label for="domicilio">Domicilio *</label>
-    <input type="text" id="domicilio" required />
+  <label for="domicilio">Domicilio *</label>
+  <input type="text" id="domicilio" required />
 
-    <label for="provincia">Provincia *</label>
-    <input type="text" id="provincia" required />
+  <label for="provincia">Provincia *</label>
+  <input type="text" id="provincia" required />
 
-    <label for="ciudad">Ciudad *</label>
-    <input type="text" id="ciudad" required />
+  <label for="ciudad">Ciudad *</label>
+  <input type="text" id="ciudad" required />
 
-    <button type="button" id="enviarPedido">Enviar pedido por WhatsApp</button>
-  </form>
+  <button type="button" id="enviarPedido">Enviar pedido por WhatsApp</button>
+</form>
 
-  <script>
+<script src="scripts/config.js"></script> <!-- aquí va tu número oculto -->
+<script>
 document.addEventListener("DOMContentLoaded", () => {
   const carritoContainer = document.getElementById("carritoContainer");
   const carritoTotal = document.getElementById("carritoTotal");
@@ -66,63 +71,72 @@ document.addEventListener("DOMContentLoaded", () => {
   if (carrito.length === 0) {
     carritoContainer.innerHTML = "<p class='vacio'>Tu carrito está vacío</p>";
     carritoTotal.innerHTML = "";
-    return;
+  } else {
+    let total = 0;
+
+    carrito.forEach((item, index) => {
+      const productoDiv = document.createElement("div");
+      productoDiv.classList.add("producto");
+      productoDiv.innerHTML = `
+        <div class="producto-info">
+          <img src="${item.imagen}" alt="${item.nombre}">
+          <span class="producto-nombre">${item.nombre}</span>
+          <span class="producto-cantidad">x${item.cantidad}</span>
+        </div>
+        <div class="producto-precio">$${item.precio * item.cantidad}</div>
+        <button class="eliminar" data-index="${index}">Eliminar</button>
+      `;
+      carritoContainer.appendChild(productoDiv);
+      total += item.precio * item.cantidad;
+    });
+
+    carritoTotal.innerHTML = `Total: $${total}`;
+
+    // Botones eliminar
+    document.querySelectorAll(".eliminar").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        const idx = e.target.dataset.index;
+        carrito.splice(idx, 1);
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+        location.reload();
+      });
+    });
+
+    // Botón enviar a WhatsApp
+    btnEnviar.addEventListener("click", () => {
+      const nombre = document.getElementById("nombre").value.trim();
+      const apellido = document.getElementById("apellido").value.trim();
+      const domicilio = document.getElementById("domicilio").value.trim();
+      const provincia = document.getElementById("provincia").value.trim();
+      const ciudad = document.getElementById("ciudad").value.trim();
+
+      if (!nombre || !apellido || !domicilio || !provincia || !ciudad) {
+        alert("Por favor completa todos los campos del formulario.");
+        return;
+      }
+
+      let mensaje = `¡Hola! Quiero hacer un pedido:%0A%0A`;
+      carrito.forEach(item => {
+        mensaje += `• ${item.nombre} x${item.cantidad} - $${item.precio * item.cantidad}%0A`;
+      });
+      mensaje += `%0ATotal: $${total}%0A%0A`;
+      mensaje += `Datos de envío:%0A`;
+      mensaje += `Nombre: ${nombre} ${apellido}%0A`;
+      mensaje += `Domicilio: ${domicilio}%0A`;
+      mensaje += `Provincia: ${provincia}%0A`;
+      mensaje += `Ciudad: ${ciudad}`;
+
+      if (typeof NUMERO_WHATSAPP === "undefined") {
+        alert("Número de WhatsApp no configurado");
+        return;
+      }
+
+      const url = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
+      window.open(url, "_blank");
+    });
   }
-
-  let total = 0;
-
-  carrito.forEach((item, index) => {
-    const div = document.createElement("div");
-    div.classList.add("producto");
-    div.innerHTML = `
-      <div class="producto-info">
-        <img src="${item.imagen}" alt="${item.nombre}">
-        <span class="producto-nombre">${item.nombre}</span>
-        <span class="producto-cantidad">x${item.cantidad}</span>
-      </div>
-      <div class="producto-precio">$${item.precio * item.cantidad}</div>
-      <button class="eliminar" data-index="${index}">Eliminar</button>
-    `;
-    carritoContainer.appendChild(div);
-    total += item.precio * item.cantidad;
-  });
-
-  carritoTotal.innerHTML = `Total: $${total}`;
-
-  document.querySelectorAll(".eliminar").forEach(btn => {
-    btn.addEventListener("click", e => {
-      const idx = e.target.dataset.index;
-      carrito.splice(idx, 1);
-      localStorage.setItem("carrito", JSON.stringify(carrito));
-      location.reload();
-    });
-  });
-
-  btnEnviar.addEventListener("click", () => {
-    const nombre = document.getElementById("nombre").value.trim();
-    const apellido = document.getElementById("apellido").value.trim();
-    const domicilio = document.getElementById("domicilio").value.trim();
-    const provincia = document.getElementById("provincia").value.trim();
-    const ciudad = document.getElementById("ciudad").value.trim();
-
-    if (!nombre || !apellido || !domicilio || !provincia || !ciudad) {
-      alert("Completa todos los campos");
-      return;
-    }
-
-    let mensaje = "¡Hola! Quiero hacer un pedido:\n\n";
-    carrito.forEach(item => {
-      mensaje += `• ${item.nombre} x${item.cantidad} - $${item.precio * item.cantidad}\n`;
-    });
-    mensaje += `\nTotal: $${total}\n\n`;
-    mensaje += `Datos de envío:\nNombre: ${nombre} ${apellido}\nDomicilio: ${domicilio}\nProvincia: ${provincia}\nCiudad: ${ciudad}`;
-
-    // Número oculto
-    const numeroWhatsApp = atob("MjkwMTU2NTI0MQ=="); // tu número en Base64
-    const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
-    window.open(url, "_blank");
-  });
 });
 </script>
+
 </body>
 </html>
