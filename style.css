@@ -264,7 +264,7 @@ producto-card {
 }
 
 .producto-card button:hover {
-  background-color: #0056b3;
+  background-color: #f8f3e3;
 }
 /* Ajustes extra para pantallas muy pequeñas */
 @.productos-grid {
