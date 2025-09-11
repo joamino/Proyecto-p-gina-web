@@ -61,7 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const carritoTotal = document.getElementById("carritoTotal");
   const btnEnviar = document.getElementById("enviarPedido");
 
-  // Leer carrito desde localStorage
   let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
   if (carrito.length === 0) {
@@ -72,11 +71,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let total = 0;
 
-  // Mostrar productos
   carrito.forEach((item, index) => {
-    const productoDiv = document.createElement("div");
-    productoDiv.classList.add("producto");
-    productoDiv.innerHTML = `
+    const div = document.createElement("div");
+    div.classList.add("producto");
+    div.innerHTML = `
       <div class="producto-info">
         <img src="${item.imagen}" alt="${item.nombre}">
         <span class="producto-nombre">${item.nombre}</span>
@@ -85,15 +83,14 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="producto-precio">$${item.precio * item.cantidad}</div>
       <button class="eliminar" data-index="${index}">Eliminar</button>
     `;
-    carritoContainer.appendChild(productoDiv);
+    carritoContainer.appendChild(div);
     total += item.precio * item.cantidad;
   });
 
   carritoTotal.innerHTML = `Total: $${total}`;
 
-  // Botones eliminar
   document.querySelectorAll(".eliminar").forEach(btn => {
-    btn.addEventListener("click", (e) => {
+    btn.addEventListener("click", e => {
       const idx = e.target.dataset.index;
       carrito.splice(idx, 1);
       localStorage.setItem("carrito", JSON.stringify(carrito));
@@ -101,7 +98,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Botón enviar a WhatsApp
   btnEnviar.addEventListener("click", () => {
     const nombre = document.getElementById("nombre").value.trim();
     const apellido = document.getElementById("apellido").value.trim();
@@ -110,24 +106,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const ciudad = document.getElementById("ciudad").value.trim();
 
     if (!nombre || !apellido || !domicilio || !provincia || !ciudad) {
-      alert("Por favor completa todos los campos del formulario.");
+      alert("Completa todos los campos");
       return;
     }
 
-    let mensaje = `¡Hola! Quiero hacer un pedido:%0A%0A`;
+    let mensaje = "¡Hola! Quiero hacer un pedido:\n\n";
     carrito.forEach(item => {
-      mensaje += `• ${item.nombre} x${item.cantidad} - $${item.precio * item.cantidad}%0A`;
+      mensaje += `• ${item.nombre} x${item.cantidad} - $${item.precio * item.cantidad}\n`;
     });
-    mensaje += `%0ATotal: $${total}%0A%0A`;
-    mensaje += `Datos de envío:%0A`;
-    mensaje += `Nombre: ${nombre} ${apellido}%0A`;
-    mensaje += `Domicilio: ${domicilio}%0A`;
-    mensaje += `Provincia: ${provincia}%0A`;
-    mensaje += `Ciudad: ${ciudad}`;
+    mensaje += `\nTotal: $${total}\n\n`;
+    mensaje += `Datos de envío:\nNombre: ${nombre} ${apellido}\nDomicilio: ${domicilio}\nProvincia: ${provincia}\nCiudad: ${ciudad}`;
 
-    // Número de WhatsApp oculto
-    const numeroWhatsApp = atob("MjkwMTU2NTI0MQ=="); // Base64 del número
-    window.open(`https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`, "_blank");
+    // Número oculto
+    const numeroWhatsApp = atob("MjkwMTU2NTI0MQ=="); // tu número en Base64
+    const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
+    window.open(url, "_blank");
   });
 });
 </script>
