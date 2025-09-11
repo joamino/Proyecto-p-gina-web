@@ -457,42 +457,46 @@ button,
   opacity: 1;
   transform: translateY(0);
 }
+/* --- PAGINACIÓN --- */
+
 /* Contenedor de paginación */
 .pagination {
-  display: flex;
-  justify-content: center;
-  margin: 30px 0; /* separada de los productos */
-  gap: 10px; /* espacio entre los números */
-  list-style: none;
+  display: flex;               /* Flexbox para centrar */
+  justify-content: center;     /* Centrado horizontal */
+  gap: 10px;                   /* Espacio entre los números */
+  margin: 40px 0 20px 0;       /* Separación de productos y abajo */
   padding: 0;
+  list-style: none;
 }
 
-/* Estilo de cada número */
+/* Cada número de paginación */
 .pagination a {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 35px;    /* tamaño del círculo */
+  width: 35px;                 /* tamaño del círculo */
   height: 35px;
-  border-radius: 50%; /* lo hace circular */
-  background-color: #ffffff; /* fondo blanco igual al fondo de la página */
-  color: #000000; /* número negro */
-  text-decoration: none;
+  border-radius: 50%;          /* hace que sea circular */
+  background-color: #ffffff;   /* igual al fondo de la página */
+  color: #000000;              /* número negro */
   font-weight: bold;
   font-size: 14px;
-  border: 1px solid #ccc; /* borde ligero */
-  transition: all 0.3s ease;
+  text-decoration: none;       /* quita subrayado */
+  border: none;                /* quita borde */
+  box-shadow: none;            /* quita sombra */
+  transition: all 0.3s ease;   /* efecto hover suave */
 }
 
 /* Hover */
 .pagination a:hover {
-  transform: scale(1.1);
+  transform: scale(1.1);       /* efecto de aumento */
   cursor: pointer;
 }
 
 /* Página activa */
 .pagination a.active {
-  background-color: #f8f3e3; /* color seleccionado */
-  border-color: #f8f3e3;
-  color: #000000; /* número negro encima del círculo claro */
+  background-color: #f8f3e3;  /* color de la página actual */
+  color: #000000;
+  border: none;
+  box-shadow: none;
 }
