@@ -292,11 +292,12 @@ const imagen = producto.querySelector("img").src;  // <--- AGREGA esta línea
     // Actualizar contador visual
     actualizarContadorCarrito();
 
-    // Mostrar popup
-    popup.textContent = "Producto agregado al carrito";
-    popup.classList.add("show");
-    setTimeout(() => popup.classList.remove("show"), 2000);
-  }
+    function mostrarToast(mensaje) {
+  const toast = document.getElementById("toast");
+  toast.textContent = mensaje;
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 3000);
+}
 
   function actualizarContadorCarrito() {
     let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
