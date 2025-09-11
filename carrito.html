@@ -241,11 +241,9 @@
       mensaje += `Provincia: ${provincia}%0A`;
       mensaje += `Ciudad: ${ciudad}`;
 
-      // Número de WhatsApp (cámbialo por el tuyo con código de país, sin + ni 0 inicial)
-      const numeroWhatsApp = 
-
-      const url = `https://wa.me/${numeroWhatsApp}?text=${mensaje}`;
+      let url = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
       window.open(url, "_blank");
+    });
     });
   });
   </script>
