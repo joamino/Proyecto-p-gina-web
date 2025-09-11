@@ -115,26 +115,51 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      let mensaje = `¡Hola! Quiero hacer un pedido:%0A%0A`;
-      carrito.forEach(item => {
-        mensaje += `• ${item.nombre} x${item.cantidad} - $${item.precio * item.cantidad}%0A`;
-      });
-      mensaje += `%0ATotal: $${total}%0A%0A`;
-      mensaje += `Datos de envío:%0A`;
-      mensaje += `Nombre: ${nombre} ${apellido}%0A`;
-      mensaje += `Domicilio: ${domicilio}%0A`;
-      mensaje += `Provincia: ${provincia}%0A`;
-      mensaje += `Ciudad: ${ciudad}`;
+function generarMensajePedido(carrito, datosEnvio) {
+  let mensaje = "¡Hola! Quiero realizar el siguiente pedido:\n\n";
 
-      if (typeof NUMERO_WHATSAPP === "undefined") {
-        alert("Número de WhatsApp no configurado");
-        return;
-      }
+  mensaje += "🛒 Productos:\n";
+  let total = 0;
+  carrito.forEach(item => {
+    mensaje += `• ${item.nombre} x${item.cantidad} - $${item.precio * item.cantidad}\n`;
+    total += item.precio * item.cantidad;
+  });
 
-      const url = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
-      window.open(url, "_blank");
-    });
+  mensaje += `\n💰 Total: $${total}\n\n`;
+  mensaje += "📦 Datos de envío:\n";
+  mensaje += `Nombre: ${datosEnvio.nombre} ${datosEnvio.apellido}\n`;
+  mensaje += `Domicilio: ${datosEnvio.domicilio}\n`;
+  mensaje += `Provincia: ${datosEnvio.provincia}\n`;
+  mensaje += `Ciudad: ${datosEnvio.ciudad}\n`;
+
+  return mensaje;
+}
+
+// Botón para enviar pedido por WhatsApp
+document.getElementById("whatsappBtn").addEventListener("click", () => {
+  const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+  if (carrito.length === 0) {
+    alert("El carrito está vacío");
+    return;
   }
+
+  const datosEnvio = {
+    nombre: document.getElementById("nombre").value,
+    apellido: document.getElementById("apellido").value,
+    domicilio: document.getElementById("domicilio").value,
+    provincia: document.getElementById("provincia").value,
+    ciudad: document.getElementById("ciudad").value
+  };
+
+  const mensaje = generarMensajePedido(carrito, datosEnvio);
+
+  if (typeof NUMERO_WHATSAPP === "undefined") {
+    alert("Número de WhatsApp no configurado");
+    return;
+  }
+
+  const url = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
+  window.open(url, "_blank");
 });
 </script>
 
