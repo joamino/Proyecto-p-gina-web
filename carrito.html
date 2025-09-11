@@ -56,79 +56,80 @@
   </form>
 
   <script>
-    const NUMERO_WHATSAPP = "2901565241"; // tu número
+document.addEventListener("DOMContentLoaded", () => {
+  const carritoContainer = document.getElementById("carritoContainer");
+  const carritoTotal = document.getElementById("carritoTotal");
+  const btnEnviar = document.getElementById("enviarPedido");
 
-    document.addEventListener("DOMContentLoaded", () => {
-      const carritoContainer = document.getElementById("carritoContainer");
-      const carritoTotal = document.getElementById("carritoTotal");
-      const btnEnviar = document.getElementById("enviarPedido");
+  // Leer carrito desde localStorage
+  let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-      let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+  if (carrito.length === 0) {
+    carritoContainer.innerHTML = "<p class='vacio'>Tu carrito está vacío</p>";
+    carritoTotal.innerHTML = "";
+    return;
+  }
 
-      if (carrito.length === 0) {
-        carritoContainer.innerHTML = "<p class='vacio'>Tu carrito está vacío</p>";
-        carritoTotal.innerHTML = "";
-        return;
-      }
+  let total = 0;
 
-      let total = 0;
+  // Mostrar productos
+  carrito.forEach((item, index) => {
+    const productoDiv = document.createElement("div");
+    productoDiv.classList.add("producto");
+    productoDiv.innerHTML = `
+      <div class="producto-info">
+        <img src="${item.imagen}" alt="${item.nombre}">
+        <span class="producto-nombre">${item.nombre}</span>
+        <span class="producto-cantidad">x${item.cantidad}</span>
+      </div>
+      <div class="producto-precio">$${item.precio * item.cantidad}</div>
+      <button class="eliminar" data-index="${index}">Eliminar</button>
+    `;
+    carritoContainer.appendChild(productoDiv);
+    total += item.precio * item.cantidad;
+  });
 
-      carrito.forEach((item, index) => {
-        const productoDiv = document.createElement("div");
-        productoDiv.classList.add("producto");
-        productoDiv.innerHTML = `
-          <div class="producto-info">
-            <img src="${item.imagen}" alt="${item.nombre}">
-            <span class="producto-nombre">${item.nombre}</span>
-            <span class="producto-cantidad">x${item.cantidad}</span>
-          </div>
-          <div class="producto-precio">$${item.precio * item.cantidad}</div>
-          <button class="eliminar" data-index="${index}">Eliminar</button>
-        `;
-        carritoContainer.appendChild(productoDiv);
-        total += item.precio * item.cantidad;
-      });
+  carritoTotal.innerHTML = `Total: $${total}`;
 
-      carritoTotal.innerHTML = `Total: $${total}`;
-
-      // Botones eliminar
-      document.querySelectorAll(".eliminar").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-          const idx = e.target.dataset.index;
-          carrito.splice(idx, 1);
-          localStorage.setItem("carrito", JSON.stringify(carrito));
-          location.reload();
-        });
-      });
-
-      // Botón enviar a WhatsApp
-      btnEnviar.addEventListener("click", () => {
-        const nombre = document.getElementById("nombre").value.trim();
-        const apellido = document.getElementById("apellido").value.trim();
-        const domicilio = document.getElementById("domicilio").value.trim();
-        const provincia = document.getElementById("provincia").value.trim();
-        const ciudad = document.getElementById("ciudad").value.trim();
-
-        if (!nombre || !apellido || !domicilio || !provincia || !ciudad) {
-          alert("Por favor completa todos los campos del formulario.");
-          return;
-        }
-
-        let mensaje = `¡Hola! Quiero hacer un pedido:%0A%0A`;
-        carrito.forEach(item => {
-          mensaje += `• ${item.nombre} x${item.cantidad} - $${item.precio * item.cantidad}%0A`;
-        });
-        mensaje += `%0ATotal: $${total}%0A%0A`;
-        mensaje += `Datos de envío:%0A`;
-        mensaje += `Nombre: ${nombre} ${apellido}%0A`;
-        mensaje += `Domicilio: ${domicilio}%0A`;
-        mensaje += `Provincia: ${provincia}%0A`;
-        mensaje += `Ciudad: ${ciudad}`;
-
-        let url = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
-        window.open(url, "_blank");
-      });
+  // Botones eliminar
+  document.querySelectorAll(".eliminar").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      const idx = e.target.dataset.index;
+      carrito.splice(idx, 1);
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+      location.reload();
     });
-  </script>
+  });
+
+  // Botón enviar a WhatsApp
+  btnEnviar.addEventListener("click", () => {
+    const nombre = document.getElementById("nombre").value.trim();
+    const apellido = document.getElementById("apellido").value.trim();
+    const domicilio = document.getElementById("domicilio").value.trim();
+    const provincia = document.getElementById("provincia").value.trim();
+    const ciudad = document.getElementById("ciudad").value.trim();
+
+    if (!nombre || !apellido || !domicilio || !provincia || !ciudad) {
+      alert("Por favor completa todos los campos del formulario.");
+      return;
+    }
+
+    let mensaje = `¡Hola! Quiero hacer un pedido:%0A%0A`;
+    carrito.forEach(item => {
+      mensaje += `• ${item.nombre} x${item.cantidad} - $${item.precio * item.cantidad}%0A`;
+    });
+    mensaje += `%0ATotal: $${total}%0A%0A`;
+    mensaje += `Datos de envío:%0A`;
+    mensaje += `Nombre: ${nombre} ${apellido}%0A`;
+    mensaje += `Domicilio: ${domicilio}%0A`;
+    mensaje += `Provincia: ${provincia}%0A`;
+    mensaje += `Ciudad: ${ciudad}`;
+
+    // Número de WhatsApp oculto
+    const numeroWhatsApp = atob("MjkwMTU2NTI0MQ=="); // Base64 del número
+    window.open(`https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`, "_blank");
+  });
+});
+</script>
 </body>
 </html>
