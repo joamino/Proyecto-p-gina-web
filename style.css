@@ -457,23 +457,42 @@ button,
   opacity: 1;
   transform: translateY(0);
 }
+/* Contenedor de paginación */
 .pagination {
   display: flex;
   justify-content: center;
-  margin: 20px 0;
+  margin: 30px 0; /* separada de los productos */
+  gap: 10px; /* espacio entre los números */
+  list-style: none;
+  padding: 0;
 }
 
+/* Estilo de cada número */
 .pagination a {
-  margin: 0 5px;
-  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;    /* tamaño del círculo */
+  height: 35px;
+  border-radius: 50%; /* lo hace circular */
+  background-color: #ffffff; /* fondo blanco igual al fondo de la página */
+  color: #000000; /* número negro */
   text-decoration: none;
-  color: #333;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  font-weight: bold;
+  font-size: 14px;
+  border: 1px solid #ccc; /* borde ligero */
+  transition: all 0.3s ease;
 }
 
+/* Hover */
+.pagination a:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+/* Página activa */
 .pagination a.active {
-  background-color: #333;
-  color: #fff;
-  border-color: #333;
+  background-color: #f8f3e3; /* color seleccionado */
+  border-color: #f8f3e3;
+  color: #000000; /* número negro encima del círculo claro */
 }
