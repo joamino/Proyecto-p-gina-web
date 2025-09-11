@@ -27,13 +27,11 @@ function agregarAlCarrito(button) {
   localStorage.setItem('carrito', JSON.stringify(carrito));
   actualizarContadorCarrito();
 
-  // Mostrar popup si existe
-  const popup = document.getElementById("popup");
-  if (popup) {
-    popup.textContent = "Producto agregado al carrito";
-    popup.classList.add("show");
-    setTimeout(() => popup.classList.remove("show"), 2000);
-  }
+  function mostrarToast(mensaje) {
+  const toast = document.getElementById("toast");
+  toast.textContent = mensaje;
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 3000);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
