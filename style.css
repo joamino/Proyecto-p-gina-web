@@ -427,7 +427,7 @@ button,
 
 /* Contenedor de paginación */
 .pagination {
-  display: center;
+  display: flex;
   justify-content: center;
   gap: 10px;
   margin: 50px 0 30px 0; /* MÁS separación arriba y abajo */
