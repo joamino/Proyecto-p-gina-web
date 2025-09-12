@@ -16,6 +16,7 @@ header {
   align-items: center;
   justify-content: center;
   position: relative;
+padding-top:10px;
   animation: fadeDown 0.8s cubic-bezier(.45,.09,.47,1.02);
   box-shadow: 0 2px 8px rgba(0,0,0,0.07);
 }
@@ -34,6 +35,7 @@ display: center;
   font-size: 1.8rem;       /* ajusta el tamaño si lo ves muy chico o grande */
   padding: 6px 12px;
   cursor: pointer;
+margin-top:-5px
   transition: background 0.2s, color 0.2s;
 }
 
