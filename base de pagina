@@ -49,11 +49,13 @@
 
 </div>
 
-<div class="pagination">
-  <a href="index.html" class="active">1</a>
-  <a href="paginas/pagina2.html">2</a>
-  <a href="paginas/pagina3.html">3</a>
-  <a href="paginas/pagina4.html">4</a>
+<<div class="pagination">
+  <a href="../index.html">1</a>
+  <a href="pagina2.html">2</a>
+  <a href="pagina3.html">3</a>
+  <a href="pagina4.html" class="active">4</a>
+  <a href="pagina5.html">5</a>
+  <a href="pagina6.html">6</a>
 </div>
 
 </main>
