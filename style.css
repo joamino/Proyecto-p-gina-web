@@ -185,7 +185,8 @@ justify-item: center;
   align-items: center;
   text-align: center;
   background: none;
-  height: auto;
+  height: 220px;
+margin: 0 auto;
   box-sizing: border-box;
 }
 
@@ -196,7 +197,7 @@ justify-item: center;
   object-position: center 100%;
   display: block;
   max-width: none;
-  height: auto;
+  max-height: 220x;
 }
 
 /* ---- AÑADIR ESTO PARA LOS LINKS ---- */
