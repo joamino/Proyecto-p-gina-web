@@ -164,6 +164,7 @@ header img {
   gap: 15px;
   padding: 10px;
   align-items: stretch; /* Fuerza igual altura en la fila */
+grid-auto-rows: 1fr
 }
 .producto-card:link,
 .producto-card:visited {
