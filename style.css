@@ -163,6 +163,7 @@ header img {
   grid-template-columns: repeat(3, 1fr); /* siempre 3 columnas */
   gap: 15px;
   padding: 10px;
+justify-item: center; 
   grid-auto-rows: minmax(300px, auto); /* altura mínima para todas las cards */
   align-items: start; /* fuerza que las tarjetas empiecen arriba */
 }
@@ -185,12 +186,12 @@ header img {
   align-items: center;
   text-align: center;
   background: none;
-  height: 100%;
+  height: auto;
   box-sizing: border-box;
 }
 
 .producto-card img {
-  width: 100%;
+  width: auto;
   aspect-ratio: 3/4;
   object-fit: cover;
   object-position: center 100%;
