@@ -230,6 +230,7 @@ header img {
 
 .producto-card button:hover {
   background-color: #c2b285;
+color:#fffff;
 }
 /* Ajustes extra para pantallas muy pequeñas */
 @.productos-grid {
