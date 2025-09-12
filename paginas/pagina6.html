@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="GJ Perfumería">
+<meta property="og:description" content="Perfumes de inspiración Leduft de GJ Perfumería">
+<meta property="og:image" content="https://imgur.com/RFYq3BF.png">
+<meta property="og:url" content="https://github.com/joamino/Proyecto-p-gina-web">
+<meta name="twitter:card" content="summary_large_image">
+  <title>GJ Perfumeria</title>
+  <link rel="icon" href="https://imgur.com/RFYq3BF.png" type="image/png" />
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<nav id="sidebar" class="sidebar" role="navigation" aria-label="Menú lateral" aria-hidden="true">
+  <button class="closebtn" type="button" aria-label="Cerrar menú" onclick="closeSidebar()">×</button>
+  <a href="#">Preguntas frecuentes</a>
+  <a href="#">Productos</a>
+  <div class="submenu" role="group" aria-label="Subcategorías de productos">
+    <a href="#">• Perfumes</a>
+    <a href="#">• Masculinos</a>
+    <a href="#">• Femeninos</a>
+    <a href="#">• Unisex</a>
+  </div>
+  <a href="#">Contacto</a>
+  <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+    <img class="instagram-icon" src="https://cdn-icons-png.flaticon.com/512/87/87390.png" alt="Instagram" loading="lazy" />
+  </a>
+</nav>
+
+<header>
+  <button id="menuBtn" class="menu-btn" type="button" aria-label="Abrir menú" aria-expanded="false">☰</button>
+  <img src="https://i.imgur.com/RFYq3BF.png"" alt="Logo de la tienda" />
+ <a href="../carrito.html" class="cart-btn" aria-label="Ver carrito" style="text-decoration:none; background:none; border:none; font-size:24px;">
+  🛒
+  <span id="cartCount" class="cart-count" aria-live="polite" aria-atomic="true">0</span>
+</a>
+</header>
+
+<!-- Toast para notificaciones -->
+<div id="toast" class="toast"></div>
+
+<div id="popup" class="popup" role="alert" aria-live="assertive" aria-atomic="true"></div>
+
+  <div class="productos-grid">
+
+
+
+</div>
+
+<div class="pagination">
+  <a href="index.html" class="active">1</a>
+  <a href="paginas/pagina2.html">2</a>
+  <a href="paginas/pagina3.html">3</a>
+  <a href="paginas/pagina4.html">4</a>
+</div>
+
+</main>
+
+<script>
+  // Menú sidebar
+  const menuBtn = document.getElementById("menuBtn");
+  const sidebar = document.getElementById("sidebar");
+  menuBtn.addEventListener("click", () => {
+    const isOpen = sidebar.classList.toggle("open");
+    menuBtn.classList.toggle("open", isOpen);
+    menuBtn.setAttribute("aria-expanded", isOpen);
+    sidebar.setAttribute("aria-hidden", !isOpen);
+  });
+
+  function closeSidebar() {
+    sidebar.classList.remove("open");
+    menuBtn.classList.remove("open");
+    menuBtn.setAttribute("aria-expanded", "false");
+    sidebar.setAttribute("aria-hidden", "true");
+  }
+
+  // --- CARRITO UNIVERSAL ---
+  function actualizarContadorCarrito() {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const total = carrito.reduce((sum, item) => sum + (item.cantidad || 1), 0);
+    const cartCount = document.getElementById("cartCount");
+    if (cartCount) {
+      cartCount.textContent = total;
+      cartCount.style.display = total > 0 ? "inline-block" : "none";
+    }
+  }
+
+  function mostrarToast(mensaje) {
+    const toast = document.getElementById("toast");
+    toast.textContent = mensaje;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 3000);
+  }
+
+  function agregarAlCarrito(button) {
+    const producto = button.closest(".producto-card");
+    const id = producto.dataset.id;
+    const nombre = producto.dataset.nombre;
+    const precio = parseFloat(producto.dataset.precio);
+    const imagen = producto.querySelector("img").src;
+
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const existente = carrito.find(item => item.id === id);
+
+    if (existente) {
+      existente.cantidad = (existente.cantidad || 1) + 1;
+    } else {
+      carrito.push({ id, nombre, precio, cantidad: 1, imagen });
+    }
+
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    actualizarContadorCarrito();
+    mostrarToast("Producto agregado al carrito");
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    actualizarContadorCarrito();
+
+    // Botón carrito
+    const carritoBtn = document.querySelector(".cart-btn");
+    if (carritoBtn) {
+      carritoBtn.addEventListener("click", () => {
+        window.location.href = "carrito.html";
+      });
+    }
+
+    // Todos los botones "Agregar al carrito"
+    document.querySelectorAll(".producto-card button").forEach(button => {
+      button.addEventListener("click", () => agregarAlCarrito(button));
+    });
+  });
+</script>
+
+<script src="scripts/carrito-util.js"></script>
+<script src="scripts/sidebar.js"></script>
+</body>
+</html>
+
+</main>
+
+<script>
+  // Menú sidebar
+  const menuBtn = document.getElementById("menuBtn");
+  const sidebar = document.getElementById("sidebar");
+  menuBtn.addEventListener("click", () => {
+    const isOpen = sidebar.classList.toggle("open");
+    menuBtn.classList.toggle("open", isOpen);
+    menuBtn.setAttribute("aria-expanded", isOpen);
+    sidebar.setAttribute("aria-hidden", !isOpen);
+  });
+
+  function closeSidebar() {
+    sidebar.classList.remove("open");
+    menuBtn.classList.remove("open");
+    menuBtn.setAttribute("aria-expanded", "false");
+    sidebar.setAttribute("aria-hidden", "true");
+  }
+
+  // --- CARRITO UNIVERSAL ---
+  function actualizarContadorCarrito() {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const total = carrito.reduce((sum, item) => sum + (item.cantidad || 1), 0);
+    const cartCount = document.getElementById("cartCount");
+    if (cartCount) {
+      cartCount.textContent = total;
+      cartCount.style.display = total > 0 ? "inline-block" : "none";
+    }
+  }
+
+  function mostrarToast(mensaje) {
+    const toast = document.getElementById("toast");
+    toast.textContent = mensaje;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 3000);
+  }
+
+  function agregarAlCarrito(button) {
+    const producto = button.closest(".producto-card");
+    const id = producto.dataset.id;
+    const nombre = producto.dataset.nombre;
+    const precio = parseFloat(producto.dataset.precio);
+    const imagen = producto.querySelector("img").src;
+
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const existente = carrito.find(item => item.id === id);
+
+    if (existente) {
+      existente.cantidad = (existente.cantidad || 1) + 1;
+    } else {
+      carrito.push({ id, nombre, precio, cantidad: 1, imagen });
+    }
+
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    actualizarContadorCarrito();
+    mostrarToast("Producto agregado al carrito");
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    actualizarContadorCarrito();
+
+    // Botón carrito
+    const carritoBtn = document.querySelector(".cart-btn");
+    if (carritoBtn) {
+      carritoBtn.addEventListener("click", () => {
+        window.location.href = "carrito.html";
+      });
+    }
+
+    // Todos los botones "Agregar al carrito"
+    document.querySelectorAll(".producto-card button").forEach(button => {
+      button.addEventListener("click", () => agregarAlCarrito(button));
+    });
+  });
+</script>
+
+<script src="scripts/carrito-util.js"></script>
+<script src="scripts/sidebar.js"></script>
+</body>
+</html>
