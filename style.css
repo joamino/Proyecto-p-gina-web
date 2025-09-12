@@ -160,11 +160,11 @@ header img {
 
 .productos-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr); /* siempre 3 columnas */
   gap: 15px;
   padding: 10px;
-  align-items: stretch; /* Fuerza igual altura en la fila */
-grid-auto-rows: 1fr;
+  grid-auto-rows: minmax(300px, auto); /* altura mínima para todas las cards */
+  align-items: start; /* fuerza que las tarjetas empiecen arriba */
 }
 .producto-card:link,
 .producto-card:visited {
