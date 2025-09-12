@@ -233,7 +233,7 @@ header img {
 color:#ffffff;
 }
 /* Ajustes extra para pantallas muy pequeñas */
-@.productos-grid {
+.productos-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Siempre 3 columnas */
   gap: 15px;
