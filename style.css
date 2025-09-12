@@ -163,8 +163,7 @@ header img {
   grid-template-columns: repeat(3, 1fr); /* siempre 3 columnas */
   gap: 15px;
   padding: 10px;
-justify-item: center; 
-  grid-auto-rows: minmax(300px, auto); /* altura mínima para todas las cards */
+justify-item: center;
   align-items: start; /* fuerza que las tarjetas empiecen arriba */
 }
 .producto-card:link,
