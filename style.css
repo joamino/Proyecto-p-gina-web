@@ -180,25 +180,18 @@ productos-grid {
 .producto-card {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
   text-align: center;
-  background: none;
-  height: 220px;
-margin: 0 auto;
-  box-sizing: border-box;
+  max-width: 180px; /* máximo ancho de la tarjeta */
+  width: 100%;      /* ocupa toda la columna */
 }
 
 .producto-card img {
-  width: auto;
-  aspect-ratio: 3/4;
+  width: 100%;
+  height: auto;
+  max-height: 220px;
   object-fit: cover;
-  object-position: center 100%;
-  display: block;
-  max-width: none;
-  max-height: 220x;
 }
-
 /* ---- AÑADIR ESTO PARA LOS LINKS ---- */
 .producto-card a {
   text-decoration: none;
