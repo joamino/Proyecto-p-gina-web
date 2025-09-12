@@ -258,8 +258,8 @@ header img {
   display: flex;
   align-items: center;
   gap: 6px;
-  background-color: #b5af99;
-  color: #181818;
+  background-color: #d6c7a1;
+  color: #3a2ef1;
   border: none;
   padding: 8px 14px;
   border-radius: 5px;
@@ -273,7 +273,7 @@ header img {
 }
 
 .producto-card button:hover {
-  background-color: #f8f3e3;
+  background-color: #c2b285;
 }
 /* Ajustes extra para pantallas muy pequeñas */
 @.productos-grid {
