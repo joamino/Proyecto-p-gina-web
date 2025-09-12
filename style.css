@@ -39,7 +39,7 @@ display: center;
 
 #menuBtn:hover,
 .menu-btn:hover {
-  background: #242424;   /* un poco más claro al pasar el mouse */
+  background: #c2b285;   /* un poco más claro al pasar el mouse */
 }
 
 header img {
