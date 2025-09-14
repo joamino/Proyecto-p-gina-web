@@ -1,90 +1,87 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bacca – Leduft</title>
-  <link rel="icon" href="https://imgur.com/RFYq3BF.png" type="image/png" />
-  <link rel="stylesheet" href="../style.css">
-  <style>
-    /* Estilos específicos de la página de detalle */
-    .producto-detalle {
-      max-width: 1000px;
-      margin: 40px auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    .producto-detalle .producto-imagen {
-      flex: 1 1 400px;
-    }
-    .producto-detalle .producto-imagen img {
-      width: 100%;
-      height: auto;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-    .producto-detalle .producto-info {
-      flex: 1 1 400px;
-    }
-    .producto-detalle .producto-info h1 {
-      margin-top: 0;
-      font-size: 2rem;
-      color: #333;
-    }
-    .producto-detalle .producto-info .precio {
-      font-size: 1.5rem;
-      margin: 10px 0;
-      color: #333;
-    }
-    .producto-detalle .producto-info h2 {
-      margin-top: 20px;
-      color: #333;
-    }
-    .producto-detalle .producto-info ul {
-      padding-left: 20px;
-      color: #333;
-    }
-    .producto-detalle .producto-info button,
-    .producto-detalle .producto-info .volver-btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #333;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      font-size: 1rem;
-      text-decoration: none;
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
-    .producto-detalle .producto-info button:hover,
-    .producto-detalle .producto-info .volver-btn:hover {
-      background-color: #555;
-    }
-    #lightbox {
-      display: none;
-      position: fixed;
-      top:0;
-      left:0;
-      width:100%;
-      height:100%;
-      background: rgba(0,0,0,0.9);
-      justify-content:center;
-      align-items:center;
-      z-index:9999;
-    }
-    #lightbox img {
-      max-width:95%;
-      max-height:95%;
-      border-radius:10px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bacca – Leduft</title>
+<link rel="icon" href="https://imgur.com/RFYq3BF.png" type="image/png" />
+<link rel="stylesheet" href="../style.css">
+<style>
+/* Estilos de detalle */
+.producto-detalle {
+  max-width: 1000px;
+  margin: 40px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+.producto-detalle .producto-imagen {
+  flex: 1 1 400px;
+}
+.producto-detalle .producto-imagen img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.producto-detalle .producto-info {
+  flex: 1 1 400px;
+}
+.producto-detalle .producto-info h1,
+.producto-detalle .producto-info h2,
+.producto-detalle .producto-info ul,
+.producto-detalle .producto-info p,
+.producto-detalle .producto-info li {
+  color: #333;
+}
+.producto-detalle .producto-info .precio {
+  font-size: 1.5rem;
+  margin: 10px 0;
+}
+.producto-detalle .producto-info button,
+.producto-detalle .producto-info .volver-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.producto-detalle .producto-info button:hover,
+.producto-detalle .producto-info .volver-btn:hover {
+  background-color: #555;
+}
+#lightbox {
+  display: none;
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,0.9);
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+#lightbox img {
+  max-width:95%;
+  max-height:95%;
+  border-radius:10px;
+}
+.cart-btn img {
+  width: 32px;
+  vertical-align: middle;
+}
+</style>
 </head>
 <body>
 
@@ -108,7 +105,7 @@
   <button id="menuBtn" class="menu-btn" type="button" aria-label="Abrir menú" aria-expanded="false">☰</button>
   <img src="https://i.imgur.com/RFYq3BF.png" alt="Logo de la tienda" />
   <a href="../carrito.html" class="cart-btn" aria-label="Ver carrito">
-    🛒
+    <img src="https://cdn-icons-png.flaticon.com/512/107/107831.png" alt="Carrito">
     <span id="cartCount" class="cart-count" aria-live="polite" aria-atomic="true">0</span>
   </a>
 </header>
