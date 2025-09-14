@@ -473,7 +473,6 @@ button,
   border: none;
   box-shadow: none;
 }
-<style>
   /* Reusar estilo del botón del index */
   .producto-detalle button,
   .producto-detalle .volver-btn {
@@ -511,4 +510,3 @@ button,
   .producto-detalle ul li {
     margin-bottom: 5px;
   }
-</style>
