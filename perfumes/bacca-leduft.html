@@ -39,6 +39,7 @@
 </head>
 <body>
 
+  <!-- Sidebar -->
   <div id="sidebar" class="sidebar">
     <button class="closebtn" onclick="closeSidebar()">×</button>
     <a href="#">Preguntas frecuentes</a>
@@ -55,6 +56,7 @@
     </a>
   </div>
 
+  <!-- Header -->
   <header>
     <button class="menu-btn" onclick="openSidebar()">☰</button>
     <img src="https://i.imgur.com/ss7a9jP.png" alt="Logo">
@@ -64,6 +66,7 @@
     </a>
   </header>
 
+  <!-- Producto -->
   <div class="producto-detalle" id="producto-1">
     <div class="producto-imagen">
       <img src="https://i.imgur.com/pp8q44G.jpeg" alt="Bacca – Baccarat Rouge Extrait">
@@ -83,10 +86,12 @@
     </div>
   </div>
 
+  <!-- Lightbox -->
   <div id="lightbox">
     <img id="lightbox-img" src="" alt="Imagen ampliada">
   </div>
 
+  <!-- Scripts -->
   <script>
     function openSidebar() { document.getElementById("sidebar").style.width = "80%"; }
     function closeSidebar() { document.getElementById("sidebar").style.width = "0"; }
