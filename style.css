@@ -510,3 +510,24 @@ button,
   .producto-detalle ul li {
     margin-bottom: 5px;
   }
+/* Imagen grande y centrada */
+.perfume-imagen img {
+  max-width: 600px;  /* ajustá el tamaño a lo grande que lo quieras */
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto 20px auto;
+}
+
+/* Contenedor principal */
+.perfume-detalle {
+  margin-left: 220px; /* para que no tape la sidebar */
+  padding: 20px;
+}
+
+/* Espacio de descripción */
+.descripcion {
+  margin: 20px 0;
+  font-size: 16px;
+  color: #000; /* visible */
+}
