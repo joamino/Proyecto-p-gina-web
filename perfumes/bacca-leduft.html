@@ -1,139 +1,134 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Bacca – Leduft</title>
-  <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://i.imgur.com https://cdn-icons-png.flaticon.com; script-src 'self'; style-src 'self' 'unsafe-inline';">
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f4f4f4; }
-    header { background-color: #333; color: white; padding: 20px; display: flex; align-items: center; justify-content: center; position: relative; }
-    header img { height: 80px; }
-    .menu-btn { position: absolute; left: 20px; top: 25px; font-size: 28px; background: none; border: none; color: white; cursor: pointer; }
-    .cart-btn { position: absolute; right: 30px; top: 25px; text-decoration: none; background: none; border: none; font-size: 24px; display: flex; align-items: center; }
-    .cart-btn img { width: 32px; vertical-align: middle; }
-    .cart-count { background: red; color: white; border-radius: 50%; padding: 2px 7px; font-size: 0.9em; vertical-align: top; margin-left: -10px; min-width: 22px; text-align: center; display: inline-block; }
-    .sidebar { height: 100%; width: 0; position: fixed; top: 0; left: 0; background-color: #000; overflow-x: hidden; transition: 0.3s; padding-top: 60px; max-width: 320px; z-index: 1000; }
-    .sidebar a { padding: 15px 25px; text-decoration: none; color: white; display: block; font-size: 18px; transition: 0.2s; }
-    .sidebar a:hover { background-color: #222; }
-    .sidebar .submenu { margin-left: 20px; }
-    .closebtn { position: absolute; top: 20px; right: 25px; font-size: 30px; color: white; background: none; border: none; cursor: pointer; }
-    .instagram-icon { width: 32px; margin: 40px 25px 0; filter: brightness(0) invert(1); }
-
-    .producto-detalle { max-width: 600px; margin: 30px auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: flex; gap: 20px; }
-    .producto-detalle .producto-imagen img { width: 100%; max-width: 250px; border-radius: 10px; cursor: pointer; }
-    .producto-info { flex: 1; }
-    .producto-info h1 { margin-top: 0; }
-    .producto-info .precio { font-size: 1.5rem; color: #333; margin: 10px 0; }
-    .producto-info h2 { margin: 15px 0 5px; }
-    .producto-info ul { padding-left: 20px; }
-    .producto-info button { margin-top: 20px; padding: 10px 25px; background: #333; color: #fff; border: none; border-radius: 5px; font-size: 1rem; cursor: pointer; transition: background 0.2s; }
-    .producto-info button:hover { background: #555; }
-
-    #lightbox { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.9); justify-content:center; align-items:center; z-index:9999; }
-    #lightbox img { max-width:90%; max-height:90%; border-radius:10px; box-shadow:0 0 10px #fff; cursor:pointer; }
-
-    .volver-btn { display: inline-block; margin-top: 30px; padding: 10px 20px; background-color: #333; color: white; text-decoration: none; border-radius: 5px; transition: background-color 0.2s; }
-    .volver-btn:hover { background-color: #555; }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta property="og:title" content="Bacca – Leduft | GJ Perfumería">
+  <meta property="og:description" content="Inspiración Baccarat Rouge Extrait - Perfumes Leduft en GJ Perfumería">
+  <meta property="og:image" content="https://i.imgur.com/8xNJivU.jpeg">
+  <meta property="og:url" content="https://github.com/joamino/Proyecto-p-gina-web/perfumes/bacca-leduft.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Bacca – Leduft | GJ Perfumería</title>
+  <link rel="icon" href="https://i.imgur.com/RFYq3BF.png" type="image/png" />
+  <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-
-  <!-- Sidebar -->
-  <div id="sidebar" class="sidebar">
-    <button class="closebtn" onclick="closeSidebar()">×</button>
-    <a href="#">Preguntas frecuentes</a>
-    <a href="#">Productos</a>
-    <div class="submenu">
-      <a href="#">• Perfumes</a>
-      <a href="#">• Masculinos</a>
-      <a href="#">• Femeninos</a>
-      <a href="#">• Unisex</a>
-    </div>
-    <a href="#">Contacto</a>
-    <a href="https://instagram.com" target="_blank">
-      <img class="instagram-icon" src="https://cdn-icons-png.flaticon.com/512/87/87390.png" alt="Instagram">
-    </a>
+<!-- Sidebar -->
+<nav id="sidebar" class="sidebar" role="navigation" aria-label="Menú lateral" aria-hidden="true">
+  <button class="closebtn" type="button" aria-label="Cerrar menú" onclick="closeSidebar()">×</button>
+  <a href="#">Preguntas frecuentes</a>
+  <a href="#">Productos</a>
+  <div class="submenu" role="group" aria-label="Subcategorías de productos">
+    <a href="#">• Perfumes</a>
+    <a href="#">• Masculinos</a>
+    <a href="#">• Femeninos</a>
+    <a href="#">• Unisex</a>
   </div>
+  <a href="#">Contacto</a>
+  <a href="https://www.instagram.com/gj.perfumeria?igsh=cWZ6aGR3eWx1dGJk" target="_blank" rel="noopener noreferrer">
+    <img class="instagram-icon" src="https://cdn-icons-png.flaticon.com/512/87/87390.png" alt="Instagram" loading="lazy" />
+  </a>
+</nav>
 
-  <!-- Header -->
-  <header>
-    <button class="menu-btn" onclick="openSidebar()">☰</button>
-    <img src="https://i.imgur.com/ss7a9jP.png" alt="Logo">
-    <a href="carrito.html" class="cart-btn" aria-label="Ver carrito">
-      <img src="https://cdn-icons-png.flaticon.com/512/107/107831.png" alt="Carrito">
-      <span id="carrito-cantidad" class="cart-count" aria-live="polite" aria-atomic="true">0</span>
-    </a>
-  </header>
+<!-- Header -->
+<header>
+  <button id="menuBtn" class="menu-btn" type="button" aria-label="Abrir menú" aria-expanded="false">☰</button>
+  <img src="https://i.imgur.com/RFYq3BF.png" alt="Logo de la tienda" />
+  <a href="../carrito.html" class="cart-btn" aria-label="Ver carrito" style="text-decoration:none; background:none; border:none; font-size:24px;">
+    🛒
+    <span id="cartCount" class="cart-count" aria-live="polite" aria-atomic="true">0</span>
+  </a>
+</header>
 
-  <!-- Producto -->
-  <div class="producto-detalle" id="producto-1">
-    <div class="producto-imagen">
-      <img src="https://i.imgur.com/pp8q44G.jpeg" alt="Bacca – Baccarat Rouge Extrait">
-    </div>
-    <div class="producto-info">
-      <h1>Bacca – Baccarat Rouge Extrait</h1>
-      <p class="precio">$40.000</p>
-      <h2>Notas</h2>
-      <ul>
-        <li><strong>Salida:</strong> Azafrán, Jazmín de Egipto</li>
-        <li><strong>Corazón:</strong> Ámbar Gris, Madera de Ámbar</li>
-        <li><strong>Fondo:</strong> Resinas Amaderadas, Cedro, Almizcle Blanco</li>
-      </ul>
-      <p id="descripcion"> <!-- Acá podés agregar la descripción extra --> </p>
-      <button id="agregarAlCarrito">Agregar al carrito</button>
-      <a class="volver-btn" href="index.html">← Volver al catálogo</a>
-    </div>
+<!-- Toast -->
+<div id="toast" class="toast"></div>
+<div id="popup" class="popup" role="alert" aria-live="assertive" aria-atomic="true"></div>
+
+<!-- Contenido del producto -->
+<main class="producto-detalle" id="producto-1">
+  <div class="producto-imagen">
+    <img src="https://i.imgur.com/8xNJivU.jpeg" alt="Bacca – Leduft" />
   </div>
-
-  <!-- Lightbox -->
-  <div id="lightbox">
-    <img id="lightbox-img" src="" alt="Imagen ampliada">
+  <div class="producto-info">
+    <h1>Bacca – Baccarat Rouge Extrait</h1>
+    <p class="precio">$40.000</p>
+    <h2>Notas</h2>
+    <ul>
+      <li><strong>Salida:</strong> Azafrán, Jazmín de Egipto</li>
+      <li><strong>Corazón:</strong> Ámbar Gris, Madera de Ámbar</li>
+      <li><strong>Fondo:</strong> Resinas Amaderadas, Cedro, Almizcle Blanco</li>
+    </ul>
+    <button type="button" class="add-to-cart">Agregar al carrito</button>
+    <a href="../index.html" class="volver-btn">← Volver al catálogo</a>
   </div>
+</main>
 
-  <!-- Scripts -->
-  <script>
-    function openSidebar() { document.getElementById("sidebar").style.width = "80%"; }
-    function closeSidebar() { document.getElementById("sidebar").style.width = "0"; }
+<script>
+  // Sidebar
+  const menuBtn = document.getElementById("menuBtn");
+  const sidebar = document.getElementById("sidebar");
+  menuBtn.addEventListener("click", () => {
+    const isOpen = sidebar.classList.toggle("open");
+    menuBtn.classList.toggle("open", isOpen);
+    menuBtn.setAttribute("aria-expanded", isOpen);
+    sidebar.setAttribute("aria-hidden", !isOpen);
+  });
+  function closeSidebar() {
+    sidebar.classList.remove("open");
+    menuBtn.classList.remove("open");
+    menuBtn.setAttribute("aria-expanded", "false");
+    sidebar.setAttribute("aria-hidden", "true");
+  }
 
-    // Lightbox
-    const detalleImg = document.querySelector('.producto-imagen img');
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    detalleImg.addEventListener('click', () => {
-      lightboxImg.src = detalleImg.src;
-      lightbox.style.display = 'flex';
-    });
-    lightbox.addEventListener('click', () => { lightbox.style.display = 'none'; });
-
-    // Carrito
-    function actualizarCarritoCantidad() {
-      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-      let total = carrito.reduce((sum, prod) => sum + (parseInt(prod.cantidad) || 0), 0);
-      const cantidad = document.getElementById('carrito-cantidad');
-      if (cantidad) cantidad.textContent = total;
+  // Carrito
+  function actualizarContadorCarrito() {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const total = carrito.reduce((sum, item) => sum + (item.cantidad || 1), 0);
+    const cartCount = document.getElementById("cartCount");
+    if (cartCount) {
+      cartCount.textContent = total;
+      cartCount.style.display = total > 0 ? "inline-block" : "none";
     }
+  }
 
-    function agregarProductoAlCarrito(producto) {
-      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-      const existente = carrito.find(item => item.id === producto.id);
-      if (existente) { existente.cantidad = parseInt(existente.cantidad) + 1; }
-      else { carrito.push({...producto, cantidad: 1}); }
-      localStorage.setItem('carrito', JSON.stringify(carrito));
-      actualizarCarritoCantidad();
-    }
+  function mostrarToast(mensaje) {
+    const toast = document.getElementById("toast");
+    toast.textContent = mensaje;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 3000);
+  }
 
-    document.addEventListener('DOMContentLoaded', actualizarCarritoCantidad);
+  document.addEventListener("DOMContentLoaded", () => {
+    actualizarContadorCarrito();
 
-    document.getElementById('agregarAlCarrito').addEventListener('click', function() {
-      agregarProductoAlCarrito({
-        id: "1",
-        nombre: "Bacca – Leduft",
-        precio: 40000
+    // Botón agregar al carrito
+    const addToCartBtn = document.querySelector(".add-to-cart");
+    if (addToCartBtn) {
+      addToCartBtn.addEventListener("click", () => {
+        const producto = {
+          id: "1",
+          nombre: "Bacca – Leduft",
+          precio: 40000,
+          cantidad: 1,
+          imagen: "https://i.imgur.com/8xNJivU.jpeg"
+        };
+
+        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        const existente = carrito.find(item => item.id === producto.id);
+        if (existente) {
+          existente.cantidad++;
+        } else {
+          carrito.push(producto);
+        }
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        actualizarContadorCarrito();
+        mostrarToast("Producto agregado al carrito");
       });
-      alert('Producto agregado al carrito');
-    });
-  </script>
+    }
+  });
+</script>
 
+<script src="../scripts/carrito-util.js"></script>
+<script src="../scripts/sidebar.js"></script>
 </body>
 </html>
