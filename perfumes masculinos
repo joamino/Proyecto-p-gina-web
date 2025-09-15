@@ -251,6 +251,33 @@
   <button type="button">Agregar al carrito</button>
 </div>
 
+<div class="producto-card" data-id="37" data-nombre="Onesp – Leduft" data-precio="40000">
+  <a href="../perfumes/onesp-leduft.html">
+    <img src="https://i.imgur.com/zFb8w44.jpeg" alt="Onesp – Leduft" />
+    <h3>Onesp – Leduft</h3>
+  </a>
+  <p>$40.000</p>
+  <button type="button">Agregar al carrito</button>
+</div>
+
+<div class="producto-card" data-id="42" data-nombre="Bleu.c – Leduft" data-precio="40000">
+  <a href="../perfumes/bleuc-leduft.html">
+    <img src="https://i.imgur.com/LvUzvSQ.jpeg" alt="Bleu.c – Leduft" />
+    <h3>Bleu.c – Leduft</h3>
+  </a>
+  <p>$40.000</p>
+  <button type="button">Agregar al carrito</button>
+</div>
+
+<div class="producto-card" data-id="45" data-nombre="Codab – Leduft" data-precio="40000">
+  <a href="../perfumes/codab-leduft.html">
+    <img src="https://i.imgur.com/mD4bDlf.jpeg" alt="Codab – Leduft" />
+    <h3>Codab – Leduft</h3>
+  </a>
+  <p>$40.000</p>
+  <button type="button">Agregar al carrito</button>
+</div>
+
 </main>
 
 <script>
