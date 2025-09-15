@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Flame – Leduft | GJ Perfumería</title>
+  <link rel="icon" href="https://i.imgur.com/RFYq3BF.png" type="image/png" />
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav id="sidebar" class="sidebar" role="navigation" aria-label="Menú lateral" aria-hidden="true">
+  <button class="closebtn" type="button" aria-label="Cerrar menú" onclick="closeSidebar()">×</button>
+  <a href="#">Preguntas frecuentes</a>
+  <a href="#">Productos</a>
+  <div class="submenu" role="group" aria-label="Subcategorías de productos">
+    <a href="#">• Perfumes</a>
+    <a href="#">• Masculinos</a>
+    <a href="#">• Femeninos</a>
+    <a href="#">• Unisex</a>
+  </div>
+  <a href="#">Contacto</a>
+  <a href="https://www.instagram.com/gj.perfumeria" target="_blank" rel="noopener noreferrer">
+    <img class="instagram-icon" src="https://cdn-icons-png.flaticon.com/512/87/87390.png" alt="Instagram" loading="lazy" />
+  </a>
+</nav>
+
+<!-- HEADER -->
+<header>
+  <button id="menuBtn" class="menu-btn" type="button" aria-label="Abrir menú" aria-expanded="false">☰</button>
+  <img src="https://i.imgur.com/RFYq3BF.png" alt="Logo de la tienda" />
+  <a href="../carrito.html" class="cart-btn" aria-label="Ver carrito">
+    🛒
+    <span id="cartCount" class="cart-count" aria-live="polite" aria-atomic="true">0</span>
+  </a>
+</header>
+
+<!-- Toast y Popup -->
+<div id="toast" class="toast"></div>
+<div id="popup" class="popup" role="alert" aria-live="assertive" aria-atomic="true"></div>
+
+<main class="detalle-producto">
+
+  <!-- Imagen y datos -->
+  <div class="producto-detalle">
+    <img src="https://i.imgur.com/R603vvD.jpeg" alt="Flame – Leduft" class="producto-imagen" />
+    <div class="producto-info">
+      <h1>Flame – Leduft</h1>
+      <p class="precio">$40.000</p>
+
+      <!-- Descripción -->
+      <div class="descripcion">
+        <h2>Descripción</h2>
+        <p>Flame es una fragancia vibrante y energética que combina notas especiadas y amaderadas, perfecta para quienes buscan un aroma intenso y duradero.</p>
+      </div>
+
+      <!-- Notas -->
+      <div class="notas">
+        <h2>Notas</h2>
+        <ul>
+          <li><strong>Salida:</strong> Naranja, pimienta</li>
+          <li><strong>Corazón:</strong> Canela, cardamomo</li>
+          <li><strong>Fondo:</strong> Madera de cedro, ámbar, almizcle</li>
+        </ul>
+      </div>
+
+      <!-- Botones -->
+      <div class="botones-detalle">
+        <button type="button" class="agregar-carrito btn-estilo">Agregar al carrito</button>
+        <button type="button" class="volver-catalogo btn-estilo" onclick="window.location.href='../paginas/pagina4.html'">← Volver al catálogo</button>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  // Sidebar
+  const menuBtn = document.getElementById("menuBtn");
+  const sidebar = document.getElementById("sidebar");
+  menuBtn.addEventListener("click", () => {
+    const isOpen = sidebar.classList.toggle("open");
+    menuBtn.classList.toggle("open", isOpen);
+    menuBtn.setAttribute("aria-expanded", isOpen);
+    sidebar.setAttribute("aria-hidden", !isOpen);
+  });
+  function closeSidebar() {
+    sidebar.classList.remove("open");
+    menuBtn.classList.remove("open");
+    menuBtn.setAttribute("aria-expanded", "false");
+    sidebar.setAttribute("aria-hidden", "true");
+  }
+
+  // Carrito
+  function actualizarContadorCarrito() {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const total = carrito.reduce((sum, item) => sum + (item.cantidad || 1), 0);
+    const cartCount
