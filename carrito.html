@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+q<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -73,55 +73,62 @@ document.addEventListener("DOMContentLoaded", () => {
   let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
   function actualizarCarrito() {
-    carritoContainer.innerHTML = "";
-    if (carrito.length === 0) {
-      carritoContainer.innerHTML = "<p class='vacio'>Tu carrito está vacío</p>";
-      carritoTotal.innerHTML = "";
-      precioUnitarioElem.innerHTML = "";
-      return;
-    }
-
-    // Contar cantidad total de perfumes
-    let cantidadTotal = carrito.reduce((sum, item) => sum + item.cantidad, 0);
-
-    // Calcular precio unitario según combo
-    let precioUnitario = 0;
-    if (cantidadTotal === 1) precioUnitario = 45000;
-    else if (cantidadTotal === 2) precioUnitario = 43000;
-    else precioUnitario = 41000; // 3 o más
-
-    // Calcular total
-    let total = precioUnitario * cantidadTotal;
-
-    // Mostrar productos
-    carrito.forEach((item, index) => {
-      const productoDiv = document.createElement("div");
-      productoDiv.classList.add("producto");
-      productoDiv.innerHTML = `
-        <div class="producto-info">
-          <img src="${item.imagen}" alt="${item.nombre}">
-          <span class="producto-nombre">${item.nombre}</span>
-          <span class="producto-cantidad">x${item.cantidad}</span>
-        </div>
-        <div class="producto-precio">$${(precioUnitario * item.cantidad).toLocaleString("es-AR")}</div>
-        <button class="eliminar" data-index="${index}">Eliminar</button>
-      `;
-      carritoContainer.appendChild(productoDiv);
-    });
-
-    carritoTotal.innerHTML = `Total: $${total.toLocaleString("es-AR")}`;
-    precioUnitarioElem.innerHTML = `Precio unitario aplicado: $${precioUnitario.toLocaleString("es-AR")}`;
-
-    // Botones eliminar
-    document.querySelectorAll(".eliminar").forEach(btn => {
-      btn.addEventListener("click", (e) => {
-        const idx = e.target.dataset.index;
-        carrito.splice(idx, 1);
-        localStorage.setItem("carrito", JSON.stringify(carrito));
-        actualizarCarrito();
-      });
-    });
+  carritoContainer.innerHTML = "";
+  if (carrito.length === 0) {
+    carritoContainer.innerHTML = "<p class='vacio'>Tu carrito está vacío</p>";
+    carritoTotal.innerHTML = "";
+    precioUnitarioElem.innerHTML = "";
+    return;
   }
+
+  // Cantidad total de perfumes
+  let cantidadTotal = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+
+  // Determinar precio unitario según combo
+  let precioUnitario = 0;
+  if (cantidadTotal === 1) precioUnitario = 45000;
+  else if (cantidadTotal === 2) precioUnitario = 43000;
+  else precioUnitario = 41000;
+
+  // Calcular total real según promo
+  let totalConPromo = precioUnitario * cantidadTotal;
+
+  // Calcular total “sin descuento” (sumando precios originales de los productos)
+  let totalOriginal = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+
+  // Mostrar productos con precio según promoción
+  carrito.forEach((item, index) => {
+    const productoDiv = document.createElement("div");
+    productoDiv.classList.add("producto");
+    productoDiv.innerHTML = `
+      <div class="producto-info">
+        <img src="${item.imagen}" alt="${item.nombre}">
+        <span class="producto-nombre">${item.nombre}</span>
+        <span class="producto-cantidad">x${item.cantidad}</span>
+      </div>
+      <div class="producto-precio">$${(precioUnitario * item.cantidad).toLocaleString("es-AR")}</div>
+      <button class="eliminar" data-index="${index}">Eliminar</button>
+    `;
+    carritoContainer.appendChild(productoDiv);
+  });
+
+  // Mostrar total y ahorro
+  carritoTotal.innerHTML = `Total: $${totalConPromo.toLocaleString("es-AR")}`;
+  precioUnitarioElem.innerHTML = `Precio unitario aplicado: $${precioUnitario.toLocaleString("es-AR")}`;
+  if (totalOriginal > totalConPromo) {
+    precioUnitarioElem.innerHTML += ` <br>Ahorrás: $${(totalOriginal - totalConPromo).toLocaleString("es-AR")}`;
+  }
+
+  // Botones eliminar
+  document.querySelectorAll(".eliminar").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      const idx = e.target.dataset.index;
+      carrito.splice(idx, 1);
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+      actualizarCarrito();
+    });
+  });
+}
 
   function generarMensajePedido(carrito, datosEnvio) {
     let mensaje = "¡Hola! Quiero realizar el siguiente pedido:\n\n";
