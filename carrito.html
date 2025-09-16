@@ -17,6 +17,7 @@
     button.eliminar { background: #d9534f; border: none; color: white; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 14px; }
     button.eliminar:hover { background: #c9302c; }
     .total { text-align: right; font-weight: bold; font-size: 1.3em; margin-top: 15px; }
+    #precioUnitario { text-align: right; font-size: 1em; color: #555; margin-top: 5px; }
     form { max-width: 700px; margin: 0 auto 30px auto; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
     form label { display: block; margin-bottom: 6px; font-weight: bold; }
     form input { width: 100%; padding: 8px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; }
@@ -37,6 +38,7 @@
 <h1>Tu Carrito de Compras</h1>
 
 <div id="carritoContainer" class="carrito"></div>
+<p id="precioUnitario"></p>
 <div id="carritoTotal" class="total"></div>
 
 <form id="datosForm">
@@ -60,10 +62,12 @@
 </form>
 
 <script src="scripts/config.js"></script> <!-- aquí va tu número oculto -->
+
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const carritoContainer = document.getElementById("carritoContainer");
   const carritoTotal = document.getElementById("carritoTotal");
+  const precioUnitarioElem = document.getElementById("precioUnitario");
   const btnEnviar = document.getElementById("enviarPedido");
 
   let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
@@ -73,10 +77,23 @@ document.addEventListener("DOMContentLoaded", () => {
     if (carrito.length === 0) {
       carritoContainer.innerHTML = "<p class='vacio'>Tu carrito está vacío</p>";
       carritoTotal.innerHTML = "";
+      precioUnitarioElem.innerHTML = "";
       return;
     }
 
-    let total = 0;
+    // Contar cantidad total de perfumes
+    let cantidadTotal = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+
+    // Calcular precio unitario según combo
+    let precioUnitario = 0;
+    if (cantidadTotal === 1) precioUnitario = 45000;
+    else if (cantidadTotal === 2) precioUnitario = 43000;
+    else precioUnitario = 41000; // 3 o más
+
+    // Calcular total
+    let total = precioUnitario * cantidadTotal;
+
+    // Mostrar productos
     carrito.forEach((item, index) => {
       const productoDiv = document.createElement("div");
       productoDiv.classList.add("producto");
@@ -86,14 +103,14 @@ document.addEventListener("DOMContentLoaded", () => {
           <span class="producto-nombre">${item.nombre}</span>
           <span class="producto-cantidad">x${item.cantidad}</span>
         </div>
-        <div class="producto-precio">$${item.precio * item.cantidad}</div>
+        <div class="producto-precio">$${(precioUnitario * item.cantidad).toLocaleString("es-AR")}</div>
         <button class="eliminar" data-index="${index}">Eliminar</button>
       `;
       carritoContainer.appendChild(productoDiv);
-      total += item.precio * item.cantidad;
     });
 
-    carritoTotal.innerHTML = `Total: $${total}`;
+    carritoTotal.innerHTML = `Total: $${total.toLocaleString("es-AR")}`;
+    precioUnitarioElem.innerHTML = `Precio unitario aplicado: $${precioUnitario.toLocaleString("es-AR")}`;
 
     // Botones eliminar
     document.querySelectorAll(".eliminar").forEach(btn => {
@@ -101,22 +118,23 @@ document.addEventListener("DOMContentLoaded", () => {
         const idx = e.target.dataset.index;
         carrito.splice(idx, 1);
         localStorage.setItem("carrito", JSON.stringify(carrito));
-        actualizarCarrito(); // Re-renderiza sin recargar la página
+        actualizarCarrito();
       });
     });
   }
 
-  actualizarCarrito();
-
   function generarMensajePedido(carrito, datosEnvio) {
     let mensaje = "¡Hola! Quiero realizar el siguiente pedido:\n\n";
     mensaje += "🛒 Productos:\n";
-    let total = 0;
+
+    let cantidadTotal = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+    let precioUnitario = cantidadTotal === 1 ? 45000 : cantidadTotal === 2 ? 43000 : 41000;
+
     carrito.forEach(item => {
-      mensaje += `• ${item.nombre} x${item.cantidad} - $${item.precio * item.cantidad}\n`;
-      total += item.precio * item.cantidad;
+      mensaje += `• ${item.nombre} x${item.cantidad} - $${(precioUnitario * item.cantidad).toLocaleString("es-AR")}\n`;
     });
-    mensaje += `\n💰 Total: $${total}\n\n`;
+
+    mensaje += `\n💰 Total: $${(precioUnitario * cantidadTotal).toLocaleString("es-AR")}\n\n`;
     mensaje += "📦 Datos de envío:\n";
     mensaje += `Nombre: ${datosEnvio.nombre} ${datosEnvio.apellido}\n`;
     mensaje += `Domicilio: ${datosEnvio.domicilio}\n`;
@@ -125,7 +143,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return mensaje;
   }
 
-  // Botón enviar a WhatsApp
   btnEnviar.addEventListener("click", () => {
     const nombre = document.getElementById("nombre").value.trim();
     const apellido = document.getElementById("apellido").value.trim();
@@ -149,6 +166,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const url = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
     window.open(url, "_blank");
   });
+
+  actualizarCarrito();
 });
 </script>
 </body>
