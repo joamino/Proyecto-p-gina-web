@@ -59,3 +59,23 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+
+// Calcula el precio total aplicando combo gradual hasta 3 perfumes y mantiene 41k c/u después
+function calcularTotalConCombo(carrito) {
+  let total = 0;
+  let perfumes = 0;
+
+  carrito.forEach(item => {
+    perfumes += item.cantidad;
+  });
+
+  if (perfumes === 1) {
+    total = 45000;
+  } else if (perfumes === 2) {
+    total = 43000 * 2;
+  } else if (perfumes >= 3) {
+    total = 41000 * perfumes; // A partir del 3, cada perfume vale 41k
+  }
+
+  return total;
+}
