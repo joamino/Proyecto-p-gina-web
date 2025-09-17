@@ -49,6 +49,9 @@
   <label for="apellido">Apellido *</label>
   <input type="text" id="apellido" required />
 
+<label for="dni">DNI </label>
+  <input type="text" id="dni" />
+
   <label for="domicilio">Domicilio *</label>
   <input type="text" id="domicilio" required />
 
@@ -144,6 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
     mensaje += `\n💰 Total: $${(precioUnitario * cantidadTotal).toLocaleString("es-AR")}\n\n`;
     mensaje += "📦 Datos de envío:\n";
     mensaje += `Nombre: ${datosEnvio.nombre} ${datosEnvio.apellido}\n`;
+mensaje += `Dni: ${datosEnvio.dni}\n`;
     mensaje += `Domicilio: ${datosEnvio.domicilio}\n`;
     mensaje += `Provincia: ${datosEnvio.provincia}\n`;
     mensaje += `Ciudad: ${datosEnvio.ciudad}\n`;
@@ -153,6 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
   btnEnviar.addEventListener("click", () => {
     const nombre = document.getElementById("nombre").value.trim();
     const apellido = document.getElementById("apellido").value.trim();
+const dni = document.getElementById("dni").value.trim();
     const domicilio = document.getElementById("domicilio").value.trim();
     const provincia = document.getElementById("provincia").value.trim();
     const ciudad = document.getElementById("ciudad").value.trim();
@@ -162,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const datosEnvio = { nombre, apellido, domicilio, provincia, ciudad };
+    const datosEnvio = { nombre, apellido, dni, domicilio, provincia, ciudad };
     const mensaje = generarMensajePedido(carrito, datosEnvio);
 
     if (typeof NUMERO_WHATSAPP === "undefined") {
