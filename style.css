@@ -9,7 +9,7 @@ body {
 
 /* /* HEADER */
 header {
-  background: #ae0301;
+  background: #320302;
   padding: 10px 15px;
   display: flex;
   align-items: center;
@@ -22,7 +22,7 @@ header {
 /* Hamburguesa */
 .menu-btn {
   font-size: 1.6rem;
-  color: #320302;
+  color: #ae0301;
   background: none;
   border: none;
   cursor: pointer;
