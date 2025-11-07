@@ -7,19 +7,18 @@ body {
   min-height: 100vh;
 }
 
-/* /* HEADER */
+/* HEADER */
 header {
   background: #320302;
   padding: 10px 15px;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* espacio entre los tres elementos */
+  justify-content: space-between;
   position: relative;
   animation: fadeDown 0.8s cubic-bezier(.45,.09,.47,1.02);
   box-shadow: 0 2px 8px rgba(0,0,0,0.07);
 }
 
-/* Hamburguesa */
 .menu-btn {
   font-size: 1.6rem;
   color: #ae0301;
@@ -30,14 +29,12 @@ header {
 }
 .menu-btn:hover { transform: scale(1.15) rotate(-8deg); }
 
-/* Logo centrado */
 header img {
   height: 50px;
   display: block;
   margin: 0 auto;
 }
 
-/* Carrito */
 .cart-btn {
   font-size: 1.6rem;
   color: #3a2e1f;
@@ -82,20 +79,17 @@ header img {
   backdrop-filter: blur(1px);
 }
 
-/* .sidebar.open se debe agregar por JS al abrir el menu */
 .sidebar.open {
   width: 70vw;
   min-width: 240px;
   max-width: 420px;
   animation: sidebarSlideIn 0.33s;
 }
-
 @media (max-width: 700px) {
   .sidebar.open {
     width: 70vw;
   }
 }
-
 @keyframes sidebarSlideIn {
   from { width: 0;}
   to { width: 70vw;}
@@ -158,9 +152,10 @@ header img {
   to   { opacity: 1; transform: translateY(0);}
 }
 
+/* SOLO ESTA DEFINICIÓN! */
 .productos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 15px;
   justify-content: center;
   padding: 10px;
@@ -177,25 +172,25 @@ header img {
     grid-template-columns: 1fr;
   }
 }
+
+/* Tarjetas de producto */
 .producto-card:link,
 .producto-card:visited {
   text-decoration: none;
   color: inherit;
 }
-
 .producto-card:hover,
 .producto-card:active {
   text-decoration: none;
   color: inherit;
 }
-
 .producto-card {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  max-width: 180px; /* máximo ancho de la tarjeta */
-  width: 100%;      /* ocupa toda la columna */
+  max-width: 180px;
+  width: 100%;
 }
 
 .producto-card img {
@@ -204,18 +199,14 @@ header img {
   max-height: 220px;
   object-fit: cover;
 }
-/* ---- AÑADIR ESTO PARA LOS LINKS ---- */
 .producto-card a {
   text-decoration: none;
   color: inherit;
 }
-
 .producto-card a:hover {
   text-decoration: none;
   cursor: pointer;
 }
-
-/* Resto de tu CSS */
 .producto-card button {
   display: flex;
   align-items: center;
@@ -229,23 +220,15 @@ header img {
   cursor: pointer;
   transition: all 0.3s ease;
 }
-
 .producto-card button::before {
   content: "🛒";
 }
-
 .producto-card button:hover {
   background-color: #c2b285;
-color:#ffffff;
-}
-/* Ajustes extra para pantallas muy pequeñas */
-.productos-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Siempre 3 columnas */
-  gap: 15px;
-  padding: 10px;
+  color:#ffffff;
 }
 
+/* Botones detalle/agregar */
 .ver-detalle-btn, .agregar-btn {
   padding: 6px 12px;
   border-radius: 5px;
@@ -298,6 +281,7 @@ color:#ffffff;
   color: #333;
   margin: 9px 0;
 }
+
 #agregarAlCarrito {
   margin-top: 18px;
   padding: 9px 20px;
@@ -329,7 +313,6 @@ h1, h2, h3, h4 {
   color: #232323;
   letter-spacing: 0.02em;
 }
-
 h1 {
   font-size: 1.5em;
   margin: 35px 0 10px;
@@ -353,10 +336,7 @@ h1 {
 /* Scroll suave */
 html { scroll-behavior: smooth; }
 /* Animación de entrada general */
-body {
-  animation: fadeIn 1s ease-in;
-}
-
+body { animation: fadeIn 1s ease-in; }
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
@@ -371,13 +351,10 @@ body {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   will-change: transform;
 }
-
 .producto:hover {
   transform: scale(1.03);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
-
-/* FadeUp para productos */
 @keyframes fadeUp {
   to {
     opacity: 1;
@@ -411,7 +388,7 @@ button,
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: #4CAF50; /* color verde agradable */
+  background-color: #4CAF50;
   color: white;
   padding: 15px 20px;
   border-radius: 8px;
@@ -429,90 +406,82 @@ button,
   opacity: 1;
   transform: translateY(0);
 }
-/* --- PAGINACIÓN --- */
 
-/* Contenedor de paginación */
+/* --- PAGINACIÓN --- */
 .pagination {
   display: flex;
   justify-content: center;
   gap: 10px;
-  margin: 50px 0 30px 0; /* MÁS separación arriba y abajo */
+  margin: 50px 0 30px 0;
   padding: 0;
   list-style: none;
-  clear: both; /* asegura que quede debajo de todo */
+  clear: both;
 }
-
-/* Cada número de paginación */
 .pagination a {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 35px;                 /* tamaño del círculo */
+  width: 35px;
   height: 35px;
-  border-radius: 50%;          /* hace que sea circular */
-  background-color: #ffffff;   /* igual al fondo de la página */
-  color: #000000;              /* número negro */
+  border-radius: 50%;
+  background-color: #ffffff;
+  color: #000000;
   font-weight: bold;
   font-size: 14px;
-  text-decoration: none;       /* quita subrayado */
-  border: none;                /* quita borde */
-  box-shadow: none;            /* quita sombra */
-  transition: all 0.3s ease;   /* efecto hover suave */
+  text-decoration: none;
+  border: none;
+  box-shadow: none;
+  transition: all 0.3s ease;
 }
-
-/* Hover */
 .pagination a:hover {
-  transform: scale(1.1);       /* efecto de aumento */
+  transform: scale(1.1);
   cursor: pointer;
 }
-
-/* Página activa */
 .pagination a.active {
-  background-color: #f8f3e3;  /* color de la página actual */
+  background-color: #f8f3e3;
   color: #000000;
   border: none;
   box-shadow: none;
 }
-  /* Reusar estilo del botón del index */
-  .producto-detalle button,
-  .producto-detalle .volver-btn {
-    display: inline-block;
-    background-color: #f8f3e3; /* igual que en index */
-    color: #000;               /* texto oscuro */
-    border: 1px solid #ddd;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-    font-size: 16px;
-    margin-top: 10px;
-  }
 
-  .producto-detalle button:hover,
-  .producto-detalle .volver-btn:hover {
-    background-color: #e0d9c5; /* hover suave */
-  }
+/* Botón y volver en producto detalle */
+.producto-detalle button,
+.producto-detalle .volver-btn {
+  display: inline-block;
+  background-color: #f8f3e3;
+  color: #000;
+  border: 1px solid #ddd;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 16px;
+  margin-top: 10px;
+}
+.producto-detalle button:hover,
+.producto-detalle .volver-btn:hover {
+  background-color: #e0d9c5;
+}
 
-  /* Asegurar color de texto */
-  .producto-detalle h1,
-  .producto-detalle h2,
-  .producto-detalle p,
-  .producto-detalle ul,
-  .producto-detalle li {
-    color: #000; /* negro igual que index */
-  }
+/* Asegurar color de texto */
+.producto-detalle h1,
+.producto-detalle h2,
+.producto-detalle p,
+.producto-detalle ul,
+.producto-detalle li {
+  color: #000;
+}
+.producto-detalle ul {
+  list-style: none;
+  padding: 0;
+}
+.producto-detalle ul li {
+  margin-bottom: 5px;
+}
 
-  .producto-detalle ul {
-    list-style: none;
-    padding: 0;
-  }
-
-  .producto-detalle ul li {
-    margin-bottom: 5px;
-  }
 /* Imagen grande y centrada */
 .perfume-imagen img {
-  max-width: 600px;  /* ajustá el tamaño a lo grande que lo quieras */
+  max-width: 600px;
   width: 100%;
   height: auto;
   display: block;
@@ -521,7 +490,7 @@ button,
 
 /* Contenedor principal */
 .perfume-detalle {
-  margin-left: 220px; /* para que no tape la sidebar */
+  margin-left: 220px;
   padding: 20px;
 }
 
@@ -529,5 +498,5 @@ button,
 .descripcion {
   margin: 20px 0;
   font-size: 16px;
-  color: #000; /* visible */
+  color: #000;
 }
